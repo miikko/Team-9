@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
   29:Generated_Source\PSoC5/UART_1_PM.c **** 
   30:Generated_Source\PSoC5/UART_1_PM.c **** 
   31:Generated_Source\PSoC5/UART_1_PM.c **** 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 2
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 2
 
 
   32:Generated_Source\PSoC5/UART_1_PM.c **** /*******************************************************************************
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
   69:Generated_Source\PSoC5/UART_1_PM.c **** *
   70:Generated_Source\PSoC5/UART_1_PM.c **** * Parameters:
   71:Generated_Source\PSoC5/UART_1_PM.c **** *  None.
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 3
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 3
 
 
   72:Generated_Source\PSoC5/UART_1_PM.c **** *
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  109:Generated_Source\PSoC5/UART_1_PM.c **** *
  110:Generated_Source\PSoC5/UART_1_PM.c **** * Return:
  111:Generated_Source\PSoC5/UART_1_PM.c **** *  None.
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 4
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 4
 
 
  112:Generated_Source\PSoC5/UART_1_PM.c **** *
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  141:Generated_Source\PSoC5/UART_1_PM.c **** 
  142:Generated_Source\PSoC5/UART_1_PM.c ****     UART_1_Stop();
   86              		.loc 1 142 0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 5
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 5
 
 
   87 001a FFF7FEFF 		bl	UART_1_Stop
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  110 0000 08B5     		push	{r3, lr}
  111              		.cfi_def_cfa_offset 8
  112              		.cfi_offset 3, -8
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 6
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 6
 
 
  113              		.cfi_offset 14, -4
@@ -355,10 +355,10 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  153 000b 01       		.uleb128 0x1
  154 000c 9D000000 		.4byte	.LASF24
  155 0010 01       		.byte	0x1
- 156 0011 A4010000 		.4byte	.LASF25
- 157 0015 2B010000 		.4byte	.LASF26
+ 156 0011 92010000 		.4byte	.LASF25
+ 157 0015 4F010000 		.4byte	.LASF26
  158 0019 00000000 		.4byte	.Ldebug_ranges0+0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 7
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 7
 
 
  159 001d 00000000 		.4byte	0
@@ -366,7 +366,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  161 0025 02       		.uleb128 0x2
  162 0026 01       		.byte	0x1
  163 0027 06       		.byte	0x6
- 164 0028 42020000 		.4byte	.LASF0
+ 164 0028 30020000 		.4byte	.LASF0
  165 002c 02       		.uleb128 0x2
  166 002d 01       		.byte	0x1
  167 002e 08       		.byte	0x8
@@ -374,7 +374,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  169 0033 02       		.uleb128 0x2
  170 0034 02       		.byte	0x2
  171 0035 05       		.byte	0x5
- 172 0036 E1010000 		.4byte	.LASF2
+ 172 0036 CF010000 		.4byte	.LASF2
  173 003a 02       		.uleb128 0x2
  174 003b 02       		.byte	0x2
  175 003c 07       		.byte	0x7
@@ -382,7 +382,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  177 0041 02       		.uleb128 0x2
  178 0042 04       		.byte	0x4
  179 0043 05       		.byte	0x5
- 180 0044 0D020000 		.4byte	.LASF4
+ 180 0044 FB010000 		.4byte	.LASF4
  181 0048 02       		.uleb128 0x2
  182 0049 04       		.byte	0x4
  183 004a 07       		.byte	0x7
@@ -390,11 +390,11 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  185 004f 02       		.uleb128 0x2
  186 0050 08       		.byte	0x8
  187 0051 05       		.byte	0x5
- 188 0052 96010000 		.4byte	.LASF6
+ 188 0052 84010000 		.4byte	.LASF6
  189 0056 02       		.uleb128 0x2
  190 0057 08       		.byte	0x8
  191 0058 07       		.byte	0x7
- 192 0059 76010000 		.4byte	.LASF7
+ 192 0059 38010000 		.4byte	.LASF7
  193 005d 03       		.uleb128 0x3
  194 005e 04       		.byte	0x4
  195 005f 05       		.byte	0x5
@@ -402,7 +402,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  197 0064 02       		.uleb128 0x2
  198 0065 04       		.byte	0x4
  199 0066 07       		.byte	0x7
- 200 0067 69010000 		.4byte	.LASF8
+ 200 0067 2B010000 		.4byte	.LASF8
  201 006b 04       		.uleb128 0x4
  202 006c 82000000 		.4byte	.LASF12
  203 0070 02       		.byte	0x2
@@ -418,11 +418,11 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  213 0081 88000000 		.4byte	.LASF10
  214 0085 02       		.uleb128 0x2
  215 0086 01       		.byte	0x1
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 8
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 8
 
 
  216 0087 08       		.byte	0x8
- 217 0088 C7010000 		.4byte	.LASF11
+ 217 0088 B5010000 		.4byte	.LASF11
  218 008c 04       		.uleb128 0x4
  219 008d 5F000000 		.4byte	.LASF13
  220 0091 02       		.byte	0x2
@@ -433,27 +433,27 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  225 009d 02       		.uleb128 0x2
  226 009e 04       		.byte	0x4
  227 009f 07       		.byte	0x7
- 228 00a0 8D010000 		.4byte	.LASF14
+ 228 00a0 7B010000 		.4byte	.LASF14
  229 00a4 06       		.uleb128 0x6
- 230 00a5 CC010000 		.4byte	.LASF27
+ 230 00a5 BA010000 		.4byte	.LASF27
  231 00a9 01       		.byte	0x1
  232 00aa 03       		.byte	0x3
  233 00ab 45       		.byte	0x45
  234 00ac BD000000 		.4byte	0xbd
  235 00b0 07       		.uleb128 0x7
- 236 00b1 16020000 		.4byte	.LASF28
+ 236 00b1 04020000 		.4byte	.LASF28
  237 00b5 03       		.byte	0x3
  238 00b6 47       		.byte	0x47
  239 00b7 6B000000 		.4byte	0x6b
  240 00bb 00       		.byte	0
  241 00bc 00       		.byte	0
  242 00bd 08       		.uleb128 0x8
- 243 00be 4E020000 		.4byte	.LASF15
+ 243 00be 3C020000 		.4byte	.LASF15
  244 00c2 03       		.byte	0x3
  245 00c3 4D       		.byte	0x4d
  246 00c4 A4000000 		.4byte	0xa4
  247 00c8 09       		.uleb128 0x9
- 248 00c9 30020000 		.4byte	.LASF16
+ 248 00c9 1E020000 		.4byte	.LASF16
  249 00cd 01       		.byte	0x1
  250 00ce 36       		.byte	0x36
  251 00cf 00000000 		.4byte	.LFB0
@@ -469,7 +469,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  261 00e8 01       		.uleb128 0x1
  262 00e9 9C       		.byte	0x9c
  263 00ea 0A       		.uleb128 0xa
- 264 00eb EB010000 		.4byte	.LASF18
+ 264 00eb D9010000 		.4byte	.LASF18
  265 00ef 01       		.byte	0x1
  266 00f0 78       		.byte	0x78
  267 00f1 00000000 		.4byte	.LFB2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  270 00fa 9C       		.byte	0x9c
  271 00fb 09010000 		.4byte	0x109
  272 00ff 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 9
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 9
 
 
  273 0100 1E000000 		.4byte	.LVL0
@@ -520,11 +520,11 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  309 0157 03       		.byte	0x3
  310 0158 75       		.byte	0x75
  311 0159 0D       		.uleb128 0xd
- 312 015a F8010000 		.4byte	.LASF22
+ 312 015a E6010000 		.4byte	.LASF22
  313 015e 03       		.byte	0x3
  314 015f 8F       		.byte	0x8f
  315 0160 0D       		.uleb128 0xd
- 316 0161 22020000 		.4byte	.LASF23
+ 316 0161 10020000 		.4byte	.LASF23
  317 0165 03       		.byte	0x3
  318 0166 5A       		.byte	0x5a
  319 0167 00       		.byte	0
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  327 0005 13       		.uleb128 0x13
  328 0006 0B       		.uleb128 0xb
  329 0007 03       		.uleb128 0x3
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 10
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 10
 
 
  330 0008 0E       		.uleb128 0xe
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  384 003e 13       		.uleb128 0x13
  385 003f 01       		.byte	0x1
  386 0040 03       		.uleb128 0x3
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 11
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 11
 
 
  387 0041 0E       		.uleb128 0xe
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  441 0077 12       		.uleb128 0x12
  442 0078 06       		.uleb128 0x6
  443 0079 40       		.uleb128 0x40
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 12
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 12
 
 
  444 007a 18       		.uleb128 0x18
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  498 00b4 0D       		.uleb128 0xd
  499 00b5 2E       		.uleb128 0x2e
  500 00b6 00       		.byte	0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 13
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 13
 
 
  501 00b7 3F       		.uleb128 0x3f
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  550      5F315F52 
  550      6573746F 
  550      7265436F 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 14
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 14
 
 
  550      6E666967 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  574      32303135 
  574      30333033 
  575 00d0 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 15
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 15
 
 
  575      20726576 
@@ -850,96 +850,92 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 1
  576      74696F6E 
  576      2D736563 
  576      74696F6E 
- 577              	.LASF26:
- 578 012b 433A5C55 		.ascii	"C:\\Users\\Miikka\\Documents\\Zumo.release04\\Zumo0"
- 578      73657273 
- 578      5C4D6969 
- 578      6B6B615C 
- 578      446F6375 
- 579 0159 315C5A75 		.ascii	"1\\ZumoBot.cydsn\000"
- 579      6D6F426F 
- 579      742E6379 
- 579      64736E00 
- 580              	.LASF8:
- 581 0169 756E7369 		.ascii	"unsigned int\000"
- 581      676E6564 
- 581      20696E74 
- 581      00
- 582              	.LASF7:
- 583 0176 6C6F6E67 		.ascii	"long long unsigned int\000"
- 583      206C6F6E 
- 583      6720756E 
- 583      7369676E 
- 583      65642069 
- 584              	.LASF14:
- 585 018d 73697A65 		.ascii	"sizetype\000"
- 585      74797065 
- 585      00
- 586              	.LASF6:
- 587 0196 6C6F6E67 		.ascii	"long long int\000"
- 587      206C6F6E 
- 587      6720696E 
- 587      7400
- 588              	.LASF25:
- 589 01a4 47656E65 		.ascii	"Generated_Source\\PSoC5\\UART_1_PM.c\000"
- 589      72617465 
- 589      645F536F 
- 589      75726365 
- 589      5C50536F 
- 590              	.LASF11:
- 591 01c7 63686172 		.ascii	"char\000"
- 591      00
- 592              	.LASF27:
- 593 01cc 55415254 		.ascii	"UART_1_backupStruct_\000"
- 593      5F315F62 
- 593      61636B75 
- 593      70537472 
- 593      7563745F 
- 594              	.LASF2:
- 595 01e1 73686F72 		.ascii	"short int\000"
- 595      7420696E 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc075BWd.s 			page 16
+ 577              	.LASF8:
+ 578 012b 756E7369 		.ascii	"unsigned int\000"
+ 578      676E6564 
+ 578      20696E74 
+ 578      00
+ 579              	.LASF7:
+ 580 0138 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 580      206C6F6E 
+ 580      6720756E 
+ 580      7369676E 
+ 580      65642069 
+ 581              	.LASF26:
+ 582 014f 463A5C4D 		.ascii	"F:\\Metropolia\\Laitteet\\Team-9\\ZumoBot.cydsn\000"
+ 582      6574726F 
+ 582      706F6C69 
+ 582      615C4C61 
+ 582      69747465 
+ 583              	.LASF14:
+ 584 017b 73697A65 		.ascii	"sizetype\000"
+ 584      74797065 
+ 584      00
+ 585              	.LASF6:
+ 586 0184 6C6F6E67 		.ascii	"long long int\000"
+ 586      206C6F6E 
+ 586      6720696E 
+ 586      7400
+ 587              	.LASF25:
+ 588 0192 47656E65 		.ascii	"Generated_Source\\PSoC5\\UART_1_PM.c\000"
+ 588      72617465 
+ 588      645F536F 
+ 588      75726365 
+ 588      5C50536F 
+ 589              	.LASF11:
+ 590 01b5 63686172 		.ascii	"char\000"
+ 590      00
+ 591              	.LASF27:
+ 592 01ba 55415254 		.ascii	"UART_1_backupStruct_\000"
+ 592      5F315F62 
+ 592      61636B75 
+ 592      70537472 
+ 592      7563745F 
+ 593              	.LASF2:
+ 594 01cf 73686F72 		.ascii	"short int\000"
+ 594      7420696E 
+ 594      7400
+ 595              	.LASF18:
+ 596 01d9 55415254 		.ascii	"UART_1_Sleep\000"
+ 596      5F315F53 
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccaDj5su.s 			page 16
 
 
- 595      7400
- 596              	.LASF18:
- 597 01eb 55415254 		.ascii	"UART_1_Sleep\000"
- 597      5F315F53 
- 597      6C656570 
- 597      00
- 598              	.LASF22:
- 599 01f8 55415254 		.ascii	"UART_1_ClearTxBuffer\000"
- 599      5F315F43 
- 599      6C656172 
- 599      54784275 
- 599      66666572 
- 600              	.LASF4:
- 601 020d 6C6F6E67 		.ascii	"long int\000"
- 601      20696E74 
- 601      00
- 602              	.LASF28:
- 603 0216 656E6162 		.ascii	"enableState\000"
- 603      6C655374 
- 603      61746500 
- 604              	.LASF23:
- 605 0222 55415254 		.ascii	"UART_1_Enable\000"
- 605      5F315F45 
- 605      6E61626C 
- 605      6500
- 606              	.LASF16:
- 607 0230 55415254 		.ascii	"UART_1_SaveConfig\000"
- 607      5F315F53 
- 607      61766543 
- 607      6F6E6669 
- 607      6700
- 608              	.LASF0:
- 609 0242 7369676E 		.ascii	"signed char\000"
- 609      65642063 
- 609      68617200 
- 610              	.LASF15:
- 611 024e 55415254 		.ascii	"UART_1_BACKUP_STRUCT\000"
- 611      5F315F42 
- 611      41434B55 
- 611      505F5354 
- 611      52554354 
- 612              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
+ 596      6C656570 
+ 596      00
+ 597              	.LASF22:
+ 598 01e6 55415254 		.ascii	"UART_1_ClearTxBuffer\000"
+ 598      5F315F43 
+ 598      6C656172 
+ 598      54784275 
+ 598      66666572 
+ 599              	.LASF4:
+ 600 01fb 6C6F6E67 		.ascii	"long int\000"
+ 600      20696E74 
+ 600      00
+ 601              	.LASF28:
+ 602 0204 656E6162 		.ascii	"enableState\000"
+ 602      6C655374 
+ 602      61746500 
+ 603              	.LASF23:
+ 604 0210 55415254 		.ascii	"UART_1_Enable\000"
+ 604      5F315F45 
+ 604      6E61626C 
+ 604      6500
+ 605              	.LASF16:
+ 606 021e 55415254 		.ascii	"UART_1_SaveConfig\000"
+ 606      5F315F53 
+ 606      61766543 
+ 606      6F6E6669 
+ 606      6700
+ 607              	.LASF0:
+ 608 0230 7369676E 		.ascii	"signed char\000"
+ 608      65642063 
+ 608      68617200 
+ 609              	.LASF15:
+ 610 023c 55415254 		.ascii	"UART_1_BACKUP_STRUCT\000"
+ 610      5F315F42 
+ 610      41434B55 
+ 610      505F5354 
+ 610      52554354 
+ 611              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

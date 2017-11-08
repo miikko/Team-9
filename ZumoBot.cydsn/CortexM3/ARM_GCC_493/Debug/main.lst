@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 1
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 1
 
 
    1              		.syntax unified
@@ -18,15 +18,18 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 1
   15              		.text
   16              	.Ltext0:
   17              		.cfi_sections	.debug_frame
-  18              		.section	.text.main,"ax",%progbits
-  19              		.align	2
-  20              		.global	main
-  21              		.thumb
-  22              		.thumb_func
-  23              		.type	main, %function
-  24              	main:
-  25              	.LFB63:
-  26              		.file 1 "main.c"
+  18              		.global	__aeabi_fmul
+  19              		.global	__aeabi_fcmplt
+  20              		.global	__aeabi_f2d
+  21              		.section	.text.main,"ax",%progbits
+  22              		.align	2
+  23              		.global	main
+  24              		.thumb
+  25              		.thumb_func
+  26              		.type	main, %function
+  27              	main:
+  28              	.LFB63:
+  29              		.file 1 "main.c"
    1:main.c        **** /**
    2:main.c        **** * @mainpage ZumoBot Project
    3:main.c        **** * @brief    You can make your own ZumoBot with various sensors.
@@ -55,12 +58,12 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 1
   26:main.c        ****     <p>
   27:main.c        ****     <B>Communication</B><br>
   28:main.c        ****     I2C, UART, Serial<br>
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 2
+
+
   29:main.c        ****     </p>
   30:main.c        **** */
   31:main.c        **** 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 2
-
-
   32:main.c        **** #include <project.h>
   33:main.c        **** #include <stdio.h>
   34:main.c        **** #include "Motor.h"
@@ -84,1546 +87,2311 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 1
   52:main.c        **** 
   53:main.c        **** 
   54:main.c        **** //battery level//
-  55:main.c        **** /*int main()
+  55:main.c        **** int main()
   56:main.c        **** {
+  30              		.loc 1 56 0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34 0000 38B5     		push	{r3, r4, r5, lr}
+  35              		.cfi_def_cfa_offset 16
+  36              		.cfi_offset 3, -16
+  37              		.cfi_offset 4, -12
+  38              		.cfi_offset 5, -8
+  39              		.cfi_offset 14, -4
   57:main.c        ****     CyGlobalIntEnable; 
+  40              		.loc 1 57 0
+  41              	@ 57 "main.c" 1
+  42 0002 62B6     		CPSIE   i
+  43              	@ 0 "" 2
   58:main.c        ****     UART_1_Start();
+  44              		.loc 1 58 0
+  45              		.thumb
+  46 0004 FFF7FEFF 		bl	UART_1_Start
+  47              	.LVL0:
   59:main.c        ****     ADC_Battery_Start();        
+  48              		.loc 1 59 0
+  49 0008 FFF7FEFF 		bl	ADC_Battery_Start
+  50              	.LVL1:
   60:main.c        ****     int16 adcresult =0;
   61:main.c        ****     float volts = 0.0;
   62:main.c        **** 
   63:main.c        ****     printf("\nBoot\n");
+  51              		.loc 1 63 0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 3
+
+
+  52 000c 3648     		ldr	r0, .L10
+  53 000e FFF7FEFF 		bl	puts
+  54              	.LVL2:
   64:main.c        **** 
   65:main.c        ****     //BatteryLed_Write(1); // Switch led on 
   66:main.c        ****     BatteryLed_Write(0); // Switch led off 
-  67:main.c        ****     //uint8 button;
-  68:main.c        ****     //button = SW1_Read(); // read SW1 on pSoC board
+  55              		.loc 1 66 0
+  56 0012 0020     		movs	r0, #0
+  57 0014 FFF7FEFF 		bl	BatteryLed_Write
+  58              	.LVL3:
+  67:main.c        ****     uint8 button;
+  68:main.c        ****     button = SW1_Read(); // read SW1 on pSoC board
+  59              		.loc 1 68 0
+  60 0018 FFF7FEFF 		bl	SW1_Read
+  61              	.LVL4:
   69:main.c        **** 
-  70:main.c        ****     for(;;)
-  71:main.c        ****     {
-  72:main.c        ****         
-  73:main.c        ****         ADC_Battery_StartConvert();
-  74:main.c        ****         if(ADC_Battery_IsEndConversion(ADC_Battery_WAIT_FOR_RESULT)) {   // wait for get ADC conver
-  75:main.c        ****             adcresult = ADC_Battery_GetResult16();
-  76:main.c        ****             volts = ADC_Battery_CountsTo_Volts(adcresult) * 1.5;                  // convert value 
-  77:main.c        ****             
-  78:main.c        ****            
-  79:main.c        ****             if (volts < 4) {
-  80:main.c        ****                 BatteryLed_Write(1);
-  81:main.c        ****                 CyDelay(250);
-  82:main.c        ****                  BatteryLed_Write(0);
-  83:main.c        ****             }
-  84:main.c        ****             // If you want to print value
-  85:main.c        ****             printf("%d %f\r\n",adcresult, volts);
-  86:main.c        ****         }
-  87:main.c        ****         CyDelay(500);
-  88:main.c        ****         
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 3
+  70:main.c        ****     while(button == 1) {
+  62              		.loc 1 70 0
+  63 001c 01E0     		b	.L2
+  64              	.L3:
+  71:main.c        ****         button = SW1_Read();
+  65              		.loc 1 71 0
+  66 001e FFF7FEFF 		bl	SW1_Read
+  67              	.LVL5:
+  68              	.L2:
+  70:main.c        ****         button = SW1_Read();
+  69              		.loc 1 70 0
+  70 0022 0128     		cmp	r0, #1
+  71 0024 FBD0     		beq	.L3
+  72:main.c        ****        }
+  73:main.c        ****     
+  74:main.c        ****     motor_start();              // motor start
+  72              		.loc 1 74 0
+  73 0026 FFF7FEFF 		bl	motor_start
+  74              	.LVL6:
+  75:main.c        **** 
+  76:main.c        ****     //motor_forward(100,4800);     // moving forward
+  77:main.c        ****     motor_turn(200,205,1000);
+  75              		.loc 1 77 0
+  76 002a C820     		movs	r0, #200
+  77 002c CD21     		movs	r1, #205
+  78 002e 4FF47A72 		mov	r2, #1000
+  79 0032 FFF7FEFF 		bl	motor_turn
+  80              	.LVL7:
+  78:main.c        ****     motor_turn(50,200,600);
+  81              		.loc 1 78 0
+  82 0036 3220     		movs	r0, #50
+  83 0038 C821     		movs	r1, #200
+  84 003a 4FF41672 		mov	r2, #600
+  85 003e FFF7FEFF 		bl	motor_turn
+  86              	.LVL8:
+  79:main.c        ****     motor_turn(200,205,1000);
+  87              		.loc 1 79 0
+  88 0042 C820     		movs	r0, #200
+  89 0044 CD21     		movs	r1, #205
+  90 0046 4FF47A72 		mov	r2, #1000
+  91 004a FFF7FEFF 		bl	motor_turn
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 4
 
 
-  89:main.c        ****     }
-  90:main.c        ****  }   
-  91:main.c        **** //*/
-  92:main.c        **** 
-  93:main.c        **** 
-  94:main.c        **** /*//ultra sonic sensor//
-  95:main.c        **** int main()
-  96:main.c        **** {
-  97:main.c        ****     CyGlobalIntEnable; 
-  98:main.c        ****     UART_1_Start();
-  99:main.c        ****     Ultra_Start();                          // Ultra Sonic Start function
- 100:main.c        ****     while(1) {
- 101:main.c        ****         //If you want to print out the value  
- 102:main.c        ****         printf("distance = %5.0f\r\n", Ultra_GetDistance());
- 103:main.c        ****         CyDelay(1000);
- 104:main.c        ****     }
- 105:main.c        **** }   
- 106:main.c        **** //*/
- 107:main.c        **** 
- 108:main.c        **** 
- 109:main.c        **** /*//nunchuk//
- 110:main.c        **** int main()
- 111:main.c        **** {
- 112:main.c        ****     CyGlobalIntEnable; 
- 113:main.c        ****     UART_1_Start();
- 114:main.c        ****   
- 115:main.c        ****     nunchuk_start();
- 116:main.c        ****     nunchuk_init();
- 117:main.c        ****     
- 118:main.c        ****     for(;;)
- 119:main.c        ****     {    
- 120:main.c        ****         nunchuk_read();
- 121:main.c        ****     }
- 122:main.c        **** }   
- 123:main.c        **** //*/
- 124:main.c        **** 
- 125:main.c        **** 
- 126:main.c        **** /*//IR receiver//
- 127:main.c        **** int main()
- 128:main.c        **** {
- 129:main.c        ****     CyGlobalIntEnable; 
- 130:main.c        ****     UART_1_Start();
- 131:main.c        ****     
- 132:main.c        ****     unsigned int IR_val; 
- 133:main.c        ****     
- 134:main.c        ****     for(;;)
- 135:main.c        ****     {
- 136:main.c        ****        IR_val = get_IR();
- 137:main.c        ****        printf("%x\r\n\n",IR_val);
- 138:main.c        ****     }    
- 139:main.c        ****  }   
- 140:main.c        **** //*/
- 141:main.c        **** 
- 142:main.c        **** 
- 143:main.c        **** /*//Ambient light sensor//
- 144:main.c        **** int main()
- 145:main.c        **** {
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 4
+  92              	.LVL9:
+  80:main.c        ****     motor_turn(50,200,600);
+  93              		.loc 1 80 0
+  94 004e 3220     		movs	r0, #50
+  95 0050 C821     		movs	r1, #200
+  96 0052 4FF41672 		mov	r2, #600
+  97 0056 FFF7FEFF 		bl	motor_turn
+  98              	.LVL10:
+  81:main.c        ****     motor_turn(200,205,1000);
+  99              		.loc 1 81 0
+ 100 005a C820     		movs	r0, #200
+ 101 005c CD21     		movs	r1, #205
+ 102 005e 4FF47A72 		mov	r2, #1000
+ 103 0062 FFF7FEFF 		bl	motor_turn
+ 104              	.LVL11:
+  82:main.c        ****     motor_turn(50,200,600);
+ 105              		.loc 1 82 0
+ 106 0066 3220     		movs	r0, #50
+ 107 0068 C821     		movs	r1, #200
+ 108 006a 4FF41672 		mov	r2, #600
+ 109 006e FFF7FEFF 		bl	motor_turn
+ 110              	.LVL12:
+  83:main.c        ****     motor_turn(200,205,1000);
+ 111              		.loc 1 83 0
+ 112 0072 C820     		movs	r0, #200
+ 113 0074 CD21     		movs	r1, #205
+ 114 0076 4FF47A72 		mov	r2, #1000
+ 115 007a FFF7FEFF 		bl	motor_turn
+ 116              	.LVL13:
+  84:main.c        ****     motor_turn(50,200,600);
+ 117              		.loc 1 84 0
+ 118 007e 3220     		movs	r0, #50
+ 119 0080 C821     		movs	r1, #200
+ 120 0082 4FF41672 		mov	r2, #600
+ 121 0086 FFF7FEFF 		bl	motor_turn
+ 122              	.LVL14:
+  85:main.c        ****     
+  86:main.c        ****     //motor_turn(200,205,x) suoraan
+  87:main.c        ****     //motor_turn(200,50,600); 90-asteen käännys oikealle
+  88:main.c        **** 
+  89:main.c        ****     //motor_backward(100,2000);    // movinb backward
+  90:main.c        ****        
+  91:main.c        ****     motor_stop();               // motor stop
+ 123              		.loc 1 91 0
+ 124 008a FFF7FEFF 		bl	motor_stop
+ 125              	.LVL15:
+ 126              	.L7:
+  92:main.c        ****     
+  93:main.c        ****     for(;;)
+  94:main.c        ****     {
+  95:main.c        ****         
+  96:main.c        ****         ADC_Battery_StartConvert();
+ 127              		.loc 1 96 0
+ 128 008e FFF7FEFF 		bl	ADC_Battery_StartConvert
+ 129              	.LVL16:
+  97:main.c        ****         if(ADC_Battery_IsEndConversion(ADC_Battery_WAIT_FOR_RESULT)) {   // wait for get ADC conver
+ 130              		.loc 1 97 0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 5
 
 
- 146:main.c        ****     CyGlobalIntEnable; 
- 147:main.c        ****     UART_1_Start();
- 148:main.c        ****     
- 149:main.c        ****     I2C_Start();
- 150:main.c        ****     
- 151:main.c        ****     I2C_write(0x29,0x80,0x00);          // set to power down
- 152:main.c        ****     I2C_write(0x29,0x80,0x03);          // set to power on
- 153:main.c        ****     
- 154:main.c        ****     for(;;)
- 155:main.c        ****     {    
- 156:main.c        ****         uint8 Data0Low,Data0High,Data1Low,Data1High;
- 157:main.c        ****         Data0Low = I2C_read(0x29,CH0_L);
- 158:main.c        ****         Data0High = I2C_read(0x29,CH0_H);
- 159:main.c        ****         Data1Low = I2C_read(0x29,CH1_L);
- 160:main.c        ****         Data1High = I2C_read(0x29,CH1_H);
- 161:main.c        ****         
- 162:main.c        ****         uint8 CH0, CH1;
- 163:main.c        ****         CH0 = convert_raw(Data0Low,Data0High);      // combine Data0
- 164:main.c        ****         CH1 = convert_raw(Data1Low,Data1High);      // combine Data1
- 165:main.c        **** 
- 166:main.c        ****         double Ch0 = CH0;
- 167:main.c        ****         double Ch1 = CH1;
- 168:main.c        ****         
- 169:main.c        ****         double data = 0;
- 170:main.c        ****         data = getLux(Ch0,Ch1);
- 171:main.c        ****         
- 172:main.c        ****         // If you want to print out data
- 173:main.c        ****         //printf("%lf\r\n",data);    
- 174:main.c        ****     }    
- 175:main.c        ****  }   
- 176:main.c        **** //*/
- 177:main.c        **** 
- 178:main.c        **** 
- 179:main.c        **** /*//accelerometer//
- 180:main.c        **** int main()
- 181:main.c        **** {
- 182:main.c        ****     CyGlobalIntEnable; 
- 183:main.c        ****     UART_1_Start();
- 184:main.c        ****   
- 185:main.c        ****     I2C_Start();
- 186:main.c        ****   
- 187:main.c        ****     uint8 X_L_A, X_H_A, Y_L_A, Y_H_A, Z_L_A, Z_H_A;
- 188:main.c        ****     int16 X_AXIS_A, Y_AXIS_A, Z_AXIS_A;
- 189:main.c        ****     
- 190:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL1_REG, 0x37);           // set accelerometer & magnetometer
- 191:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL7_REG, 0x22);
- 192:main.c        ****     
- 193:main.c        ****     
- 194:main.c        ****     for(;;)
- 195:main.c        ****     {
- 196:main.c        ****         //print out accelerometer output
- 197:main.c        ****         X_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_X_L_A);
- 198:main.c        ****         X_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_X_H_A);
- 199:main.c        ****         X_AXIS_A = convert_raw(X_L_A, X_H_A);
- 200:main.c        ****         
- 201:main.c        ****         Y_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_Y_L_A);
- 202:main.c        ****         Y_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_Y_H_A);
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 5
+ 131 0092 0020     		movs	r0, #0
+ 132 0094 FFF7FEFF 		bl	ADC_Battery_IsEndConversion
+ 133              	.LVL17:
+ 134 0098 00B3     		cbz	r0, .L4
+  98:main.c        ****             adcresult = ADC_Battery_GetResult16();
+ 135              		.loc 1 98 0
+ 136 009a FFF7FEFF 		bl	ADC_Battery_GetResult16
+ 137              	.LVL18:
+ 138 009e 0446     		mov	r4, r0
+ 139              	.LVL19:
+  99:main.c        ****             volts = ADC_Battery_CountsTo_Volts(adcresult) * 1.5;                  // convert value 
+ 140              		.loc 1 99 0
+ 141 00a0 FFF7FEFF 		bl	ADC_Battery_CountsTo_Volts
+ 142              	.LVL20:
+ 143 00a4 4FF07F51 		mov	r1, #1069547520
+ 144 00a8 FFF7FEFF 		bl	__aeabi_fmul
+ 145              	.LVL21:
+ 146 00ac 0546     		mov	r5, r0
+ 147              	.LVL22:
+ 100:main.c        ****             
+ 101:main.c        ****            
+ 102:main.c        ****             if (volts < 4) {
+ 148              		.loc 1 102 0
+ 149 00ae 4FF08141 		mov	r1, #1082130432
+ 150 00b2 FFF7FEFF 		bl	__aeabi_fcmplt
+ 151              	.LVL23:
+ 152 00b6 40B1     		cbz	r0, .L5
+ 103:main.c        ****                 BatteryLed_Write(1);
+ 153              		.loc 1 103 0
+ 154 00b8 0120     		movs	r0, #1
+ 155 00ba FFF7FEFF 		bl	BatteryLed_Write
+ 156              	.LVL24:
+ 104:main.c        ****                 CyDelay(250);
+ 157              		.loc 1 104 0
+ 158 00be FA20     		movs	r0, #250
+ 159 00c0 FFF7FEFF 		bl	CyDelay
+ 160              	.LVL25:
+ 105:main.c        ****                  BatteryLed_Write(0);
+ 161              		.loc 1 105 0
+ 162 00c4 0020     		movs	r0, #0
+ 163 00c6 FFF7FEFF 		bl	BatteryLed_Write
+ 164              	.LVL26:
+ 165              	.L5:
+ 106:main.c        ****             }
+ 107:main.c        ****             // If you want to print value
+ 108:main.c        ****             printf("%d %f\r\n",adcresult, volts);
+ 166              		.loc 1 108 0
+ 167 00ca 2846     		mov	r0, r5
+ 168 00cc FFF7FEFF 		bl	__aeabi_f2d
+ 169              	.LVL27:
+ 170 00d0 0246     		mov	r2, r0
+ 171 00d2 0B46     		mov	r3, r1
+ 172 00d4 0548     		ldr	r0, .L10+4
+ 173 00d6 2146     		mov	r1, r4
+ 174 00d8 FFF7FEFF 		bl	printf
+ 175              	.LVL28:
+ 176              	.L4:
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 6
 
 
- 203:main.c        ****         Y_AXIS_A = convert_raw(Y_L_A, Y_H_A);
- 204:main.c        ****         
- 205:main.c        ****         Z_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_Z_L_A);
- 206:main.c        ****         Z_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_Z_H_A);
- 207:main.c        ****         Z_AXIS_A = convert_raw(Z_L_A, Z_H_A);
- 208:main.c        ****         
- 209:main.c        ****         printf("ACCEL: %d %d %d %d %d %d \r\n", X_L_A, X_H_A, Y_L_A, Y_H_A, Z_L_A, Z_H_A);
- 210:main.c        ****         value_convert_accel(X_AXIS_A, Y_AXIS_A, Z_AXIS_A);
- 211:main.c        ****         printf("\n");
- 212:main.c        ****         
- 213:main.c        ****         CyDelay(50);
- 214:main.c        ****     }
- 215:main.c        **** }   
- 216:main.c        **** //*/
- 217:main.c        **** 
- 218:main.c        **** 
- 219:main.c        **** /*//reflectance//
- 220:main.c        **** int main()
- 221:main.c        **** {
- 222:main.c        ****     struct sensors_ ref;
- 223:main.c        ****     struct sensors_ dig;
- 224:main.c        ****     CyGlobalIntEnable; 
- 225:main.c        ****     UART_1_Start();
- 226:main.c        ****   
- 227:main.c        ****     sensor_isr_StartEx(sensor_isr_handler);
- 228:main.c        ****     
- 229:main.c        ****     reflectance_start();
- 230:main.c        **** 
- 231:main.c        ****     IR_led_Write(1);
- 232:main.c        ****     for(;;)
- 233:main.c        ****     {
- 234:main.c        ****         reflectance_read(&ref);
- 235:main.c        ****         printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period o
- 236:main.c        ****         reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance peri
- 237:main.c        ****         printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 accor
+ 109:main.c        ****         }
+ 110:main.c        ****         CyDelay(500);
+ 177              		.loc 1 110 0
+ 178 00dc 4FF4FA70 		mov	r0, #500
+ 179 00e0 FFF7FEFF 		bl	CyDelay
+ 180              	.LVL29:
+ 111:main.c        ****         
+ 112:main.c        ****     }
+ 181              		.loc 1 112 0
+ 182 00e4 D3E7     		b	.L7
+ 183              	.L11:
+ 184 00e6 00BF     		.align	2
+ 185              	.L10:
+ 186 00e8 00000000 		.word	.LC0
+ 187 00ec 08000000 		.word	.LC1
+ 188              		.cfi_endproc
+ 189              	.LFE63:
+ 190              		.size	main, .-main
+ 191              		.section	.text._write,"ax",%progbits
+ 192              		.align	2
+ 193              		.global	_write
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.type	_write, %function
+ 197              	_write:
+ 198              	.LFB64:
+ 113:main.c        ****     
+ 114:main.c        ****     
+ 115:main.c        ****     
+ 116:main.c        ****  }   
+ 117:main.c        **** 
+ 118:main.c        **** 
+ 119:main.c        **** 
+ 120:main.c        **** /*//ultra sonic sensor//
+ 121:main.c        **** int main()
+ 122:main.c        **** {
+ 123:main.c        ****     CyGlobalIntEnable; 
+ 124:main.c        ****     UART_1_Start();
+ 125:main.c        ****     Ultra_Start();                          // Ultra Sonic Start function
+ 126:main.c        ****     while(1) {
+ 127:main.c        ****         //If you want to print out the value  
+ 128:main.c        ****         printf("distance = %5.0f\r\n", Ultra_GetDistance());
+ 129:main.c        ****         CyDelay(1000);
+ 130:main.c        ****     }
+ 131:main.c        **** }   
+ 132:main.c        **** //*/
+ 133:main.c        **** 
+ 134:main.c        **** 
+ 135:main.c        **** /*//nunchuk//
+ 136:main.c        **** int main()
+ 137:main.c        **** {
+ 138:main.c        ****     CyGlobalIntEnable; 
+ 139:main.c        ****     UART_1_Start();
+ 140:main.c        ****   
+ 141:main.c        ****     nunchuk_start();
+ 142:main.c        ****     nunchuk_init();
+ 143:main.c        ****     
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 7
+
+
+ 144:main.c        ****     for(;;)
+ 145:main.c        ****     {    
+ 146:main.c        ****         nunchuk_read();
+ 147:main.c        ****     }
+ 148:main.c        **** }   
+ 149:main.c        **** //*/
+ 150:main.c        **** 
+ 151:main.c        **** 
+ 152:main.c        **** /*//IR receiver//
+ 153:main.c        **** int main()
+ 154:main.c        **** {
+ 155:main.c        ****     CyGlobalIntEnable; 
+ 156:main.c        ****     UART_1_Start();
+ 157:main.c        ****     
+ 158:main.c        ****     unsigned int IR_val; 
+ 159:main.c        ****     
+ 160:main.c        ****     for(;;)
+ 161:main.c        ****     {
+ 162:main.c        ****        IR_val = get_IR();
+ 163:main.c        ****        printf("%x\r\n\n",IR_val);
+ 164:main.c        ****     }    
+ 165:main.c        ****  }   
+ 166:main.c        **** //*/
+ 167:main.c        **** 
+ 168:main.c        **** 
+ 169:main.c        **** /*//Ambient light sensor//
+ 170:main.c        **** int main()
+ 171:main.c        **** {
+ 172:main.c        ****     CyGlobalIntEnable; 
+ 173:main.c        ****     UART_1_Start();
+ 174:main.c        ****     
+ 175:main.c        ****     I2C_Start();
+ 176:main.c        ****     
+ 177:main.c        ****     I2C_write(0x29,0x80,0x00);          // set to power down
+ 178:main.c        ****     I2C_write(0x29,0x80,0x03);          // set to power on
+ 179:main.c        ****     
+ 180:main.c        ****     for(;;)
+ 181:main.c        ****     {    
+ 182:main.c        ****         uint8 Data0Low,Data0High,Data1Low,Data1High;
+ 183:main.c        ****         Data0Low = I2C_read(0x29,CH0_L);
+ 184:main.c        ****         Data0High = I2C_read(0x29,CH0_H);
+ 185:main.c        ****         Data1Low = I2C_read(0x29,CH1_L);
+ 186:main.c        ****         Data1High = I2C_read(0x29,CH1_H);
+ 187:main.c        ****         
+ 188:main.c        ****         uint8 CH0, CH1;
+ 189:main.c        ****         CH0 = convert_raw(Data0Low,Data0High);      // combine Data0
+ 190:main.c        ****         CH1 = convert_raw(Data1Low,Data1High);      // combine Data1
+ 191:main.c        **** 
+ 192:main.c        ****         double Ch0 = CH0;
+ 193:main.c        ****         double Ch1 = CH1;
+ 194:main.c        ****         
+ 195:main.c        ****         double data = 0;
+ 196:main.c        ****         data = getLux(Ch0,Ch1);
+ 197:main.c        ****         
+ 198:main.c        ****         // If you want to print out data
+ 199:main.c        ****         //printf("%lf\r\n",data);    
+ 200:main.c        ****     }    
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 8
+
+
+ 201:main.c        ****  }   
+ 202:main.c        **** //*/
+ 203:main.c        **** 
+ 204:main.c        **** 
+ 205:main.c        **** /*//accelerometer//
+ 206:main.c        **** int main()
+ 207:main.c        **** {
+ 208:main.c        ****     CyGlobalIntEnable; 
+ 209:main.c        ****     UART_1_Start();
+ 210:main.c        ****   
+ 211:main.c        ****     I2C_Start();
+ 212:main.c        ****   
+ 213:main.c        ****     uint8 X_L_A, X_H_A, Y_L_A, Y_H_A, Z_L_A, Z_H_A;
+ 214:main.c        ****     int16 X_AXIS_A, Y_AXIS_A, Z_AXIS_A;
+ 215:main.c        ****     
+ 216:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL1_REG, 0x37);           // set accelerometer & magnetometer
+ 217:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL7_REG, 0x22);
+ 218:main.c        ****     
+ 219:main.c        ****     
+ 220:main.c        ****     for(;;)
+ 221:main.c        ****     {
+ 222:main.c        ****         //print out accelerometer output
+ 223:main.c        ****         X_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_X_L_A);
+ 224:main.c        ****         X_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_X_H_A);
+ 225:main.c        ****         X_AXIS_A = convert_raw(X_L_A, X_H_A);
+ 226:main.c        ****         
+ 227:main.c        ****         Y_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_Y_L_A);
+ 228:main.c        ****         Y_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_Y_H_A);
+ 229:main.c        ****         Y_AXIS_A = convert_raw(Y_L_A, Y_H_A);
+ 230:main.c        ****         
+ 231:main.c        ****         Z_L_A = I2C_read(ACCEL_MAG_ADDR, OUT_Z_L_A);
+ 232:main.c        ****         Z_H_A = I2C_read(ACCEL_MAG_ADDR, OUT_Z_H_A);
+ 233:main.c        ****         Z_AXIS_A = convert_raw(Z_L_A, Z_H_A);
+ 234:main.c        ****         
+ 235:main.c        ****         printf("ACCEL: %d %d %d %d %d %d \r\n", X_L_A, X_H_A, Y_L_A, Y_H_A, Z_L_A, Z_H_A);
+ 236:main.c        ****         value_convert_accel(X_AXIS_A, Y_AXIS_A, Z_AXIS_A);
+ 237:main.c        ****         printf("\n");
  238:main.c        ****         
- 239:main.c        ****         CyDelay(500);
+ 239:main.c        ****         CyDelay(50);
  240:main.c        ****     }
  241:main.c        **** }   
  242:main.c        **** //*/
  243:main.c        **** 
- 244:main.c        ****   //motor//
- 245:main.c        **** int main()
- 246:main.c        **** {
-  27              		.loc 1 246 0
-  28              		.cfi_startproc
-  29              		@ Volatile: function does not return.
-  30              		@ args = 0, pretend = 0, frame = 0
-  31              		@ frame_needed = 0, uses_anonymous_args = 0
-  32 0000 08B5     		push	{r3, lr}
-  33              		.cfi_def_cfa_offset 8
-  34              		.cfi_offset 3, -8
-  35              		.cfi_offset 14, -4
- 247:main.c        ****     CyGlobalIntEnable; 
-  36              		.loc 1 247 0
-  37              	@ 247 "main.c" 1
-  38 0002 62B6     		CPSIE   i
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 6
+ 244:main.c        **** 
+ 245:main.c        **** /*//reflectance//
+ 246:main.c        **** int main()
+ 247:main.c        **** {
+ 248:main.c        ****     struct sensors_ ref;
+ 249:main.c        ****     struct sensors_ dig;
+ 250:main.c        ****     CyGlobalIntEnable; 
+ 251:main.c        ****     UART_1_Start();
+ 252:main.c        ****   
+ 253:main.c        ****     sensor_isr_StartEx(sensor_isr_handler);
+ 254:main.c        ****     
+ 255:main.c        ****     reflectance_start();
+ 256:main.c        **** 
+ 257:main.c        ****     IR_led_Write(1);
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 9
 
 
-  39              	@ 0 "" 2
- 248:main.c        ****     UART_1_Start();
-  40              		.loc 1 248 0
-  41              		.thumb
-  42 0004 FFF7FEFF 		bl	UART_1_Start
-  43              	.LVL0:
- 249:main.c        **** 
- 250:main.c        ****     motor_start();              // motor start
-  44              		.loc 1 250 0
-  45 0008 FFF7FEFF 		bl	motor_start
-  46              	.LVL1:
- 251:main.c        **** 
- 252:main.c        ****     motor_forward(100,5000);     // moving forward
-  47              		.loc 1 252 0
-  48 000c 6420     		movs	r0, #100
-  49 000e 41F28831 		movw	r1, #5000
-  50 0012 FFF7FEFF 		bl	motor_forward
-  51              	.LVL2:
- 253:main.c        ****     //motor_turn(200,50,2000);     // turn
- 254:main.c        ****     //motor_turn(50,200,2000);     // turn
- 255:main.c        ****     //motor_backward(100,2000);    // movinb backward
- 256:main.c        ****        
- 257:main.c        ****     motor_stop();               // motor stop
-  52              		.loc 1 257 0
-  53 0016 FFF7FEFF 		bl	motor_stop
-  54              	.LVL3:
-  55              	.L2:
- 258:main.c        ****     
- 259:main.c        ****     for(;;)
- 260:main.c        ****     {
- 261:main.c        **** 
- 262:main.c        ****     }
-  56              		.loc 1 262 0 discriminator 1
-  57 001a FEE7     		b	.L2
-  58              		.cfi_endproc
-  59              	.LFE63:
-  60              		.size	main, .-main
-  61              		.section	.text._write,"ax",%progbits
-  62              		.align	2
-  63              		.global	_write
-  64              		.thumb
-  65              		.thumb_func
-  66              		.type	_write, %function
-  67              	_write:
-  68              	.LFB64:
- 263:main.c        **** }
- 264:main.c        **** //*/
- 265:main.c        ****     
- 266:main.c        **** 
- 267:main.c        **** /*//gyroscope//
- 268:main.c        **** int main()
- 269:main.c        **** {
- 270:main.c        ****     CyGlobalIntEnable; 
- 271:main.c        ****     UART_1_Start();
- 272:main.c        ****   
- 273:main.c        ****     I2C_Start();
- 274:main.c        ****   
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 7
+ 258:main.c        ****     for(;;)
+ 259:main.c        ****     {
+ 260:main.c        ****         reflectance_read(&ref);
+ 261:main.c        ****         printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period o
+ 262:main.c        ****         reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance peri
+ 263:main.c        ****         printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 accor
+ 264:main.c        ****         
+ 265:main.c        ****         CyDelay(500);
+ 266:main.c        ****     }
+ 267:main.c        **** }   
+ 268:main.c        **** //*/
+ 269:main.c        **** 
+ 270:main.c        ****   //motor//
+ 271:main.c        **** /*int main()
+ 272:main.c        **** {
+ 273:main.c        ****     CyGlobalIntEnable; 
+ 274:main.c        ****     UART_1_Start();
+ 275:main.c        **** 
+ 276:main.c        ****     motor_start();              // motor start
+ 277:main.c        **** 
+ 278:main.c        ****     motor_forward(100,4800);     // moving forward
+ 279:main.c        ****     motor_turn(200,50,2000);     // turn
+ 280:main.c        ****     //motor_turn(50,200,2000);     // turn
+ 281:main.c        ****     //motor_backward(100,2000);    // movinb backward
+ 282:main.c        ****        
+ 283:main.c        ****     motor_stop();               // motor stop
+ 284:main.c        ****     
+ 285:main.c        ****     for(;;)
+ 286:main.c        ****     {
+ 287:main.c        **** 
+ 288:main.c        ****     }
+ 289:main.c        **** }*/
+ 290:main.c        **** //*/
+ 291:main.c        ****     
+ 292:main.c        **** 
+ 293:main.c        **** /*//gyroscope//
+ 294:main.c        **** int main()
+ 295:main.c        **** {
+ 296:main.c        ****     CyGlobalIntEnable; 
+ 297:main.c        ****     UART_1_Start();
+ 298:main.c        ****   
+ 299:main.c        ****     I2C_Start();
+ 300:main.c        ****   
+ 301:main.c        ****     uint8 X_L_G, X_H_G, Y_L_G, Y_H_G, Z_L_G, Z_H_G;
+ 302:main.c        ****     int16 X_AXIS_G, Y_AXIS_G, Z_AXIS_G;
+ 303:main.c        ****     
+ 304:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL1_REG, 0x0F);             // set gyroscope into active mode
+ 305:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL4_REG, 0x30);             // set full scale selection to 2000dps 
+ 306:main.c        ****     
+ 307:main.c        ****     for(;;)
+ 308:main.c        ****     {
+ 309:main.c        ****         //print out gyroscope output
+ 310:main.c        ****         X_L_G = I2C_read(GYRO_ADDR, OUT_X_AXIS_L);
+ 311:main.c        ****         X_H_G = I2C_read(GYRO_ADDR, OUT_X_AXIS_H);
+ 312:main.c        ****         X_AXIS_G = convert_raw(X_H_G, X_L_G);
+ 313:main.c        ****         
+ 314:main.c        ****         
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 10
 
 
- 275:main.c        ****     uint8 X_L_G, X_H_G, Y_L_G, Y_H_G, Z_L_G, Z_H_G;
- 276:main.c        ****     int16 X_AXIS_G, Y_AXIS_G, Z_AXIS_G;
- 277:main.c        ****     
- 278:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL1_REG, 0x0F);             // set gyroscope into active mode
- 279:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL4_REG, 0x30);             // set full scale selection to 2000dps 
- 280:main.c        ****     
- 281:main.c        ****     for(;;)
- 282:main.c        ****     {
- 283:main.c        ****         //print out gyroscope output
- 284:main.c        ****         X_L_G = I2C_read(GYRO_ADDR, OUT_X_AXIS_L);
- 285:main.c        ****         X_H_G = I2C_read(GYRO_ADDR, OUT_X_AXIS_H);
- 286:main.c        ****         X_AXIS_G = convert_raw(X_H_G, X_L_G);
- 287:main.c        ****         
- 288:main.c        ****         
- 289:main.c        ****         Y_L_G = I2C_read(GYRO_ADDR, OUT_Y_AXIS_L);
- 290:main.c        ****         Y_H_G = I2C_read(GYRO_ADDR, OUT_Y_AXIS_H);
- 291:main.c        ****         Y_AXIS_G = convert_raw(Y_H_G, Y_L_G);
- 292:main.c        ****         
- 293:main.c        ****         
- 294:main.c        ****         Z_L_G = I2C_read(GYRO_ADDR, OUT_Z_AXIS_L);
- 295:main.c        ****         Z_H_G = I2C_read(GYRO_ADDR, OUT_Z_AXIS_H);
- 296:main.c        ****         Z_AXIS_G = convert_raw(Z_H_G, Z_L_G);
- 297:main.c        ****      
- 298:main.c        ****         // If you want to print value
- 299:main.c        ****         printf("%d %d %d \r\n", X_AXIS_G, Y_AXIS_G, Z_AXIS_G);
- 300:main.c        ****         CyDelay(50);
- 301:main.c        ****     }
- 302:main.c        **** }   
- 303:main.c        **** //*/
- 304:main.c        **** 
- 305:main.c        **** 
- 306:main.c        **** /*//magnetometer//
- 307:main.c        **** int main()
- 308:main.c        **** {
- 309:main.c        ****     CyGlobalIntEnable; 
- 310:main.c        ****     UART_1_Start();
- 311:main.c        ****   
- 312:main.c        ****     I2C_Start();
- 313:main.c        ****    
- 314:main.c        ****     uint8 X_L_M, X_H_M, Y_L_M, Y_H_M, Z_L_M, Z_H_M;
- 315:main.c        ****     int16 X_AXIS, Y_AXIS, Z_AXIS;
- 316:main.c        ****     
- 317:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL1_REG, 0x0F);             // set gyroscope into active mode
- 318:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL4_REG, 0x30);             // set full scale selection to 2000dps
- 319:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL1_REG, 0x37);           // set accelerometer & magnetometer
- 320:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL7_REG, 0x22);
- 321:main.c        ****     
- 322:main.c        ****     
- 323:main.c        ****     for(;;)
- 324:main.c        ****     {
- 325:main.c        ****         X_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_X_L_M);
- 326:main.c        ****         X_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_X_H_M);
- 327:main.c        ****         X_AXIS = convert_raw(X_L_M, X_H_M);
- 328:main.c        ****         
- 329:main.c        ****         Y_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_Y_L_M);
- 330:main.c        ****         Y_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_Y_H_M);
- 331:main.c        ****         Y_AXIS = convert_raw(Y_L_M, Y_H_M);
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 8
+ 315:main.c        ****         Y_L_G = I2C_read(GYRO_ADDR, OUT_Y_AXIS_L);
+ 316:main.c        ****         Y_H_G = I2C_read(GYRO_ADDR, OUT_Y_AXIS_H);
+ 317:main.c        ****         Y_AXIS_G = convert_raw(Y_H_G, Y_L_G);
+ 318:main.c        ****         
+ 319:main.c        ****         
+ 320:main.c        ****         Z_L_G = I2C_read(GYRO_ADDR, OUT_Z_AXIS_L);
+ 321:main.c        ****         Z_H_G = I2C_read(GYRO_ADDR, OUT_Z_AXIS_H);
+ 322:main.c        ****         Z_AXIS_G = convert_raw(Z_H_G, Z_L_G);
+ 323:main.c        ****      
+ 324:main.c        ****         // If you want to print value
+ 325:main.c        ****         printf("%d %d %d \r\n", X_AXIS_G, Y_AXIS_G, Z_AXIS_G);
+ 326:main.c        ****         CyDelay(50);
+ 327:main.c        ****     }
+ 328:main.c        **** }   
+ 329:main.c        **** //*/
+ 330:main.c        **** 
+ 331:main.c        **** 
+ 332:main.c        **** /*//magnetometer//
+ 333:main.c        **** int main()
+ 334:main.c        **** {
+ 335:main.c        ****     CyGlobalIntEnable; 
+ 336:main.c        ****     UART_1_Start();
+ 337:main.c        ****   
+ 338:main.c        ****     I2C_Start();
+ 339:main.c        ****    
+ 340:main.c        ****     uint8 X_L_M, X_H_M, Y_L_M, Y_H_M, Z_L_M, Z_H_M;
+ 341:main.c        ****     int16 X_AXIS, Y_AXIS, Z_AXIS;
+ 342:main.c        ****     
+ 343:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL1_REG, 0x0F);             // set gyroscope into active mode
+ 344:main.c        ****     I2C_write(GYRO_ADDR, GYRO_CTRL4_REG, 0x30);             // set full scale selection to 2000dps
+ 345:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL1_REG, 0x37);           // set accelerometer & magnetometer
+ 346:main.c        ****     I2C_write(ACCEL_MAG_ADDR, ACCEL_CTRL7_REG, 0x22);
+ 347:main.c        ****     
+ 348:main.c        ****     
+ 349:main.c        ****     for(;;)
+ 350:main.c        ****     {
+ 351:main.c        ****         X_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_X_L_M);
+ 352:main.c        ****         X_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_X_H_M);
+ 353:main.c        ****         X_AXIS = convert_raw(X_L_M, X_H_M);
+ 354:main.c        ****         
+ 355:main.c        ****         Y_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_Y_L_M);
+ 356:main.c        ****         Y_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_Y_H_M);
+ 357:main.c        ****         Y_AXIS = convert_raw(Y_L_M, Y_H_M);
+ 358:main.c        ****         
+ 359:main.c        ****         Z_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_Z_L_M);
+ 360:main.c        ****         Z_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_Z_H_M);
+ 361:main.c        ****         Z_AXIS = convert_raw(Z_L_M, Z_H_M);
+ 362:main.c        ****         
+ 363:main.c        ****         heading(X_AXIS, Y_AXIS);
+ 364:main.c        ****         printf("MAGNET: %d %d %d %d %d %d \r\n", X_L_M, X_H_M, Y_L_M, Y_H_M, Z_L_M, Z_H_M);
+ 365:main.c        ****         printf("%d %d %d \r\n", X_AXIS,Y_AXIS, Z_AXIS);
+ 366:main.c        ****         CyDelay(50);      
+ 367:main.c        ****     }
+ 368:main.c        **** }   
+ 369:main.c        **** //*/
+ 370:main.c        **** 
+ 371:main.c        **** 
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 11
 
 
- 332:main.c        ****         
- 333:main.c        ****         Z_L_M = I2C_read(ACCEL_MAG_ADDR, OUT_Z_L_M);
- 334:main.c        ****         Z_H_M = I2C_read(ACCEL_MAG_ADDR, OUT_Z_H_M);
- 335:main.c        ****         Z_AXIS = convert_raw(Z_L_M, Z_H_M);
- 336:main.c        ****         
- 337:main.c        ****         heading(X_AXIS, Y_AXIS);
- 338:main.c        ****         printf("MAGNET: %d %d %d %d %d %d \r\n", X_L_M, X_H_M, Y_L_M, Y_H_M, Z_L_M, Z_H_M);
- 339:main.c        ****         printf("%d %d %d \r\n", X_AXIS,Y_AXIS, Z_AXIS);
- 340:main.c        ****         CyDelay(50);      
- 341:main.c        ****     }
- 342:main.c        **** }   
- 343:main.c        **** //*/
- 344:main.c        **** 
- 345:main.c        **** 
- 346:main.c        **** #if 0
- 347:main.c        **** int rread(void)
- 348:main.c        **** {
- 349:main.c        ****     SC0_SetDriveMode(PIN_DM_STRONG);
- 350:main.c        ****     SC0_Write(1);
- 351:main.c        ****     CyDelayUs(10);
- 352:main.c        ****     SC0_SetDriveMode(PIN_DM_DIG_HIZ);
- 353:main.c        ****     Timer_1_Start();
- 354:main.c        ****     uint16_t start = Timer_1_ReadCounter();
- 355:main.c        ****     uint16_t end = 0;
- 356:main.c        ****     while(!(Timer_1_ReadStatusRegister() & Timer_1_STATUS_TC)) {
- 357:main.c        ****         if(SC0_Read() == 0 && end == 0) {
- 358:main.c        ****             end = Timer_1_ReadCounter();
- 359:main.c        ****         }
- 360:main.c        ****     }
- 361:main.c        ****     Timer_1_Stop();
- 362:main.c        ****     
- 363:main.c        ****     return (start - end);
- 364:main.c        **** }
- 365:main.c        **** #endif
- 366:main.c        **** 
- 367:main.c        **** /* Don't remove the functions below */
- 368:main.c        **** int _write(int file, char *ptr, int len)
- 369:main.c        **** {
-  69              		.loc 1 369 0
-  70              		.cfi_startproc
-  71              		@ args = 0, pretend = 0, frame = 0
-  72              		@ frame_needed = 0, uses_anonymous_args = 0
-  73              	.LVL4:
-  74 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
-  75              		.cfi_def_cfa_offset 24
-  76              		.cfi_offset 3, -24
-  77              		.cfi_offset 4, -20
-  78              		.cfi_offset 5, -16
-  79              		.cfi_offset 6, -12
-  80              		.cfi_offset 7, -8
-  81              		.cfi_offset 14, -4
-  82 0002 0C46     		mov	r4, r1
-  83 0004 1746     		mov	r7, r2
-  84              	.LVL5:
- 370:main.c        ****     (void)file; /* Parameter is not used, suppress unused argument warning */
- 371:main.c        **** 	int n;
- 372:main.c        **** 	for(n = 0; n < len; n++) {
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 9
+ 372:main.c        **** #if 0
+ 373:main.c        **** int rread(void)
+ 374:main.c        **** {
+ 375:main.c        ****     SC0_SetDriveMode(PIN_DM_STRONG);
+ 376:main.c        ****     SC0_Write(1);
+ 377:main.c        ****     CyDelayUs(10);
+ 378:main.c        ****     SC0_SetDriveMode(PIN_DM_DIG_HIZ);
+ 379:main.c        ****     Timer_1_Start();
+ 380:main.c        ****     uint16_t start = Timer_1_ReadCounter();
+ 381:main.c        ****     uint16_t end = 0;
+ 382:main.c        ****     while(!(Timer_1_ReadStatusRegister() & Timer_1_STATUS_TC)) {
+ 383:main.c        ****         if(SC0_Read() == 0 && end == 0) {
+ 384:main.c        ****             end = Timer_1_ReadCounter();
+ 385:main.c        ****         }
+ 386:main.c        ****     }
+ 387:main.c        ****     Timer_1_Stop();
+ 388:main.c        ****     
+ 389:main.c        ****     return (start - end);
+ 390:main.c        **** }
+ 391:main.c        **** #endif
+ 392:main.c        **** 
+ 393:main.c        **** /* Don't remove the functions below */
+ 394:main.c        **** int _write(int file, char *ptr, int len)
+ 395:main.c        **** {
+ 199              		.loc 1 395 0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 0, uses_anonymous_args = 0
+ 203              	.LVL30:
+ 204 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 205              		.cfi_def_cfa_offset 24
+ 206              		.cfi_offset 3, -24
+ 207              		.cfi_offset 4, -20
+ 208              		.cfi_offset 5, -16
+ 209              		.cfi_offset 6, -12
+ 210              		.cfi_offset 7, -8
+ 211              		.cfi_offset 14, -4
+ 212 0002 0C46     		mov	r4, r1
+ 213 0004 1746     		mov	r7, r2
+ 214              	.LVL31:
+ 396:main.c        ****     (void)file; /* Parameter is not used, suppress unused argument warning */
+ 397:main.c        **** 	int n;
+ 398:main.c        **** 	for(n = 0; n < len; n++) {
+ 215              		.loc 1 398 0
+ 216 0006 0025     		movs	r5, #0
+ 217 0008 0BE0     		b	.L13
+ 218              	.LVL32:
+ 219              	.L15:
+ 399:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
+ 220              		.loc 1 399 0
+ 221 000a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
+ 222 000c 0A2B     		cmp	r3, #10
+ 223 000e 02D1     		bne	.L14
+ 224              		.loc 1 399 0 is_stmt 0 discriminator 1
+ 225 0010 0D20     		movs	r0, #13
+ 226 0012 FFF7FEFF 		bl	UART_1_PutChar
+ 227              	.LVL33:
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 12
 
 
-  85              		.loc 1 372 0
-  86 0006 0025     		movs	r5, #0
-  87 0008 0BE0     		b	.L5
-  88              	.LVL6:
-  89              	.L7:
- 373:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
-  90              		.loc 1 373 0
-  91 000a 2378     		ldrb	r3, [r4]	@ zero_extendqisi2
-  92 000c 0A2B     		cmp	r3, #10
-  93 000e 02D1     		bne	.L6
-  94              		.loc 1 373 0 is_stmt 0 discriminator 1
-  95 0010 0D20     		movs	r0, #13
-  96 0012 FFF7FEFF 		bl	UART_1_PutChar
-  97              	.LVL7:
-  98              	.L6:
- 374:main.c        **** 		UART_1_PutChar(*ptr++);
-  99              		.loc 1 374 0 is_stmt 1 discriminator 2
- 100 0016 661C     		adds	r6, r4, #1
- 101              	.LVL8:
- 102 0018 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
- 103 001a FFF7FEFF 		bl	UART_1_PutChar
- 104              	.LVL9:
- 372:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
- 105              		.loc 1 372 0 discriminator 2
- 106 001e 0135     		adds	r5, r5, #1
- 107              	.LVL10:
- 108              		.loc 1 374 0 discriminator 2
- 109 0020 3446     		mov	r4, r6
- 110              	.LVL11:
- 111              	.L5:
- 372:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
- 112              		.loc 1 372 0 discriminator 1
- 113 0022 BD42     		cmp	r5, r7
- 114 0024 F1DB     		blt	.L7
- 375:main.c        **** 	}
- 376:main.c        **** 	return len;
- 377:main.c        **** }
- 115              		.loc 1 377 0
- 116 0026 3846     		mov	r0, r7
- 117 0028 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 118              		.cfi_endproc
- 119              	.LFE64:
- 120              		.size	_write, .-_write
- 121 002a 00BF     		.section	.text._read,"ax",%progbits
- 122              		.align	2
- 123              		.global	_read
- 124              		.thumb
- 125              		.thumb_func
- 126              		.type	_read, %function
- 127              	_read:
- 128              	.LFB65:
- 378:main.c        **** 
- 379:main.c        **** int _read (int file, char *ptr, int count)
- 380:main.c        **** {
- 129              		.loc 1 380 0
- 130              		.cfi_startproc
- 131              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 10
+ 228              	.L14:
+ 400:main.c        **** 		UART_1_PutChar(*ptr++);
+ 229              		.loc 1 400 0 is_stmt 1 discriminator 2
+ 230 0016 661C     		adds	r6, r4, #1
+ 231              	.LVL34:
+ 232 0018 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 233 001a FFF7FEFF 		bl	UART_1_PutChar
+ 234              	.LVL35:
+ 398:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
+ 235              		.loc 1 398 0 discriminator 2
+ 236 001e 0135     		adds	r5, r5, #1
+ 237              	.LVL36:
+ 238              		.loc 1 400 0 discriminator 2
+ 239 0020 3446     		mov	r4, r6
+ 240              	.LVL37:
+ 241              	.L13:
+ 398:main.c        ****         if(*ptr == '\n') UART_1_PutChar('\r');
+ 242              		.loc 1 398 0 discriminator 1
+ 243 0022 BD42     		cmp	r5, r7
+ 244 0024 F1DB     		blt	.L15
+ 401:main.c        **** 	}
+ 402:main.c        **** 	return len;
+ 403:main.c        **** }
+ 245              		.loc 1 403 0
+ 246 0026 3846     		mov	r0, r7
+ 247 0028 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 248              		.cfi_endproc
+ 249              	.LFE64:
+ 250              		.size	_write, .-_write
+ 251 002a 00BF     		.section	.text._read,"ax",%progbits
+ 252              		.align	2
+ 253              		.global	_read
+ 254              		.thumb
+ 255              		.thumb_func
+ 256              		.type	_read, %function
+ 257              	_read:
+ 258              	.LFB65:
+ 404:main.c        **** 
+ 405:main.c        **** int _read (int file, char *ptr, int count)
+ 406:main.c        **** {
+ 259              		.loc 1 406 0
+ 260              		.cfi_startproc
+ 261              		@ args = 0, pretend = 0, frame = 0
+ 262              		@ frame_needed = 0, uses_anonymous_args = 0
+ 263              	.LVL38:
+ 264 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 265              		.cfi_def_cfa_offset 24
+ 266              		.cfi_offset 3, -24
+ 267              		.cfi_offset 4, -20
+ 268              		.cfi_offset 5, -16
+ 269              		.cfi_offset 6, -12
+ 270              		.cfi_offset 7, -8
+ 271              		.cfi_offset 14, -4
+ 272 0002 0F46     		mov	r7, r1
+ 273 0004 1446     		mov	r4, r2
+ 274              	.LVL39:
+ 407:main.c        ****     int chs = 0;
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 13
 
 
- 132              		@ frame_needed = 0, uses_anonymous_args = 0
- 133              	.LVL12:
- 134 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
- 135              		.cfi_def_cfa_offset 24
- 136              		.cfi_offset 3, -24
- 137              		.cfi_offset 4, -20
- 138              		.cfi_offset 5, -16
- 139              		.cfi_offset 6, -12
- 140              		.cfi_offset 7, -8
- 141              		.cfi_offset 14, -4
- 142 0002 0F46     		mov	r7, r1
- 143 0004 1446     		mov	r4, r2
- 144              	.LVL13:
- 381:main.c        ****     int chs = 0;
- 145              		.loc 1 381 0
- 146 0006 0026     		movs	r6, #0
- 382:main.c        ****     char ch;
- 383:main.c        ****  
- 384:main.c        ****     (void)file; /* Parameter is not used, suppress unused argument warning */
- 385:main.c        ****     while(count > 0) {
- 147              		.loc 1 385 0
- 148 0008 12E0     		b	.L11
- 149              	.LVL14:
- 150              	.L14:
- 386:main.c        ****         ch = UART_1_GetChar();
- 151              		.loc 1 386 0
- 152 000a FFF7FEFF 		bl	UART_1_GetChar
- 153              	.LVL15:
- 387:main.c        ****         if(ch != 0) {
- 154              		.loc 1 387 0
- 155 000e 0546     		mov	r5, r0
- 156 0010 70B1     		cbz	r0, .L11
- 388:main.c        ****             UART_1_PutChar(ch);
- 157              		.loc 1 388 0
- 158 0012 FFF7FEFF 		bl	UART_1_PutChar
- 159              	.LVL16:
- 389:main.c        ****             chs++;
- 160              		.loc 1 389 0
- 161 0016 0136     		adds	r6, r6, #1
- 162              	.LVL17:
- 390:main.c        ****             if(ch == '\r') {
- 163              		.loc 1 390 0
- 164 0018 0D2D     		cmp	r5, #13
- 165 001a 03D1     		bne	.L12
- 166              	.LVL18:
- 391:main.c        ****                 ch = '\n';
- 392:main.c        ****                 UART_1_PutChar(ch);
- 167              		.loc 1 392 0
- 168 001c 0A20     		movs	r0, #10
- 169 001e FFF7FEFF 		bl	UART_1_PutChar
- 170              	.LVL19:
- 391:main.c        ****                 ch = '\n';
- 171              		.loc 1 391 0
- 172 0022 0A25     		movs	r5, #10
- 173              	.LVL20:
- 174              	.L12:
- 393:main.c        ****             }
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 11
+ 275              		.loc 1 407 0
+ 276 0006 0026     		movs	r6, #0
+ 408:main.c        ****     char ch;
+ 409:main.c        ****  
+ 410:main.c        ****     (void)file; /* Parameter is not used, suppress unused argument warning */
+ 411:main.c        ****     while(count > 0) {
+ 277              		.loc 1 411 0
+ 278 0008 12E0     		b	.L19
+ 279              	.LVL40:
+ 280              	.L22:
+ 412:main.c        ****         ch = UART_1_GetChar();
+ 281              		.loc 1 412 0
+ 282 000a FFF7FEFF 		bl	UART_1_GetChar
+ 283              	.LVL41:
+ 413:main.c        ****         if(ch != 0) {
+ 284              		.loc 1 413 0
+ 285 000e 0546     		mov	r5, r0
+ 286 0010 70B1     		cbz	r0, .L19
+ 414:main.c        ****             UART_1_PutChar(ch);
+ 287              		.loc 1 414 0
+ 288 0012 FFF7FEFF 		bl	UART_1_PutChar
+ 289              	.LVL42:
+ 415:main.c        ****             chs++;
+ 290              		.loc 1 415 0
+ 291 0016 0136     		adds	r6, r6, #1
+ 292              	.LVL43:
+ 416:main.c        ****             if(ch == '\r') {
+ 293              		.loc 1 416 0
+ 294 0018 0D2D     		cmp	r5, #13
+ 295 001a 03D1     		bne	.L20
+ 296              	.LVL44:
+ 417:main.c        ****                 ch = '\n';
+ 418:main.c        ****                 UART_1_PutChar(ch);
+ 297              		.loc 1 418 0
+ 298 001c 0A20     		movs	r0, #10
+ 299 001e FFF7FEFF 		bl	UART_1_PutChar
+ 300              	.LVL45:
+ 417:main.c        ****                 ch = '\n';
+ 301              		.loc 1 417 0
+ 302 0022 0A25     		movs	r5, #10
+ 303              	.LVL46:
+ 304              	.L20:
+ 419:main.c        ****             }
+ 420:main.c        ****             *ptr++ = ch;
+ 305              		.loc 1 420 0
+ 306 0024 7B1C     		adds	r3, r7, #1
+ 307              	.LVL47:
+ 308 0026 3D70     		strb	r5, [r7]
+ 421:main.c        ****             count--;
+ 309              		.loc 1 421 0
+ 310 0028 013C     		subs	r4, r4, #1
+ 311              	.LVL48:
+ 422:main.c        ****             if(ch == '\n') break;
+ 312              		.loc 1 422 0
+ 313 002a 0A2D     		cmp	r5, #10
+ 314 002c 02D0     		beq	.L21
+ 420:main.c        ****             count--;
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 14
 
 
- 394:main.c        ****             *ptr++ = ch;
- 175              		.loc 1 394 0
- 176 0024 7B1C     		adds	r3, r7, #1
- 177              	.LVL21:
- 178 0026 3D70     		strb	r5, [r7]
- 395:main.c        ****             count--;
- 179              		.loc 1 395 0
- 180 0028 013C     		subs	r4, r4, #1
- 181              	.LVL22:
- 396:main.c        ****             if(ch == '\n') break;
- 182              		.loc 1 396 0
- 183 002a 0A2D     		cmp	r5, #10
- 184 002c 02D0     		beq	.L13
- 394:main.c        ****             count--;
- 185              		.loc 1 394 0
- 186 002e 1F46     		mov	r7, r3
- 187              	.LVL23:
- 188              	.L11:
- 385:main.c        ****         ch = UART_1_GetChar();
- 189              		.loc 1 385 0
- 190 0030 002C     		cmp	r4, #0
- 191 0032 EADC     		bgt	.L14
- 192              	.LVL24:
- 193              	.L13:
- 397:main.c        ****         }
- 398:main.c        ****     }
- 399:main.c        ****     return chs;
- 400:main.c        **** }
- 194              		.loc 1 400 0
- 195 0034 3046     		mov	r0, r6
- 196 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 197              		.cfi_endproc
- 198              	.LFE65:
- 199              		.size	_read, .-_read
- 200              		.text
- 201              	.Letext0:
- 202              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
- 203              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
- 204              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
- 205              		.file 5 ".\\ZumoLibrary/Motor.h"
- 206              		.file 6 "Generated_Source\\PSoC5/UART_1.h"
- 207              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
- 208              		.section	.debug_info,"",%progbits
- 209              	.Ldebug_info0:
- 210 0000 7E020000 		.4byte	0x27e
- 211 0004 0400     		.2byte	0x4
- 212 0006 00000000 		.4byte	.Ldebug_abbrev0
- 213 000a 04       		.byte	0x4
- 214 000b 01       		.uleb128 0x1
- 215 000c 94000000 		.4byte	.LASF26
- 216 0010 01       		.byte	0x1
- 217 0011 80010000 		.4byte	.LASF27
- 218 0015 A9010000 		.4byte	.LASF28
- 219 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 220 001d 00000000 		.4byte	0
- 221 0021 00000000 		.4byte	.Ldebug_line0
- 222 0025 02       		.uleb128 0x2
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 12
+ 315              		.loc 1 420 0
+ 316 002e 1F46     		mov	r7, r3
+ 317              	.LVL49:
+ 318              	.L19:
+ 411:main.c        ****         ch = UART_1_GetChar();
+ 319              		.loc 1 411 0
+ 320 0030 002C     		cmp	r4, #0
+ 321 0032 EADC     		bgt	.L22
+ 322              	.LVL50:
+ 323              	.L21:
+ 423:main.c        ****         }
+ 424:main.c        ****     }
+ 425:main.c        ****     return chs;
+ 426:main.c        **** }
+ 324              		.loc 1 426 0
+ 325 0034 3046     		mov	r0, r6
+ 326 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 327              		.cfi_endproc
+ 328              	.LFE65:
+ 329              		.size	_read, .-_read
+ 330              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 331              		.align	2
+ 332              	.LC0:
+ 333 0000 0A426F6F 		.ascii	"\012Boot\000"
+ 333      7400
+ 334 0006 0000     		.space	2
+ 335              	.LC1:
+ 336 0008 25642025 		.ascii	"%d %f\015\012\000"
+ 336      660D0A00 
+ 337              		.text
+ 338              	.Letext0:
+ 339              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 340              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 341              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 342              		.file 5 "Generated_Source\\PSoC5/UART_1.h"
+ 343              		.file 6 "Generated_Source\\PSoC5/ADC_Battery.h"
+ 344              		.file 7 "Generated_Source\\PSoC5/BatteryLed.h"
+ 345              		.file 8 ".\\ZumoLibrary/Motor.h"
+ 346              		.file 9 "Generated_Source\\PSoC5/SW1.h"
+ 347              		.file 10 "Generated_Source\\PSoC5/CyLib.h"
+ 348              		.file 11 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9
+ 349              		.file 12 "Generated_Source\\PSoC5/core_cm3.h"
+ 350              		.file 13 "<built-in>"
+ 351              		.section	.debug_info,"",%progbits
+ 352              	.Ldebug_info0:
+ 353 0000 45050000 		.4byte	0x545
+ 354 0004 0400     		.2byte	0x4
+ 355 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 356 000a 04       		.byte	0x4
+ 357 000b 01       		.uleb128 0x1
+ 358 000c DA000000 		.4byte	.LASF42
+ 359 0010 01       		.byte	0x1
+ 360 0011 46020000 		.4byte	.LASF43
+ 361 0015 7B000000 		.4byte	.LASF44
+ 362 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 363 001d 00000000 		.4byte	0
+ 364 0021 00000000 		.4byte	.Ldebug_line0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 15
 
 
- 223 0026 01       		.byte	0x1
- 224 0027 06       		.byte	0x6
- 225 0028 FC010000 		.4byte	.LASF0
- 226 002c 02       		.uleb128 0x2
- 227 002d 01       		.byte	0x1
- 228 002e 08       		.byte	0x8
- 229 002f 3B000000 		.4byte	.LASF1
- 230 0033 02       		.uleb128 0x2
- 231 0034 02       		.byte	0x2
- 232 0035 05       		.byte	0x5
- 233 0036 99010000 		.4byte	.LASF2
- 234 003a 02       		.uleb128 0x2
- 235 003b 02       		.byte	0x2
- 236 003c 07       		.byte	0x7
- 237 003d 17000000 		.4byte	.LASF3
- 238 0041 03       		.uleb128 0x3
- 239 0042 0D000000 		.4byte	.LASF9
- 240 0046 02       		.byte	0x2
- 241 0047 3F       		.byte	0x3f
- 242 0048 4C000000 		.4byte	0x4c
- 243 004c 02       		.uleb128 0x2
- 244 004d 04       		.byte	0x4
- 245 004e 05       		.byte	0x5
- 246 004f E7010000 		.4byte	.LASF4
- 247 0053 02       		.uleb128 0x2
- 248 0054 04       		.byte	0x4
- 249 0055 07       		.byte	0x7
- 250 0056 49000000 		.4byte	.LASF5
- 251 005a 02       		.uleb128 0x2
- 252 005b 08       		.byte	0x8
- 253 005c 05       		.byte	0x5
- 254 005d 72010000 		.4byte	.LASF6
- 255 0061 02       		.uleb128 0x2
- 256 0062 08       		.byte	0x8
- 257 0063 07       		.byte	0x7
- 258 0064 3E010000 		.4byte	.LASF7
- 259 0068 04       		.uleb128 0x4
- 260 0069 04       		.byte	0x4
- 261 006a 05       		.byte	0x5
- 262 006b 696E7400 		.ascii	"int\000"
- 263 006f 02       		.uleb128 0x2
- 264 0070 04       		.byte	0x4
- 265 0071 07       		.byte	0x7
- 266 0072 31010000 		.4byte	.LASF8
- 267 0076 03       		.uleb128 0x3
- 268 0077 61010000 		.4byte	.LASF10
- 269 007b 03       		.byte	0x3
- 270 007c 2C       		.byte	0x2c
- 271 007d 41000000 		.4byte	0x41
- 272 0081 05       		.uleb128 0x5
- 273 0082 A3010000 		.4byte	.LASF11
- 274 0086 04       		.byte	0x4
- 275 0087 9201     		.2byte	0x192
- 276 0089 2C000000 		.4byte	0x2c
- 277 008d 05       		.uleb128 0x5
- 278 008e 8D000000 		.4byte	.LASF12
- 279 0092 04       		.byte	0x4
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 13
+ 365 0025 02       		.uleb128 0x2
+ 366 0026 01       		.byte	0x1
+ 367 0027 06       		.byte	0x6
+ 368 0028 5C020000 		.4byte	.LASF0
+ 369 002c 02       		.uleb128 0x2
+ 370 002d 01       		.byte	0x1
+ 371 002e 08       		.byte	0x8
+ 372 002f 55000000 		.4byte	.LASF1
+ 373 0033 02       		.uleb128 0x2
+ 374 0034 02       		.byte	0x2
+ 375 0035 05       		.byte	0x5
+ 376 0036 75020000 		.4byte	.LASF2
+ 377 003a 02       		.uleb128 0x2
+ 378 003b 02       		.byte	0x2
+ 379 003c 07       		.byte	0x7
+ 380 003d 29000000 		.4byte	.LASF3
+ 381 0041 03       		.uleb128 0x3
+ 382 0042 0D000000 		.4byte	.LASF9
+ 383 0046 02       		.byte	0x2
+ 384 0047 3F       		.byte	0x3f
+ 385 0048 4C000000 		.4byte	0x4c
+ 386 004c 02       		.uleb128 0x2
+ 387 004d 04       		.byte	0x4
+ 388 004e 05       		.byte	0x5
+ 389 004f 8E020000 		.4byte	.LASF4
+ 390 0053 02       		.uleb128 0x2
+ 391 0054 04       		.byte	0x4
+ 392 0055 07       		.byte	0x7
+ 393 0056 69000000 		.4byte	.LASF5
+ 394 005a 02       		.uleb128 0x2
+ 395 005b 08       		.byte	0x8
+ 396 005c 05       		.byte	0x5
+ 397 005d 27020000 		.4byte	.LASF6
+ 398 0061 02       		.uleb128 0x2
+ 399 0062 08       		.byte	0x8
+ 400 0063 07       		.byte	0x7
+ 401 0064 9C010000 		.4byte	.LASF7
+ 402 0068 04       		.uleb128 0x4
+ 403 0069 04       		.byte	0x4
+ 404 006a 05       		.byte	0x5
+ 405 006b 696E7400 		.ascii	"int\000"
+ 406 006f 02       		.uleb128 0x2
+ 407 0070 04       		.byte	0x4
+ 408 0071 07       		.byte	0x7
+ 409 0072 77010000 		.4byte	.LASF8
+ 410 0076 03       		.uleb128 0x3
+ 411 0077 3C000000 		.4byte	.LASF10
+ 412 007b 03       		.byte	0x3
+ 413 007c 2C       		.byte	0x2c
+ 414 007d 41000000 		.4byte	0x41
+ 415 0081 05       		.uleb128 0x5
+ 416 0082 7F020000 		.4byte	.LASF11
+ 417 0086 04       		.byte	0x4
+ 418 0087 9201     		.2byte	0x192
+ 419 0089 2C000000 		.4byte	0x2c
+ 420 008d 05       		.uleb128 0x5
+ 421 008e D3000000 		.4byte	.LASF12
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 16
 
 
- 280 0093 9401     		.2byte	0x194
- 281 0095 53000000 		.4byte	0x53
- 282 0099 02       		.uleb128 0x2
- 283 009a 04       		.byte	0x4
- 284 009b 04       		.byte	0x4
- 285 009c 30000000 		.4byte	.LASF13
- 286 00a0 02       		.uleb128 0x2
- 287 00a1 08       		.byte	0x8
- 288 00a2 04       		.byte	0x4
- 289 00a3 76000000 		.4byte	.LASF14
- 290 00a7 02       		.uleb128 0x2
- 291 00a8 01       		.byte	0x1
- 292 00a9 08       		.byte	0x8
- 293 00aa 87010000 		.4byte	.LASF15
- 294 00ae 02       		.uleb128 0x2
- 295 00af 04       		.byte	0x4
- 296 00b0 07       		.byte	0x7
- 297 00b1 69010000 		.4byte	.LASF16
- 298 00b5 06       		.uleb128 0x6
- 299 00b6 04       		.byte	0x4
- 300 00b7 A7000000 		.4byte	0xa7
- 301 00bb 02       		.uleb128 0x2
- 302 00bc 08       		.byte	0x8
- 303 00bd 04       		.byte	0x4
- 304 00be F0010000 		.4byte	.LASF17
- 305 00c2 07       		.uleb128 0x7
- 306 00c3 88000000 		.4byte	.LASF29
- 307 00c7 01       		.byte	0x1
- 308 00c8 F5       		.byte	0xf5
- 309 00c9 68000000 		.4byte	0x68
- 310 00cd 00000000 		.4byte	.LFB63
- 311 00d1 1C000000 		.4byte	.LFE63-.LFB63
- 312 00d5 01       		.uleb128 0x1
- 313 00d6 9C       		.byte	0x9c
- 314 00d7 12010000 		.4byte	0x112
- 315 00db 08       		.uleb128 0x8
- 316 00dc 08000000 		.4byte	.LVL0
- 317 00e0 2E020000 		.4byte	0x22e
- 318 00e4 08       		.uleb128 0x8
- 319 00e5 0C000000 		.4byte	.LVL1
- 320 00e9 35020000 		.4byte	0x235
- 321 00ed 09       		.uleb128 0x9
- 322 00ee 16000000 		.4byte	.LVL2
- 323 00f2 42020000 		.4byte	0x242
- 324 00f6 08010000 		.4byte	0x108
- 325 00fa 0A       		.uleb128 0xa
- 326 00fb 01       		.uleb128 0x1
- 327 00fc 51       		.byte	0x51
- 328 00fd 03       		.uleb128 0x3
- 329 00fe 0A       		.byte	0xa
- 330 00ff 8813     		.2byte	0x1388
- 331 0101 0A       		.uleb128 0xa
- 332 0102 01       		.uleb128 0x1
- 333 0103 50       		.byte	0x50
- 334 0104 02       		.uleb128 0x2
- 335 0105 08       		.byte	0x8
- 336 0106 64       		.byte	0x64
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 14
+ 422 0092 04       		.byte	0x4
+ 423 0093 9401     		.2byte	0x194
+ 424 0095 53000000 		.4byte	0x53
+ 425 0099 05       		.uleb128 0x5
+ 426 009a 63000000 		.4byte	.LASF13
+ 427 009e 04       		.byte	0x4
+ 428 009f 9601     		.2byte	0x196
+ 429 00a1 33000000 		.4byte	0x33
+ 430 00a5 05       		.uleb128 0x5
+ 431 00a6 CB000000 		.4byte	.LASF14
+ 432 00aa 04       		.byte	0x4
+ 433 00ab 9801     		.2byte	0x198
+ 434 00ad B1000000 		.4byte	0xb1
+ 435 00b1 02       		.uleb128 0x2
+ 436 00b2 04       		.byte	0x4
+ 437 00b3 04       		.byte	0x4
+ 438 00b4 4A000000 		.4byte	.LASF15
+ 439 00b8 02       		.uleb128 0x2
+ 440 00b9 08       		.byte	0x8
+ 441 00ba 04       		.byte	0x4
+ 442 00bb B4000000 		.4byte	.LASF16
+ 443 00bf 02       		.uleb128 0x2
+ 444 00c0 01       		.byte	0x1
+ 445 00c1 08       		.byte	0x8
+ 446 00c2 4D020000 		.4byte	.LASF17
+ 447 00c6 02       		.uleb128 0x2
+ 448 00c7 04       		.byte	0x4
+ 449 00c8 07       		.byte	0x7
+ 450 00c9 1E020000 		.4byte	.LASF18
+ 451 00cd 06       		.uleb128 0x6
+ 452 00ce 04       		.byte	0x4
+ 453 00cf BF000000 		.4byte	0xbf
+ 454 00d3 06       		.uleb128 0x6
+ 455 00d4 04       		.byte	0x4
+ 456 00d5 D9000000 		.4byte	0xd9
+ 457 00d9 07       		.uleb128 0x7
+ 458 00da BF000000 		.4byte	0xbf
+ 459 00de 02       		.uleb128 0x2
+ 460 00df 08       		.byte	0x8
+ 461 00e0 04       		.byte	0x4
+ 462 00e1 0B020000 		.4byte	.LASF19
+ 463 00e5 08       		.uleb128 0x8
+ 464 00e6 C6000000 		.4byte	.LASF45
+ 465 00ea 01       		.byte	0x1
+ 466 00eb 37       		.byte	0x37
+ 467 00ec 68000000 		.4byte	0x68
+ 468 00f0 00000000 		.4byte	.LFB63
+ 469 00f4 F0000000 		.4byte	.LFE63-.LFB63
+ 470 00f8 01       		.uleb128 0x1
+ 471 00f9 9C       		.byte	0x9c
+ 472 00fa 35030000 		.4byte	0x335
+ 473 00fe 09       		.uleb128 0x9
+ 474 00ff 52020000 		.4byte	.LASF20
+ 475 0103 01       		.byte	0x1
+ 476 0104 3C       		.byte	0x3c
+ 477 0105 99000000 		.4byte	0x99
+ 478 0109 00000000 		.4byte	.LLST0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 17
 
 
- 337 0107 00       		.byte	0
- 338 0108 08       		.uleb128 0x8
- 339 0109 1A000000 		.4byte	.LVL3
- 340 010d 58020000 		.4byte	0x258
- 341 0111 00       		.byte	0
- 342 0112 0B       		.uleb128 0xb
- 343 0113 8C010000 		.4byte	.LASF19
- 344 0117 01       		.byte	0x1
- 345 0118 7001     		.2byte	0x170
- 346 011a 68000000 		.4byte	0x68
- 347 011e 00000000 		.4byte	.LFB64
- 348 0122 2A000000 		.4byte	.LFE64-.LFB64
- 349 0126 01       		.uleb128 0x1
- 350 0127 9C       		.byte	0x9c
- 351 0128 87010000 		.4byte	0x187
- 352 012c 0C       		.uleb128 0xc
- 353 012d 36000000 		.4byte	.LASF18
- 354 0131 01       		.byte	0x1
- 355 0132 7001     		.2byte	0x170
- 356 0134 68000000 		.4byte	0x68
- 357 0138 00000000 		.4byte	.LLST0
- 358 013c 0D       		.uleb128 0xd
- 359 013d 70747200 		.ascii	"ptr\000"
- 360 0141 01       		.byte	0x1
- 361 0142 7001     		.2byte	0x170
- 362 0144 B5000000 		.4byte	0xb5
- 363 0148 21000000 		.4byte	.LLST1
- 364 014c 0D       		.uleb128 0xd
- 365 014d 6C656E00 		.ascii	"len\000"
- 366 0151 01       		.byte	0x1
- 367 0152 7001     		.2byte	0x170
- 368 0154 68000000 		.4byte	0x68
- 369 0158 55000000 		.4byte	.LLST2
- 370 015c 0E       		.uleb128 0xe
- 371 015d 6E00     		.ascii	"n\000"
- 372 015f 01       		.byte	0x1
- 373 0160 7301     		.2byte	0x173
- 374 0162 68000000 		.4byte	0x68
- 375 0166 73000000 		.4byte	.LLST3
- 376 016a 09       		.uleb128 0x9
- 377 016b 16000000 		.4byte	.LVL7
- 378 016f 65020000 		.4byte	0x265
- 379 0173 7D010000 		.4byte	0x17d
- 380 0177 0A       		.uleb128 0xa
- 381 0178 01       		.uleb128 0x1
- 382 0179 50       		.byte	0x50
- 383 017a 01       		.uleb128 0x1
- 384 017b 3D       		.byte	0x3d
- 385 017c 00       		.byte	0
- 386 017d 08       		.uleb128 0x8
- 387 017e 1E000000 		.4byte	.LVL9
- 388 0182 65020000 		.4byte	0x265
- 389 0186 00       		.byte	0
- 390 0187 0B       		.uleb128 0xb
- 391 0188 2A000000 		.4byte	.LASF20
- 392 018c 01       		.byte	0x1
- 393 018d 7B01     		.2byte	0x17b
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 15
+ 479 010d 09       		.uleb128 0x9
+ 480 010e 05020000 		.4byte	.LASF21
+ 481 0112 01       		.byte	0x1
+ 482 0113 3D       		.byte	0x3d
+ 483 0114 B1000000 		.4byte	0xb1
+ 484 0118 1F000000 		.4byte	.LLST1
+ 485 011c 09       		.uleb128 0x9
+ 486 011d 97020000 		.4byte	.LASF22
+ 487 0121 01       		.byte	0x1
+ 488 0122 43       		.byte	0x43
+ 489 0123 81000000 		.4byte	0x81
+ 490 0127 4D000000 		.4byte	.LLST2
+ 491 012b 0A       		.uleb128 0xa
+ 492 012c 08000000 		.4byte	.LVL0
+ 493 0130 51040000 		.4byte	0x451
+ 494 0134 0A       		.uleb128 0xa
+ 495 0135 0C000000 		.4byte	.LVL1
+ 496 0139 58040000 		.4byte	0x458
+ 497 013d 0B       		.uleb128 0xb
+ 498 013e 12000000 		.4byte	.LVL2
+ 499 0142 5F040000 		.4byte	0x45f
+ 500 0146 54010000 		.4byte	0x154
+ 501 014a 0C       		.uleb128 0xc
+ 502 014b 01       		.uleb128 0x1
+ 503 014c 50       		.byte	0x50
+ 504 014d 05       		.uleb128 0x5
+ 505 014e 03       		.byte	0x3
+ 506 014f 00000000 		.4byte	.LC0
+ 507 0153 00       		.byte	0
+ 508 0154 0B       		.uleb128 0xb
+ 509 0155 18000000 		.4byte	.LVL3
+ 510 0159 78040000 		.4byte	0x478
+ 511 015d 67010000 		.4byte	0x167
+ 512 0161 0C       		.uleb128 0xc
+ 513 0162 01       		.uleb128 0x1
+ 514 0163 50       		.byte	0x50
+ 515 0164 01       		.uleb128 0x1
+ 516 0165 30       		.byte	0x30
+ 517 0166 00       		.byte	0
+ 518 0167 0A       		.uleb128 0xa
+ 519 0168 1C000000 		.4byte	.LVL4
+ 520 016c 89040000 		.4byte	0x489
+ 521 0170 0A       		.uleb128 0xa
+ 522 0171 22000000 		.4byte	.LVL5
+ 523 0175 89040000 		.4byte	0x489
+ 524 0179 0A       		.uleb128 0xa
+ 525 017a 2A000000 		.4byte	.LVL6
+ 526 017e 94040000 		.4byte	0x494
+ 527 0182 0B       		.uleb128 0xb
+ 528 0183 36000000 		.4byte	.LVL7
+ 529 0187 A1040000 		.4byte	0x4a1
+ 530 018b A3010000 		.4byte	0x1a3
+ 531 018f 0C       		.uleb128 0xc
+ 532 0190 01       		.uleb128 0x1
+ 533 0191 52       		.byte	0x52
+ 534 0192 03       		.uleb128 0x3
+ 535 0193 0A       		.byte	0xa
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 18
 
 
- 394 018f 68000000 		.4byte	0x68
- 395 0193 00000000 		.4byte	.LFB65
- 396 0197 38000000 		.4byte	.LFE65-.LFB65
- 397 019b 01       		.uleb128 0x1
- 398 019c 9C       		.byte	0x9c
- 399 019d 1D020000 		.4byte	0x21d
- 400 01a1 0C       		.uleb128 0xc
- 401 01a2 36000000 		.4byte	.LASF18
- 402 01a6 01       		.byte	0x1
- 403 01a7 7B01     		.2byte	0x17b
- 404 01a9 68000000 		.4byte	0x68
- 405 01ad 92000000 		.4byte	.LLST4
- 406 01b1 0D       		.uleb128 0xd
- 407 01b2 70747200 		.ascii	"ptr\000"
- 408 01b6 01       		.byte	0x1
- 409 01b7 7B01     		.2byte	0x17b
- 410 01b9 B5000000 		.4byte	0xb5
- 411 01bd B3000000 		.4byte	.LLST5
- 412 01c1 0C       		.uleb128 0xc
- 413 01c2 93010000 		.4byte	.LASF21
- 414 01c6 01       		.byte	0x1
- 415 01c7 7B01     		.2byte	0x17b
- 416 01c9 68000000 		.4byte	0x68
- 417 01cd E7000000 		.4byte	.LLST6
- 418 01d1 0E       		.uleb128 0xe
- 419 01d2 63687300 		.ascii	"chs\000"
- 420 01d6 01       		.byte	0x1
- 421 01d7 7D01     		.2byte	0x17d
- 422 01d9 68000000 		.4byte	0x68
- 423 01dd 05010000 		.4byte	.LLST7
- 424 01e1 0E       		.uleb128 0xe
- 425 01e2 636800   		.ascii	"ch\000"
- 426 01e5 01       		.byte	0x1
- 427 01e6 7E01     		.2byte	0x17e
- 428 01e8 A7000000 		.4byte	0xa7
- 429 01ec 24010000 		.4byte	.LLST8
- 430 01f0 08       		.uleb128 0x8
- 431 01f1 0E000000 		.4byte	.LVL15
- 432 01f5 76020000 		.4byte	0x276
- 433 01f9 09       		.uleb128 0x9
- 434 01fa 16000000 		.4byte	.LVL16
- 435 01fe 65020000 		.4byte	0x265
- 436 0202 0D020000 		.4byte	0x20d
- 437 0206 0A       		.uleb128 0xa
- 438 0207 01       		.uleb128 0x1
- 439 0208 50       		.byte	0x50
- 440 0209 02       		.uleb128 0x2
- 441 020a 75       		.byte	0x75
- 442 020b 00       		.sleb128 0
- 443 020c 00       		.byte	0
- 444 020d 0F       		.uleb128 0xf
- 445 020e 22000000 		.4byte	.LVL19
- 446 0212 65020000 		.4byte	0x265
- 447 0216 0A       		.uleb128 0xa
- 448 0217 01       		.uleb128 0x1
- 449 0218 50       		.byte	0x50
- 450 0219 01       		.uleb128 0x1
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 16
+ 536 0194 E803     		.2byte	0x3e8
+ 537 0196 0C       		.uleb128 0xc
+ 538 0197 01       		.uleb128 0x1
+ 539 0198 51       		.byte	0x51
+ 540 0199 02       		.uleb128 0x2
+ 541 019a 09       		.byte	0x9
+ 542 019b CD       		.byte	0xcd
+ 543 019c 0C       		.uleb128 0xc
+ 544 019d 01       		.uleb128 0x1
+ 545 019e 50       		.byte	0x50
+ 546 019f 02       		.uleb128 0x2
+ 547 01a0 09       		.byte	0x9
+ 548 01a1 C8       		.byte	0xc8
+ 549 01a2 00       		.byte	0
+ 550 01a3 0B       		.uleb128 0xb
+ 551 01a4 42000000 		.4byte	.LVL8
+ 552 01a8 A1040000 		.4byte	0x4a1
+ 553 01ac C4010000 		.4byte	0x1c4
+ 554 01b0 0C       		.uleb128 0xc
+ 555 01b1 01       		.uleb128 0x1
+ 556 01b2 52       		.byte	0x52
+ 557 01b3 03       		.uleb128 0x3
+ 558 01b4 0A       		.byte	0xa
+ 559 01b5 5802     		.2byte	0x258
+ 560 01b7 0C       		.uleb128 0xc
+ 561 01b8 01       		.uleb128 0x1
+ 562 01b9 51       		.byte	0x51
+ 563 01ba 02       		.uleb128 0x2
+ 564 01bb 09       		.byte	0x9
+ 565 01bc C8       		.byte	0xc8
+ 566 01bd 0C       		.uleb128 0xc
+ 567 01be 01       		.uleb128 0x1
+ 568 01bf 50       		.byte	0x50
+ 569 01c0 02       		.uleb128 0x2
+ 570 01c1 08       		.byte	0x8
+ 571 01c2 32       		.byte	0x32
+ 572 01c3 00       		.byte	0
+ 573 01c4 0B       		.uleb128 0xb
+ 574 01c5 4E000000 		.4byte	.LVL9
+ 575 01c9 A1040000 		.4byte	0x4a1
+ 576 01cd E5010000 		.4byte	0x1e5
+ 577 01d1 0C       		.uleb128 0xc
+ 578 01d2 01       		.uleb128 0x1
+ 579 01d3 52       		.byte	0x52
+ 580 01d4 03       		.uleb128 0x3
+ 581 01d5 0A       		.byte	0xa
+ 582 01d6 E803     		.2byte	0x3e8
+ 583 01d8 0C       		.uleb128 0xc
+ 584 01d9 01       		.uleb128 0x1
+ 585 01da 51       		.byte	0x51
+ 586 01db 02       		.uleb128 0x2
+ 587 01dc 09       		.byte	0x9
+ 588 01dd CD       		.byte	0xcd
+ 589 01de 0C       		.uleb128 0xc
+ 590 01df 01       		.uleb128 0x1
+ 591 01e0 50       		.byte	0x50
+ 592 01e1 02       		.uleb128 0x2
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 19
 
 
- 451 021a 3A       		.byte	0x3a
- 452 021b 00       		.byte	0
- 453 021c 00       		.byte	0
- 454 021d 10       		.uleb128 0x10
- 455 021e 5B000000 		.4byte	.LASF30
- 456 0222 07       		.byte	0x7
- 457 0223 9606     		.2byte	0x696
- 458 0225 29020000 		.4byte	0x229
- 459 0229 11       		.uleb128 0x11
- 460 022a 76000000 		.4byte	0x76
- 461 022e 12       		.uleb128 0x12
- 462 022f 00000000 		.4byte	.LASF31
- 463 0233 06       		.byte	0x6
- 464 0234 54       		.byte	0x54
- 465 0235 13       		.uleb128 0x13
- 466 0236 55010000 		.4byte	.LASF22
- 467 023a 05       		.byte	0x5
- 468 023b 0B       		.byte	0xb
- 469 023c 42020000 		.4byte	0x242
- 470 0240 14       		.uleb128 0x14
- 471 0241 00       		.byte	0
- 472 0242 15       		.uleb128 0x15
- 473 0243 68000000 		.4byte	.LASF24
- 474 0247 05       		.byte	0x5
- 475 0248 0F       		.byte	0xf
- 476 0249 58020000 		.4byte	0x258
- 477 024d 16       		.uleb128 0x16
- 478 024e 81000000 		.4byte	0x81
- 479 0252 16       		.uleb128 0x16
- 480 0253 8D000000 		.4byte	0x8d
- 481 0257 00       		.byte	0
- 482 0258 13       		.uleb128 0x13
- 483 0259 7D000000 		.4byte	.LASF23
- 484 025d 05       		.byte	0x5
- 485 025e 0C       		.byte	0xc
- 486 025f 65020000 		.4byte	0x265
- 487 0263 14       		.uleb128 0x14
- 488 0264 00       		.byte	0
- 489 0265 15       		.uleb128 0x15
- 490 0266 22010000 		.4byte	.LASF25
- 491 026a 06       		.byte	0x6
- 492 026b 8A       		.byte	0x8a
- 493 026c 76020000 		.4byte	0x276
- 494 0270 16       		.uleb128 0x16
- 495 0271 81000000 		.4byte	0x81
- 496 0275 00       		.byte	0
- 497 0276 17       		.uleb128 0x17
- 498 0277 08020000 		.4byte	.LASF32
- 499 027b 06       		.byte	0x6
- 500 027c 71       		.byte	0x71
- 501 027d 81000000 		.4byte	0x81
- 502 0281 00       		.byte	0
- 503              		.section	.debug_abbrev,"",%progbits
- 504              	.Ldebug_abbrev0:
- 505 0000 01       		.uleb128 0x1
- 506 0001 11       		.uleb128 0x11
- 507 0002 01       		.byte	0x1
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 17
+ 593 01e2 09       		.byte	0x9
+ 594 01e3 C8       		.byte	0xc8
+ 595 01e4 00       		.byte	0
+ 596 01e5 0B       		.uleb128 0xb
+ 597 01e6 5A000000 		.4byte	.LVL10
+ 598 01ea A1040000 		.4byte	0x4a1
+ 599 01ee 06020000 		.4byte	0x206
+ 600 01f2 0C       		.uleb128 0xc
+ 601 01f3 01       		.uleb128 0x1
+ 602 01f4 52       		.byte	0x52
+ 603 01f5 03       		.uleb128 0x3
+ 604 01f6 0A       		.byte	0xa
+ 605 01f7 5802     		.2byte	0x258
+ 606 01f9 0C       		.uleb128 0xc
+ 607 01fa 01       		.uleb128 0x1
+ 608 01fb 51       		.byte	0x51
+ 609 01fc 02       		.uleb128 0x2
+ 610 01fd 09       		.byte	0x9
+ 611 01fe C8       		.byte	0xc8
+ 612 01ff 0C       		.uleb128 0xc
+ 613 0200 01       		.uleb128 0x1
+ 614 0201 50       		.byte	0x50
+ 615 0202 02       		.uleb128 0x2
+ 616 0203 08       		.byte	0x8
+ 617 0204 32       		.byte	0x32
+ 618 0205 00       		.byte	0
+ 619 0206 0B       		.uleb128 0xb
+ 620 0207 66000000 		.4byte	.LVL11
+ 621 020b A1040000 		.4byte	0x4a1
+ 622 020f 27020000 		.4byte	0x227
+ 623 0213 0C       		.uleb128 0xc
+ 624 0214 01       		.uleb128 0x1
+ 625 0215 52       		.byte	0x52
+ 626 0216 03       		.uleb128 0x3
+ 627 0217 0A       		.byte	0xa
+ 628 0218 E803     		.2byte	0x3e8
+ 629 021a 0C       		.uleb128 0xc
+ 630 021b 01       		.uleb128 0x1
+ 631 021c 51       		.byte	0x51
+ 632 021d 02       		.uleb128 0x2
+ 633 021e 09       		.byte	0x9
+ 634 021f CD       		.byte	0xcd
+ 635 0220 0C       		.uleb128 0xc
+ 636 0221 01       		.uleb128 0x1
+ 637 0222 50       		.byte	0x50
+ 638 0223 02       		.uleb128 0x2
+ 639 0224 09       		.byte	0x9
+ 640 0225 C8       		.byte	0xc8
+ 641 0226 00       		.byte	0
+ 642 0227 0B       		.uleb128 0xb
+ 643 0228 72000000 		.4byte	.LVL12
+ 644 022c A1040000 		.4byte	0x4a1
+ 645 0230 48020000 		.4byte	0x248
+ 646 0234 0C       		.uleb128 0xc
+ 647 0235 01       		.uleb128 0x1
+ 648 0236 52       		.byte	0x52
+ 649 0237 03       		.uleb128 0x3
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 20
 
 
- 508 0003 25       		.uleb128 0x25
- 509 0004 0E       		.uleb128 0xe
- 510 0005 13       		.uleb128 0x13
- 511 0006 0B       		.uleb128 0xb
- 512 0007 03       		.uleb128 0x3
- 513 0008 0E       		.uleb128 0xe
- 514 0009 1B       		.uleb128 0x1b
- 515 000a 0E       		.uleb128 0xe
- 516 000b 55       		.uleb128 0x55
- 517 000c 17       		.uleb128 0x17
- 518 000d 11       		.uleb128 0x11
- 519 000e 01       		.uleb128 0x1
- 520 000f 10       		.uleb128 0x10
- 521 0010 17       		.uleb128 0x17
- 522 0011 00       		.byte	0
- 523 0012 00       		.byte	0
- 524 0013 02       		.uleb128 0x2
- 525 0014 24       		.uleb128 0x24
- 526 0015 00       		.byte	0
- 527 0016 0B       		.uleb128 0xb
- 528 0017 0B       		.uleb128 0xb
- 529 0018 3E       		.uleb128 0x3e
- 530 0019 0B       		.uleb128 0xb
- 531 001a 03       		.uleb128 0x3
- 532 001b 0E       		.uleb128 0xe
- 533 001c 00       		.byte	0
- 534 001d 00       		.byte	0
- 535 001e 03       		.uleb128 0x3
- 536 001f 16       		.uleb128 0x16
- 537 0020 00       		.byte	0
- 538 0021 03       		.uleb128 0x3
- 539 0022 0E       		.uleb128 0xe
- 540 0023 3A       		.uleb128 0x3a
- 541 0024 0B       		.uleb128 0xb
- 542 0025 3B       		.uleb128 0x3b
- 543 0026 0B       		.uleb128 0xb
- 544 0027 49       		.uleb128 0x49
- 545 0028 13       		.uleb128 0x13
- 546 0029 00       		.byte	0
- 547 002a 00       		.byte	0
- 548 002b 04       		.uleb128 0x4
- 549 002c 24       		.uleb128 0x24
- 550 002d 00       		.byte	0
- 551 002e 0B       		.uleb128 0xb
- 552 002f 0B       		.uleb128 0xb
- 553 0030 3E       		.uleb128 0x3e
- 554 0031 0B       		.uleb128 0xb
- 555 0032 03       		.uleb128 0x3
- 556 0033 08       		.uleb128 0x8
- 557 0034 00       		.byte	0
- 558 0035 00       		.byte	0
- 559 0036 05       		.uleb128 0x5
- 560 0037 16       		.uleb128 0x16
- 561 0038 00       		.byte	0
- 562 0039 03       		.uleb128 0x3
- 563 003a 0E       		.uleb128 0xe
- 564 003b 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 18
+ 650 0238 0A       		.byte	0xa
+ 651 0239 5802     		.2byte	0x258
+ 652 023b 0C       		.uleb128 0xc
+ 653 023c 01       		.uleb128 0x1
+ 654 023d 51       		.byte	0x51
+ 655 023e 02       		.uleb128 0x2
+ 656 023f 09       		.byte	0x9
+ 657 0240 C8       		.byte	0xc8
+ 658 0241 0C       		.uleb128 0xc
+ 659 0242 01       		.uleb128 0x1
+ 660 0243 50       		.byte	0x50
+ 661 0244 02       		.uleb128 0x2
+ 662 0245 08       		.byte	0x8
+ 663 0246 32       		.byte	0x32
+ 664 0247 00       		.byte	0
+ 665 0248 0B       		.uleb128 0xb
+ 666 0249 7E000000 		.4byte	.LVL13
+ 667 024d A1040000 		.4byte	0x4a1
+ 668 0251 69020000 		.4byte	0x269
+ 669 0255 0C       		.uleb128 0xc
+ 670 0256 01       		.uleb128 0x1
+ 671 0257 52       		.byte	0x52
+ 672 0258 03       		.uleb128 0x3
+ 673 0259 0A       		.byte	0xa
+ 674 025a E803     		.2byte	0x3e8
+ 675 025c 0C       		.uleb128 0xc
+ 676 025d 01       		.uleb128 0x1
+ 677 025e 51       		.byte	0x51
+ 678 025f 02       		.uleb128 0x2
+ 679 0260 09       		.byte	0x9
+ 680 0261 CD       		.byte	0xcd
+ 681 0262 0C       		.uleb128 0xc
+ 682 0263 01       		.uleb128 0x1
+ 683 0264 50       		.byte	0x50
+ 684 0265 02       		.uleb128 0x2
+ 685 0266 09       		.byte	0x9
+ 686 0267 C8       		.byte	0xc8
+ 687 0268 00       		.byte	0
+ 688 0269 0B       		.uleb128 0xb
+ 689 026a 8A000000 		.4byte	.LVL14
+ 690 026e A1040000 		.4byte	0x4a1
+ 691 0272 8A020000 		.4byte	0x28a
+ 692 0276 0C       		.uleb128 0xc
+ 693 0277 01       		.uleb128 0x1
+ 694 0278 52       		.byte	0x52
+ 695 0279 03       		.uleb128 0x3
+ 696 027a 0A       		.byte	0xa
+ 697 027b 5802     		.2byte	0x258
+ 698 027d 0C       		.uleb128 0xc
+ 699 027e 01       		.uleb128 0x1
+ 700 027f 51       		.byte	0x51
+ 701 0280 02       		.uleb128 0x2
+ 702 0281 09       		.byte	0x9
+ 703 0282 C8       		.byte	0xc8
+ 704 0283 0C       		.uleb128 0xc
+ 705 0284 01       		.uleb128 0x1
+ 706 0285 50       		.byte	0x50
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 21
 
 
- 565 003c 0B       		.uleb128 0xb
- 566 003d 3B       		.uleb128 0x3b
- 567 003e 05       		.uleb128 0x5
- 568 003f 49       		.uleb128 0x49
- 569 0040 13       		.uleb128 0x13
- 570 0041 00       		.byte	0
- 571 0042 00       		.byte	0
- 572 0043 06       		.uleb128 0x6
- 573 0044 0F       		.uleb128 0xf
- 574 0045 00       		.byte	0
- 575 0046 0B       		.uleb128 0xb
- 576 0047 0B       		.uleb128 0xb
- 577 0048 49       		.uleb128 0x49
- 578 0049 13       		.uleb128 0x13
- 579 004a 00       		.byte	0
- 580 004b 00       		.byte	0
- 581 004c 07       		.uleb128 0x7
- 582 004d 2E       		.uleb128 0x2e
- 583 004e 01       		.byte	0x1
- 584 004f 3F       		.uleb128 0x3f
- 585 0050 19       		.uleb128 0x19
- 586 0051 03       		.uleb128 0x3
- 587 0052 0E       		.uleb128 0xe
- 588 0053 3A       		.uleb128 0x3a
- 589 0054 0B       		.uleb128 0xb
- 590 0055 3B       		.uleb128 0x3b
- 591 0056 0B       		.uleb128 0xb
- 592 0057 49       		.uleb128 0x49
- 593 0058 13       		.uleb128 0x13
- 594 0059 11       		.uleb128 0x11
- 595 005a 01       		.uleb128 0x1
- 596 005b 12       		.uleb128 0x12
- 597 005c 06       		.uleb128 0x6
- 598 005d 40       		.uleb128 0x40
- 599 005e 18       		.uleb128 0x18
- 600 005f 9742     		.uleb128 0x2117
- 601 0061 19       		.uleb128 0x19
- 602 0062 01       		.uleb128 0x1
- 603 0063 13       		.uleb128 0x13
- 604 0064 00       		.byte	0
- 605 0065 00       		.byte	0
- 606 0066 08       		.uleb128 0x8
- 607 0067 898201   		.uleb128 0x4109
- 608 006a 00       		.byte	0
- 609 006b 11       		.uleb128 0x11
- 610 006c 01       		.uleb128 0x1
- 611 006d 31       		.uleb128 0x31
- 612 006e 13       		.uleb128 0x13
- 613 006f 00       		.byte	0
- 614 0070 00       		.byte	0
- 615 0071 09       		.uleb128 0x9
- 616 0072 898201   		.uleb128 0x4109
- 617 0075 01       		.byte	0x1
- 618 0076 11       		.uleb128 0x11
- 619 0077 01       		.uleb128 0x1
- 620 0078 31       		.uleb128 0x31
- 621 0079 13       		.uleb128 0x13
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 19
+ 707 0286 02       		.uleb128 0x2
+ 708 0287 08       		.byte	0x8
+ 709 0288 32       		.byte	0x32
+ 710 0289 00       		.byte	0
+ 711 028a 0A       		.uleb128 0xa
+ 712 028b 8E000000 		.4byte	.LVL15
+ 713 028f BC040000 		.4byte	0x4bc
+ 714 0293 0A       		.uleb128 0xa
+ 715 0294 92000000 		.4byte	.LVL16
+ 716 0298 C9040000 		.4byte	0x4c9
+ 717 029c 0B       		.uleb128 0xb
+ 718 029d 98000000 		.4byte	.LVL17
+ 719 02a1 D0040000 		.4byte	0x4d0
+ 720 02a5 AF020000 		.4byte	0x2af
+ 721 02a9 0C       		.uleb128 0xc
+ 722 02aa 01       		.uleb128 0x1
+ 723 02ab 50       		.byte	0x50
+ 724 02ac 01       		.uleb128 0x1
+ 725 02ad 30       		.byte	0x30
+ 726 02ae 00       		.byte	0
+ 727 02af 0A       		.uleb128 0xa
+ 728 02b0 9E000000 		.4byte	.LVL18
+ 729 02b4 E5040000 		.4byte	0x4e5
+ 730 02b8 0B       		.uleb128 0xb
+ 731 02b9 A4000000 		.4byte	.LVL20
+ 732 02bd F0040000 		.4byte	0x4f0
+ 733 02c1 CC020000 		.4byte	0x2cc
+ 734 02c5 0C       		.uleb128 0xc
+ 735 02c6 01       		.uleb128 0x1
+ 736 02c7 50       		.byte	0x50
+ 737 02c8 02       		.uleb128 0x2
+ 738 02c9 74       		.byte	0x74
+ 739 02ca 00       		.sleb128 0
+ 740 02cb 00       		.byte	0
+ 741 02cc 0B       		.uleb128 0xb
+ 742 02cd BE000000 		.4byte	.LVL24
+ 743 02d1 78040000 		.4byte	0x478
+ 744 02d5 DF020000 		.4byte	0x2df
+ 745 02d9 0C       		.uleb128 0xc
+ 746 02da 01       		.uleb128 0x1
+ 747 02db 50       		.byte	0x50
+ 748 02dc 01       		.uleb128 0x1
+ 749 02dd 31       		.byte	0x31
+ 750 02de 00       		.byte	0
+ 751 02df 0B       		.uleb128 0xb
+ 752 02e0 C4000000 		.4byte	.LVL25
+ 753 02e4 05050000 		.4byte	0x505
+ 754 02e8 F3020000 		.4byte	0x2f3
+ 755 02ec 0C       		.uleb128 0xc
+ 756 02ed 01       		.uleb128 0x1
+ 757 02ee 50       		.byte	0x50
+ 758 02ef 02       		.uleb128 0x2
+ 759 02f0 08       		.byte	0x8
+ 760 02f1 FA       		.byte	0xfa
+ 761 02f2 00       		.byte	0
+ 762 02f3 0B       		.uleb128 0xb
+ 763 02f4 CA000000 		.4byte	.LVL26
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 22
 
 
- 622 007a 01       		.uleb128 0x1
- 623 007b 13       		.uleb128 0x13
- 624 007c 00       		.byte	0
- 625 007d 00       		.byte	0
- 626 007e 0A       		.uleb128 0xa
- 627 007f 8A8201   		.uleb128 0x410a
- 628 0082 00       		.byte	0
- 629 0083 02       		.uleb128 0x2
- 630 0084 18       		.uleb128 0x18
- 631 0085 9142     		.uleb128 0x2111
- 632 0087 18       		.uleb128 0x18
- 633 0088 00       		.byte	0
- 634 0089 00       		.byte	0
- 635 008a 0B       		.uleb128 0xb
- 636 008b 2E       		.uleb128 0x2e
- 637 008c 01       		.byte	0x1
- 638 008d 3F       		.uleb128 0x3f
- 639 008e 19       		.uleb128 0x19
- 640 008f 03       		.uleb128 0x3
- 641 0090 0E       		.uleb128 0xe
- 642 0091 3A       		.uleb128 0x3a
- 643 0092 0B       		.uleb128 0xb
- 644 0093 3B       		.uleb128 0x3b
- 645 0094 05       		.uleb128 0x5
- 646 0095 27       		.uleb128 0x27
- 647 0096 19       		.uleb128 0x19
- 648 0097 49       		.uleb128 0x49
- 649 0098 13       		.uleb128 0x13
- 650 0099 11       		.uleb128 0x11
- 651 009a 01       		.uleb128 0x1
- 652 009b 12       		.uleb128 0x12
- 653 009c 06       		.uleb128 0x6
- 654 009d 40       		.uleb128 0x40
- 655 009e 18       		.uleb128 0x18
- 656 009f 9742     		.uleb128 0x2117
- 657 00a1 19       		.uleb128 0x19
- 658 00a2 01       		.uleb128 0x1
- 659 00a3 13       		.uleb128 0x13
- 660 00a4 00       		.byte	0
- 661 00a5 00       		.byte	0
- 662 00a6 0C       		.uleb128 0xc
- 663 00a7 05       		.uleb128 0x5
- 664 00a8 00       		.byte	0
- 665 00a9 03       		.uleb128 0x3
- 666 00aa 0E       		.uleb128 0xe
- 667 00ab 3A       		.uleb128 0x3a
- 668 00ac 0B       		.uleb128 0xb
- 669 00ad 3B       		.uleb128 0x3b
- 670 00ae 05       		.uleb128 0x5
- 671 00af 49       		.uleb128 0x49
- 672 00b0 13       		.uleb128 0x13
- 673 00b1 02       		.uleb128 0x2
- 674 00b2 17       		.uleb128 0x17
- 675 00b3 00       		.byte	0
- 676 00b4 00       		.byte	0
- 677 00b5 0D       		.uleb128 0xd
- 678 00b6 05       		.uleb128 0x5
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 20
+ 764 02f8 78040000 		.4byte	0x478
+ 765 02fc 06030000 		.4byte	0x306
+ 766 0300 0C       		.uleb128 0xc
+ 767 0301 01       		.uleb128 0x1
+ 768 0302 50       		.byte	0x50
+ 769 0303 01       		.uleb128 0x1
+ 770 0304 30       		.byte	0x30
+ 771 0305 00       		.byte	0
+ 772 0306 0B       		.uleb128 0xb
+ 773 0307 DC000000 		.4byte	.LVL28
+ 774 030b 16050000 		.4byte	0x516
+ 775 030f 23030000 		.4byte	0x323
+ 776 0313 0C       		.uleb128 0xc
+ 777 0314 01       		.uleb128 0x1
+ 778 0315 51       		.byte	0x51
+ 779 0316 02       		.uleb128 0x2
+ 780 0317 74       		.byte	0x74
+ 781 0318 00       		.sleb128 0
+ 782 0319 0C       		.uleb128 0xc
+ 783 031a 01       		.uleb128 0x1
+ 784 031b 50       		.byte	0x50
+ 785 031c 05       		.uleb128 0x5
+ 786 031d 03       		.byte	0x3
+ 787 031e 08000000 		.4byte	.LC1
+ 788 0322 00       		.byte	0
+ 789 0323 0D       		.uleb128 0xd
+ 790 0324 E4000000 		.4byte	.LVL29
+ 791 0328 05050000 		.4byte	0x505
+ 792 032c 0C       		.uleb128 0xc
+ 793 032d 01       		.uleb128 0x1
+ 794 032e 50       		.byte	0x50
+ 795 032f 03       		.uleb128 0x3
+ 796 0330 0A       		.byte	0xa
+ 797 0331 F401     		.2byte	0x1f4
+ 798 0333 00       		.byte	0
+ 799 0334 00       		.byte	0
+ 800 0335 0E       		.uleb128 0xe
+ 801 0336 17020000 		.4byte	.LASF24
+ 802 033a 01       		.byte	0x1
+ 803 033b 8A01     		.2byte	0x18a
+ 804 033d 68000000 		.4byte	0x68
+ 805 0341 00000000 		.4byte	.LFB64
+ 806 0345 2A000000 		.4byte	.LFE64-.LFB64
+ 807 0349 01       		.uleb128 0x1
+ 808 034a 9C       		.byte	0x9c
+ 809 034b AA030000 		.4byte	0x3aa
+ 810 034f 0F       		.uleb128 0xf
+ 811 0350 50000000 		.4byte	.LASF23
+ 812 0354 01       		.byte	0x1
+ 813 0355 8A01     		.2byte	0x18a
+ 814 0357 68000000 		.4byte	0x68
+ 815 035b 6B000000 		.4byte	.LLST3
+ 816 035f 10       		.uleb128 0x10
+ 817 0360 70747200 		.ascii	"ptr\000"
+ 818 0364 01       		.byte	0x1
+ 819 0365 8A01     		.2byte	0x18a
+ 820 0367 CD000000 		.4byte	0xcd
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 23
 
 
- 679 00b7 00       		.byte	0
- 680 00b8 03       		.uleb128 0x3
- 681 00b9 08       		.uleb128 0x8
- 682 00ba 3A       		.uleb128 0x3a
- 683 00bb 0B       		.uleb128 0xb
- 684 00bc 3B       		.uleb128 0x3b
- 685 00bd 05       		.uleb128 0x5
- 686 00be 49       		.uleb128 0x49
- 687 00bf 13       		.uleb128 0x13
- 688 00c0 02       		.uleb128 0x2
- 689 00c1 17       		.uleb128 0x17
- 690 00c2 00       		.byte	0
- 691 00c3 00       		.byte	0
- 692 00c4 0E       		.uleb128 0xe
- 693 00c5 34       		.uleb128 0x34
- 694 00c6 00       		.byte	0
- 695 00c7 03       		.uleb128 0x3
- 696 00c8 08       		.uleb128 0x8
- 697 00c9 3A       		.uleb128 0x3a
- 698 00ca 0B       		.uleb128 0xb
- 699 00cb 3B       		.uleb128 0x3b
- 700 00cc 05       		.uleb128 0x5
- 701 00cd 49       		.uleb128 0x49
- 702 00ce 13       		.uleb128 0x13
- 703 00cf 02       		.uleb128 0x2
- 704 00d0 17       		.uleb128 0x17
- 705 00d1 00       		.byte	0
- 706 00d2 00       		.byte	0
- 707 00d3 0F       		.uleb128 0xf
- 708 00d4 898201   		.uleb128 0x4109
- 709 00d7 01       		.byte	0x1
- 710 00d8 11       		.uleb128 0x11
- 711 00d9 01       		.uleb128 0x1
- 712 00da 31       		.uleb128 0x31
- 713 00db 13       		.uleb128 0x13
- 714 00dc 00       		.byte	0
- 715 00dd 00       		.byte	0
- 716 00de 10       		.uleb128 0x10
- 717 00df 34       		.uleb128 0x34
- 718 00e0 00       		.byte	0
- 719 00e1 03       		.uleb128 0x3
- 720 00e2 0E       		.uleb128 0xe
- 721 00e3 3A       		.uleb128 0x3a
- 722 00e4 0B       		.uleb128 0xb
- 723 00e5 3B       		.uleb128 0x3b
- 724 00e6 05       		.uleb128 0x5
- 725 00e7 49       		.uleb128 0x49
- 726 00e8 13       		.uleb128 0x13
- 727 00e9 3F       		.uleb128 0x3f
- 728 00ea 19       		.uleb128 0x19
- 729 00eb 3C       		.uleb128 0x3c
- 730 00ec 19       		.uleb128 0x19
- 731 00ed 00       		.byte	0
- 732 00ee 00       		.byte	0
- 733 00ef 11       		.uleb128 0x11
- 734 00f0 35       		.uleb128 0x35
- 735 00f1 00       		.byte	0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 21
+ 821 036b 8C000000 		.4byte	.LLST4
+ 822 036f 10       		.uleb128 0x10
+ 823 0370 6C656E00 		.ascii	"len\000"
+ 824 0374 01       		.byte	0x1
+ 825 0375 8A01     		.2byte	0x18a
+ 826 0377 68000000 		.4byte	0x68
+ 827 037b C0000000 		.4byte	.LLST5
+ 828 037f 11       		.uleb128 0x11
+ 829 0380 6E00     		.ascii	"n\000"
+ 830 0382 01       		.byte	0x1
+ 831 0383 8D01     		.2byte	0x18d
+ 832 0385 68000000 		.4byte	0x68
+ 833 0389 DE000000 		.4byte	.LLST6
+ 834 038d 0B       		.uleb128 0xb
+ 835 038e 16000000 		.4byte	.LVL33
+ 836 0392 2C050000 		.4byte	0x52c
+ 837 0396 A0030000 		.4byte	0x3a0
+ 838 039a 0C       		.uleb128 0xc
+ 839 039b 01       		.uleb128 0x1
+ 840 039c 50       		.byte	0x50
+ 841 039d 01       		.uleb128 0x1
+ 842 039e 3D       		.byte	0x3d
+ 843 039f 00       		.byte	0
+ 844 03a0 0A       		.uleb128 0xa
+ 845 03a1 1E000000 		.4byte	.LVL35
+ 846 03a5 2C050000 		.4byte	0x52c
+ 847 03a9 00       		.byte	0
+ 848 03aa 0E       		.uleb128 0xe
+ 849 03ab 44000000 		.4byte	.LASF25
+ 850 03af 01       		.byte	0x1
+ 851 03b0 9501     		.2byte	0x195
+ 852 03b2 68000000 		.4byte	0x68
+ 853 03b6 00000000 		.4byte	.LFB65
+ 854 03ba 38000000 		.4byte	.LFE65-.LFB65
+ 855 03be 01       		.uleb128 0x1
+ 856 03bf 9C       		.byte	0x9c
+ 857 03c0 40040000 		.4byte	0x440
+ 858 03c4 0F       		.uleb128 0xf
+ 859 03c5 50000000 		.4byte	.LASF23
+ 860 03c9 01       		.byte	0x1
+ 861 03ca 9501     		.2byte	0x195
+ 862 03cc 68000000 		.4byte	0x68
+ 863 03d0 FD000000 		.4byte	.LLST7
+ 864 03d4 10       		.uleb128 0x10
+ 865 03d5 70747200 		.ascii	"ptr\000"
+ 866 03d9 01       		.byte	0x1
+ 867 03da 9501     		.2byte	0x195
+ 868 03dc CD000000 		.4byte	0xcd
+ 869 03e0 1E010000 		.4byte	.LLST8
+ 870 03e4 0F       		.uleb128 0xf
+ 871 03e5 6F020000 		.4byte	.LASF26
+ 872 03e9 01       		.byte	0x1
+ 873 03ea 9501     		.2byte	0x195
+ 874 03ec 68000000 		.4byte	0x68
+ 875 03f0 52010000 		.4byte	.LLST9
+ 876 03f4 11       		.uleb128 0x11
+ 877 03f5 63687300 		.ascii	"chs\000"
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 24
 
 
- 736 00f2 49       		.uleb128 0x49
- 737 00f3 13       		.uleb128 0x13
- 738 00f4 00       		.byte	0
- 739 00f5 00       		.byte	0
- 740 00f6 12       		.uleb128 0x12
- 741 00f7 2E       		.uleb128 0x2e
- 742 00f8 00       		.byte	0
- 743 00f9 3F       		.uleb128 0x3f
- 744 00fa 19       		.uleb128 0x19
- 745 00fb 03       		.uleb128 0x3
- 746 00fc 0E       		.uleb128 0xe
- 747 00fd 3A       		.uleb128 0x3a
- 748 00fe 0B       		.uleb128 0xb
- 749 00ff 3B       		.uleb128 0x3b
- 750 0100 0B       		.uleb128 0xb
- 751 0101 27       		.uleb128 0x27
- 752 0102 19       		.uleb128 0x19
- 753 0103 3C       		.uleb128 0x3c
- 754 0104 19       		.uleb128 0x19
- 755 0105 00       		.byte	0
- 756 0106 00       		.byte	0
- 757 0107 13       		.uleb128 0x13
- 758 0108 2E       		.uleb128 0x2e
- 759 0109 01       		.byte	0x1
- 760 010a 3F       		.uleb128 0x3f
- 761 010b 19       		.uleb128 0x19
- 762 010c 03       		.uleb128 0x3
- 763 010d 0E       		.uleb128 0xe
- 764 010e 3A       		.uleb128 0x3a
- 765 010f 0B       		.uleb128 0xb
- 766 0110 3B       		.uleb128 0x3b
- 767 0111 0B       		.uleb128 0xb
- 768 0112 3C       		.uleb128 0x3c
- 769 0113 19       		.uleb128 0x19
- 770 0114 01       		.uleb128 0x1
- 771 0115 13       		.uleb128 0x13
- 772 0116 00       		.byte	0
- 773 0117 00       		.byte	0
- 774 0118 14       		.uleb128 0x14
- 775 0119 18       		.uleb128 0x18
- 776 011a 00       		.byte	0
- 777 011b 00       		.byte	0
- 778 011c 00       		.byte	0
- 779 011d 15       		.uleb128 0x15
- 780 011e 2E       		.uleb128 0x2e
- 781 011f 01       		.byte	0x1
- 782 0120 3F       		.uleb128 0x3f
- 783 0121 19       		.uleb128 0x19
- 784 0122 03       		.uleb128 0x3
- 785 0123 0E       		.uleb128 0xe
- 786 0124 3A       		.uleb128 0x3a
- 787 0125 0B       		.uleb128 0xb
- 788 0126 3B       		.uleb128 0x3b
- 789 0127 0B       		.uleb128 0xb
- 790 0128 27       		.uleb128 0x27
- 791 0129 19       		.uleb128 0x19
- 792 012a 3C       		.uleb128 0x3c
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 22
+ 878 03f9 01       		.byte	0x1
+ 879 03fa 9701     		.2byte	0x197
+ 880 03fc 68000000 		.4byte	0x68
+ 881 0400 70010000 		.4byte	.LLST10
+ 882 0404 11       		.uleb128 0x11
+ 883 0405 636800   		.ascii	"ch\000"
+ 884 0408 01       		.byte	0x1
+ 885 0409 9801     		.2byte	0x198
+ 886 040b BF000000 		.4byte	0xbf
+ 887 040f 8F010000 		.4byte	.LLST11
+ 888 0413 0A       		.uleb128 0xa
+ 889 0414 0E000000 		.4byte	.LVL41
+ 890 0418 3D050000 		.4byte	0x53d
+ 891 041c 0B       		.uleb128 0xb
+ 892 041d 16000000 		.4byte	.LVL42
+ 893 0421 2C050000 		.4byte	0x52c
+ 894 0425 30040000 		.4byte	0x430
+ 895 0429 0C       		.uleb128 0xc
+ 896 042a 01       		.uleb128 0x1
+ 897 042b 50       		.byte	0x50
+ 898 042c 02       		.uleb128 0x2
+ 899 042d 75       		.byte	0x75
+ 900 042e 00       		.sleb128 0
+ 901 042f 00       		.byte	0
+ 902 0430 0D       		.uleb128 0xd
+ 903 0431 22000000 		.4byte	.LVL45
+ 904 0435 2C050000 		.4byte	0x52c
+ 905 0439 0C       		.uleb128 0xc
+ 906 043a 01       		.uleb128 0x1
+ 907 043b 50       		.byte	0x50
+ 908 043c 01       		.uleb128 0x1
+ 909 043d 3A       		.byte	0x3a
+ 910 043e 00       		.byte	0
+ 911 043f 00       		.byte	0
+ 912 0440 12       		.uleb128 0x12
+ 913 0441 A7000000 		.4byte	.LASF46
+ 914 0445 0C       		.byte	0xc
+ 915 0446 9606     		.2byte	0x696
+ 916 0448 4C040000 		.4byte	0x44c
+ 917 044c 13       		.uleb128 0x13
+ 918 044d 76000000 		.4byte	0x76
+ 919 0451 14       		.uleb128 0x14
+ 920 0452 00000000 		.4byte	.LASF27
+ 921 0456 05       		.byte	0x5
+ 922 0457 54       		.byte	0x54
+ 923 0458 14       		.uleb128 0x14
+ 924 0459 17000000 		.4byte	.LASF28
+ 925 045d 06       		.byte	0x6
+ 926 045e 34       		.byte	0x34
+ 927 045f 15       		.uleb128 0x15
+ 928 0460 F6010000 		.4byte	.LASF47
+ 929 0464 0D       		.byte	0xd
+ 930 0465 00       		.byte	0
+ 931 0466 9E020000 		.4byte	.LASF48
+ 932 046a 68000000 		.4byte	0x68
+ 933 046e 78040000 		.4byte	0x478
+ 934 0472 16       		.uleb128 0x16
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 25
 
 
- 793 012b 19       		.uleb128 0x19
- 794 012c 01       		.uleb128 0x1
- 795 012d 13       		.uleb128 0x13
- 796 012e 00       		.byte	0
- 797 012f 00       		.byte	0
- 798 0130 16       		.uleb128 0x16
- 799 0131 05       		.uleb128 0x5
- 800 0132 00       		.byte	0
- 801 0133 49       		.uleb128 0x49
- 802 0134 13       		.uleb128 0x13
- 803 0135 00       		.byte	0
- 804 0136 00       		.byte	0
- 805 0137 17       		.uleb128 0x17
- 806 0138 2E       		.uleb128 0x2e
- 807 0139 00       		.byte	0
- 808 013a 3F       		.uleb128 0x3f
- 809 013b 19       		.uleb128 0x19
- 810 013c 03       		.uleb128 0x3
- 811 013d 0E       		.uleb128 0xe
- 812 013e 3A       		.uleb128 0x3a
- 813 013f 0B       		.uleb128 0xb
- 814 0140 3B       		.uleb128 0x3b
- 815 0141 0B       		.uleb128 0xb
- 816 0142 27       		.uleb128 0x27
- 817 0143 19       		.uleb128 0x19
- 818 0144 49       		.uleb128 0x49
- 819 0145 13       		.uleb128 0x13
- 820 0146 3C       		.uleb128 0x3c
- 821 0147 19       		.uleb128 0x19
- 822 0148 00       		.byte	0
- 823 0149 00       		.byte	0
- 824 014a 00       		.byte	0
- 825              		.section	.debug_loc,"",%progbits
- 826              	.Ldebug_loc0:
- 827              	.LLST0:
- 828 0000 00000000 		.4byte	.LVL4
- 829 0004 0A000000 		.4byte	.LVL6
- 830 0008 0100     		.2byte	0x1
- 831 000a 50       		.byte	0x50
- 832 000b 0A000000 		.4byte	.LVL6
- 833 000f 2A000000 		.4byte	.LFE64
- 834 0013 0400     		.2byte	0x4
- 835 0015 F3       		.byte	0xf3
- 836 0016 01       		.uleb128 0x1
- 837 0017 50       		.byte	0x50
- 838 0018 9F       		.byte	0x9f
- 839 0019 00000000 		.4byte	0
- 840 001d 00000000 		.4byte	0
- 841              	.LLST1:
- 842 0021 00000000 		.4byte	.LVL4
- 843 0025 0A000000 		.4byte	.LVL6
- 844 0029 0100     		.2byte	0x1
- 845 002b 51       		.byte	0x51
- 846 002c 0A000000 		.4byte	.LVL6
- 847 0030 18000000 		.4byte	.LVL8
- 848 0034 0100     		.2byte	0x1
- 849 0036 54       		.byte	0x54
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 23
+ 935 0473 D3000000 		.4byte	0xd3
+ 936 0477 00       		.byte	0
+ 937 0478 17       		.uleb128 0x17
+ 938 0479 35020000 		.4byte	.LASF29
+ 939 047d 07       		.byte	0x7
+ 940 047e 26       		.byte	0x26
+ 941 047f 89040000 		.4byte	0x489
+ 942 0483 16       		.uleb128 0x16
+ 943 0484 81000000 		.4byte	0x81
+ 944 0488 00       		.byte	0
+ 945 0489 18       		.uleb128 0x18
+ 946 048a 85020000 		.4byte	.LASF34
+ 947 048e 09       		.byte	0x9
+ 948 048f 29       		.byte	0x29
+ 949 0490 81000000 		.4byte	0x81
+ 950 0494 19       		.uleb128 0x19
+ 951 0495 B3010000 		.4byte	.LASF31
+ 952 0499 08       		.byte	0x8
+ 953 049a 0B       		.byte	0xb
+ 954 049b A1040000 		.4byte	0x4a1
+ 955 049f 1A       		.uleb128 0x1a
+ 956 04a0 00       		.byte	0
+ 957 04a1 17       		.uleb128 0x17
+ 958 04a2 A3020000 		.4byte	.LASF30
+ 959 04a6 08       		.byte	0x8
+ 960 04a7 12       		.byte	0x12
+ 961 04a8 BC040000 		.4byte	0x4bc
+ 962 04ac 16       		.uleb128 0x16
+ 963 04ad 81000000 		.4byte	0x81
+ 964 04b1 16       		.uleb128 0x16
+ 965 04b2 81000000 		.4byte	0x81
+ 966 04b6 16       		.uleb128 0x16
+ 967 04b7 8D000000 		.4byte	0x8d
+ 968 04bb 00       		.byte	0
+ 969 04bc 19       		.uleb128 0x19
+ 970 04bd BB000000 		.4byte	.LASF32
+ 971 04c1 08       		.byte	0x8
+ 972 04c2 0C       		.byte	0xc
+ 973 04c3 C9040000 		.4byte	0x4c9
+ 974 04c7 1A       		.uleb128 0x1a
+ 975 04c8 00       		.byte	0
+ 976 04c9 14       		.uleb128 0x14
+ 977 04ca AE020000 		.4byte	.LASF33
+ 978 04ce 06       		.byte	0x6
+ 979 04cf D1       		.byte	0xd1
+ 980 04d0 1B       		.uleb128 0x1b
+ 981 04d1 DA010000 		.4byte	.LASF36
+ 982 04d5 06       		.byte	0x6
+ 983 04d6 39       		.byte	0x39
+ 984 04d7 81000000 		.4byte	0x81
+ 985 04db E5040000 		.4byte	0x4e5
+ 986 04df 16       		.uleb128 0x16
+ 987 04e0 81000000 		.4byte	0x81
+ 988 04e4 00       		.byte	0
+ 989 04e5 18       		.uleb128 0x18
+ 990 04e6 84010000 		.4byte	.LASF35
+ 991 04ea 06       		.byte	0x6
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 26
 
 
- 850 0037 18000000 		.4byte	.LVL8
- 851 003b 22000000 		.4byte	.LVL11
- 852 003f 0100     		.2byte	0x1
- 853 0041 56       		.byte	0x56
- 854 0042 22000000 		.4byte	.LVL11
- 855 0046 2A000000 		.4byte	.LFE64
- 856 004a 0100     		.2byte	0x1
- 857 004c 54       		.byte	0x54
- 858 004d 00000000 		.4byte	0
- 859 0051 00000000 		.4byte	0
- 860              	.LLST2:
- 861 0055 00000000 		.4byte	.LVL4
- 862 0059 0A000000 		.4byte	.LVL6
- 863 005d 0100     		.2byte	0x1
- 864 005f 52       		.byte	0x52
- 865 0060 0A000000 		.4byte	.LVL6
- 866 0064 2A000000 		.4byte	.LFE64
- 867 0068 0100     		.2byte	0x1
- 868 006a 57       		.byte	0x57
- 869 006b 00000000 		.4byte	0
- 870 006f 00000000 		.4byte	0
- 871              	.LLST3:
- 872 0073 06000000 		.4byte	.LVL5
- 873 0077 0A000000 		.4byte	.LVL6
- 874 007b 0200     		.2byte	0x2
- 875 007d 30       		.byte	0x30
- 876 007e 9F       		.byte	0x9f
- 877 007f 0A000000 		.4byte	.LVL6
- 878 0083 2A000000 		.4byte	.LFE64
- 879 0087 0100     		.2byte	0x1
- 880 0089 55       		.byte	0x55
- 881 008a 00000000 		.4byte	0
- 882 008e 00000000 		.4byte	0
- 883              	.LLST4:
- 884 0092 00000000 		.4byte	.LVL12
- 885 0096 0A000000 		.4byte	.LVL14
- 886 009a 0100     		.2byte	0x1
- 887 009c 50       		.byte	0x50
- 888 009d 0A000000 		.4byte	.LVL14
- 889 00a1 38000000 		.4byte	.LFE65
- 890 00a5 0400     		.2byte	0x4
- 891 00a7 F3       		.byte	0xf3
- 892 00a8 01       		.uleb128 0x1
- 893 00a9 50       		.byte	0x50
- 894 00aa 9F       		.byte	0x9f
- 895 00ab 00000000 		.4byte	0
- 896 00af 00000000 		.4byte	0
- 897              	.LLST5:
- 898 00b3 00000000 		.4byte	.LVL12
- 899 00b7 0A000000 		.4byte	.LVL14
- 900 00bb 0100     		.2byte	0x1
- 901 00bd 51       		.byte	0x51
- 902 00be 0A000000 		.4byte	.LVL14
- 903 00c2 26000000 		.4byte	.LVL21
- 904 00c6 0100     		.2byte	0x1
- 905 00c8 57       		.byte	0x57
- 906 00c9 26000000 		.4byte	.LVL21
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 24
+ 992 04eb 3B       		.byte	0x3b
+ 993 04ec 99000000 		.4byte	0x99
+ 994 04f0 1B       		.uleb128 0x1b
+ 995 04f1 BF010000 		.4byte	.LASF37
+ 996 04f5 06       		.byte	0x6
+ 997 04f6 41       		.byte	0x41
+ 998 04f7 A5000000 		.4byte	0xa5
+ 999 04fb 05050000 		.4byte	0x505
+ 1000 04ff 16       		.uleb128 0x16
+ 1001 0500 99000000 		.4byte	0x99
+ 1002 0504 00       		.byte	0
+ 1003 0505 17       		.uleb128 0x17
+ 1004 0506 C7020000 		.4byte	.LASF38
+ 1005 050a 0A       		.byte	0xa
+ 1006 050b 76       		.byte	0x76
+ 1007 050c 16050000 		.4byte	0x516
+ 1008 0510 16       		.uleb128 0x16
+ 1009 0511 8D000000 		.4byte	0x8d
+ 1010 0515 00       		.byte	0
+ 1011 0516 1B       		.uleb128 0x1b
+ 1012 0517 68020000 		.4byte	.LASF39
+ 1013 051b 0B       		.byte	0xb
+ 1014 051c B2       		.byte	0xb2
+ 1015 051d 68000000 		.4byte	0x68
+ 1016 0521 2C050000 		.4byte	0x52c
+ 1017 0525 16       		.uleb128 0x16
+ 1018 0526 D3000000 		.4byte	0xd3
+ 1019 052a 1A       		.uleb128 0x1a
+ 1020 052b 00       		.byte	0
+ 1021 052c 17       		.uleb128 0x17
+ 1022 052d 68010000 		.4byte	.LASF40
+ 1023 0531 05       		.byte	0x5
+ 1024 0532 8A       		.byte	0x8a
+ 1025 0533 3D050000 		.4byte	0x53d
+ 1026 0537 16       		.uleb128 0x16
+ 1027 0538 81000000 		.4byte	0x81
+ 1028 053c 00       		.byte	0
+ 1029 053d 18       		.uleb128 0x18
+ 1030 053e CF020000 		.4byte	.LASF41
+ 1031 0542 05       		.byte	0x5
+ 1032 0543 71       		.byte	0x71
+ 1033 0544 81000000 		.4byte	0x81
+ 1034 0548 00       		.byte	0
+ 1035              		.section	.debug_abbrev,"",%progbits
+ 1036              	.Ldebug_abbrev0:
+ 1037 0000 01       		.uleb128 0x1
+ 1038 0001 11       		.uleb128 0x11
+ 1039 0002 01       		.byte	0x1
+ 1040 0003 25       		.uleb128 0x25
+ 1041 0004 0E       		.uleb128 0xe
+ 1042 0005 13       		.uleb128 0x13
+ 1043 0006 0B       		.uleb128 0xb
+ 1044 0007 03       		.uleb128 0x3
+ 1045 0008 0E       		.uleb128 0xe
+ 1046 0009 1B       		.uleb128 0x1b
+ 1047 000a 0E       		.uleb128 0xe
+ 1048 000b 55       		.uleb128 0x55
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 27
 
 
- 907 00cd 30000000 		.4byte	.LVL23
- 908 00d1 0100     		.2byte	0x1
- 909 00d3 53       		.byte	0x53
- 910 00d4 30000000 		.4byte	.LVL23
- 911 00d8 34000000 		.4byte	.LVL24
- 912 00dc 0100     		.2byte	0x1
- 913 00de 57       		.byte	0x57
- 914 00df 00000000 		.4byte	0
- 915 00e3 00000000 		.4byte	0
- 916              	.LLST6:
- 917 00e7 00000000 		.4byte	.LVL12
- 918 00eb 0A000000 		.4byte	.LVL14
- 919 00ef 0100     		.2byte	0x1
- 920 00f1 52       		.byte	0x52
- 921 00f2 0A000000 		.4byte	.LVL14
- 922 00f6 38000000 		.4byte	.LFE65
- 923 00fa 0100     		.2byte	0x1
- 924 00fc 54       		.byte	0x54
- 925 00fd 00000000 		.4byte	0
- 926 0101 00000000 		.4byte	0
- 927              	.LLST7:
- 928 0105 06000000 		.4byte	.LVL13
- 929 0109 0A000000 		.4byte	.LVL14
- 930 010d 0200     		.2byte	0x2
- 931 010f 30       		.byte	0x30
- 932 0110 9F       		.byte	0x9f
- 933 0111 0A000000 		.4byte	.LVL14
- 934 0115 38000000 		.4byte	.LFE65
- 935 0119 0100     		.2byte	0x1
- 936 011b 56       		.byte	0x56
- 937 011c 00000000 		.4byte	0
- 938 0120 00000000 		.4byte	0
- 939              	.LLST8:
- 940 0124 0E000000 		.4byte	.LVL15
- 941 0128 15000000 		.4byte	.LVL16-1
- 942 012c 0100     		.2byte	0x1
- 943 012e 50       		.byte	0x50
- 944 012f 1C000000 		.4byte	.LVL18
- 945 0133 24000000 		.4byte	.LVL20
- 946 0137 0200     		.2byte	0x2
- 947 0139 3A       		.byte	0x3a
- 948 013a 9F       		.byte	0x9f
- 949 013b 24000000 		.4byte	.LVL20
- 950 013f 30000000 		.4byte	.LVL23
- 951 0143 0100     		.2byte	0x1
- 952 0145 55       		.byte	0x55
- 953 0146 00000000 		.4byte	0
- 954 014a 00000000 		.4byte	0
- 955              		.section	.debug_aranges,"",%progbits
- 956 0000 2C000000 		.4byte	0x2c
- 957 0004 0200     		.2byte	0x2
- 958 0006 00000000 		.4byte	.Ldebug_info0
- 959 000a 04       		.byte	0x4
- 960 000b 00       		.byte	0
- 961 000c 0000     		.2byte	0
- 962 000e 0000     		.2byte	0
- 963 0010 00000000 		.4byte	.LFB63
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 25
+ 1049 000c 17       		.uleb128 0x17
+ 1050 000d 11       		.uleb128 0x11
+ 1051 000e 01       		.uleb128 0x1
+ 1052 000f 10       		.uleb128 0x10
+ 1053 0010 17       		.uleb128 0x17
+ 1054 0011 00       		.byte	0
+ 1055 0012 00       		.byte	0
+ 1056 0013 02       		.uleb128 0x2
+ 1057 0014 24       		.uleb128 0x24
+ 1058 0015 00       		.byte	0
+ 1059 0016 0B       		.uleb128 0xb
+ 1060 0017 0B       		.uleb128 0xb
+ 1061 0018 3E       		.uleb128 0x3e
+ 1062 0019 0B       		.uleb128 0xb
+ 1063 001a 03       		.uleb128 0x3
+ 1064 001b 0E       		.uleb128 0xe
+ 1065 001c 00       		.byte	0
+ 1066 001d 00       		.byte	0
+ 1067 001e 03       		.uleb128 0x3
+ 1068 001f 16       		.uleb128 0x16
+ 1069 0020 00       		.byte	0
+ 1070 0021 03       		.uleb128 0x3
+ 1071 0022 0E       		.uleb128 0xe
+ 1072 0023 3A       		.uleb128 0x3a
+ 1073 0024 0B       		.uleb128 0xb
+ 1074 0025 3B       		.uleb128 0x3b
+ 1075 0026 0B       		.uleb128 0xb
+ 1076 0027 49       		.uleb128 0x49
+ 1077 0028 13       		.uleb128 0x13
+ 1078 0029 00       		.byte	0
+ 1079 002a 00       		.byte	0
+ 1080 002b 04       		.uleb128 0x4
+ 1081 002c 24       		.uleb128 0x24
+ 1082 002d 00       		.byte	0
+ 1083 002e 0B       		.uleb128 0xb
+ 1084 002f 0B       		.uleb128 0xb
+ 1085 0030 3E       		.uleb128 0x3e
+ 1086 0031 0B       		.uleb128 0xb
+ 1087 0032 03       		.uleb128 0x3
+ 1088 0033 08       		.uleb128 0x8
+ 1089 0034 00       		.byte	0
+ 1090 0035 00       		.byte	0
+ 1091 0036 05       		.uleb128 0x5
+ 1092 0037 16       		.uleb128 0x16
+ 1093 0038 00       		.byte	0
+ 1094 0039 03       		.uleb128 0x3
+ 1095 003a 0E       		.uleb128 0xe
+ 1096 003b 3A       		.uleb128 0x3a
+ 1097 003c 0B       		.uleb128 0xb
+ 1098 003d 3B       		.uleb128 0x3b
+ 1099 003e 05       		.uleb128 0x5
+ 1100 003f 49       		.uleb128 0x49
+ 1101 0040 13       		.uleb128 0x13
+ 1102 0041 00       		.byte	0
+ 1103 0042 00       		.byte	0
+ 1104 0043 06       		.uleb128 0x6
+ 1105 0044 0F       		.uleb128 0xf
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 28
 
 
- 964 0014 1C000000 		.4byte	.LFE63-.LFB63
- 965 0018 00000000 		.4byte	.LFB64
- 966 001c 2A000000 		.4byte	.LFE64-.LFB64
- 967 0020 00000000 		.4byte	.LFB65
- 968 0024 38000000 		.4byte	.LFE65-.LFB65
- 969 0028 00000000 		.4byte	0
- 970 002c 00000000 		.4byte	0
- 971              		.section	.debug_ranges,"",%progbits
- 972              	.Ldebug_ranges0:
- 973 0000 00000000 		.4byte	.LFB63
- 974 0004 1C000000 		.4byte	.LFE63
- 975 0008 00000000 		.4byte	.LFB64
- 976 000c 2A000000 		.4byte	.LFE64
- 977 0010 00000000 		.4byte	.LFB65
- 978 0014 38000000 		.4byte	.LFE65
- 979 0018 00000000 		.4byte	0
- 980 001c 00000000 		.4byte	0
- 981              		.section	.debug_line,"",%progbits
- 982              	.Ldebug_line0:
- 983 0000 DD010000 		.section	.debug_str,"MS",%progbits,1
- 983      02006C01 
- 983      00000201 
- 983      FB0E0D00 
- 983      01010101 
- 984              	.LASF31:
- 985 0000 55415254 		.ascii	"UART_1_Start\000"
- 985      5F315F53 
- 985      74617274 
- 985      00
- 986              	.LASF9:
- 987 000d 5F5F696E 		.ascii	"__int32_t\000"
- 987      7433325F 
- 987      7400
- 988              	.LASF3:
- 989 0017 73686F72 		.ascii	"short unsigned int\000"
- 989      7420756E 
- 989      7369676E 
- 989      65642069 
- 989      6E7400
- 990              	.LASF20:
- 991 002a 5F726561 		.ascii	"_read\000"
- 991      6400
- 992              	.LASF13:
- 993 0030 666C6F61 		.ascii	"float\000"
- 993      7400
- 994              	.LASF18:
- 995 0036 66696C65 		.ascii	"file\000"
- 995      00
- 996              	.LASF1:
- 997 003b 756E7369 		.ascii	"unsigned char\000"
- 997      676E6564 
- 997      20636861 
- 997      7200
- 998              	.LASF5:
- 999 0049 6C6F6E67 		.ascii	"long unsigned int\000"
- 999      20756E73 
- 999      69676E65 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 26
+ 1106 0045 00       		.byte	0
+ 1107 0046 0B       		.uleb128 0xb
+ 1108 0047 0B       		.uleb128 0xb
+ 1109 0048 49       		.uleb128 0x49
+ 1110 0049 13       		.uleb128 0x13
+ 1111 004a 00       		.byte	0
+ 1112 004b 00       		.byte	0
+ 1113 004c 07       		.uleb128 0x7
+ 1114 004d 26       		.uleb128 0x26
+ 1115 004e 00       		.byte	0
+ 1116 004f 49       		.uleb128 0x49
+ 1117 0050 13       		.uleb128 0x13
+ 1118 0051 00       		.byte	0
+ 1119 0052 00       		.byte	0
+ 1120 0053 08       		.uleb128 0x8
+ 1121 0054 2E       		.uleb128 0x2e
+ 1122 0055 01       		.byte	0x1
+ 1123 0056 3F       		.uleb128 0x3f
+ 1124 0057 19       		.uleb128 0x19
+ 1125 0058 03       		.uleb128 0x3
+ 1126 0059 0E       		.uleb128 0xe
+ 1127 005a 3A       		.uleb128 0x3a
+ 1128 005b 0B       		.uleb128 0xb
+ 1129 005c 3B       		.uleb128 0x3b
+ 1130 005d 0B       		.uleb128 0xb
+ 1131 005e 49       		.uleb128 0x49
+ 1132 005f 13       		.uleb128 0x13
+ 1133 0060 11       		.uleb128 0x11
+ 1134 0061 01       		.uleb128 0x1
+ 1135 0062 12       		.uleb128 0x12
+ 1136 0063 06       		.uleb128 0x6
+ 1137 0064 40       		.uleb128 0x40
+ 1138 0065 18       		.uleb128 0x18
+ 1139 0066 9642     		.uleb128 0x2116
+ 1140 0068 19       		.uleb128 0x19
+ 1141 0069 01       		.uleb128 0x1
+ 1142 006a 13       		.uleb128 0x13
+ 1143 006b 00       		.byte	0
+ 1144 006c 00       		.byte	0
+ 1145 006d 09       		.uleb128 0x9
+ 1146 006e 34       		.uleb128 0x34
+ 1147 006f 00       		.byte	0
+ 1148 0070 03       		.uleb128 0x3
+ 1149 0071 0E       		.uleb128 0xe
+ 1150 0072 3A       		.uleb128 0x3a
+ 1151 0073 0B       		.uleb128 0xb
+ 1152 0074 3B       		.uleb128 0x3b
+ 1153 0075 0B       		.uleb128 0xb
+ 1154 0076 49       		.uleb128 0x49
+ 1155 0077 13       		.uleb128 0x13
+ 1156 0078 02       		.uleb128 0x2
+ 1157 0079 17       		.uleb128 0x17
+ 1158 007a 00       		.byte	0
+ 1159 007b 00       		.byte	0
+ 1160 007c 0A       		.uleb128 0xa
+ 1161 007d 898201   		.uleb128 0x4109
+ 1162 0080 00       		.byte	0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 29
 
 
- 999      6420696E 
- 999      7400
- 1000              	.LASF30:
- 1001 005b 49544D5F 		.ascii	"ITM_RxBuffer\000"
- 1001      52784275 
- 1001      66666572 
- 1001      00
- 1002              	.LASF24:
- 1003 0068 6D6F746F 		.ascii	"motor_forward\000"
- 1003      725F666F 
- 1003      72776172 
- 1003      6400
- 1004              	.LASF14:
- 1005 0076 646F7562 		.ascii	"double\000"
- 1005      6C6500
- 1006              	.LASF23:
- 1007 007d 6D6F746F 		.ascii	"motor_stop\000"
- 1007      725F7374 
- 1007      6F7000
- 1008              	.LASF29:
- 1009 0088 6D61696E 		.ascii	"main\000"
- 1009      00
- 1010              	.LASF12:
- 1011 008d 75696E74 		.ascii	"uint32\000"
- 1011      333200
- 1012              	.LASF26:
- 1013 0094 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
- 1013      4320342E 
- 1013      392E3320 
- 1013      32303135 
- 1013      30333033 
- 1014 00c7 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
- 1014      20726576 
- 1014      6973696F 
- 1014      6E203232 
- 1014      31323230 
- 1015 00fa 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1015      66756E63 
- 1015      74696F6E 
- 1015      2D736563 
- 1015      74696F6E 
- 1016              	.LASF25:
- 1017 0122 55415254 		.ascii	"UART_1_PutChar\000"
- 1017      5F315F50 
- 1017      75744368 
- 1017      617200
- 1018              	.LASF8:
- 1019 0131 756E7369 		.ascii	"unsigned int\000"
- 1019      676E6564 
- 1019      20696E74 
- 1019      00
- 1020              	.LASF7:
- 1021 013e 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1021      206C6F6E 
- 1021      6720756E 
- 1021      7369676E 
- 1021      65642069 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 27
+ 1163 0081 11       		.uleb128 0x11
+ 1164 0082 01       		.uleb128 0x1
+ 1165 0083 31       		.uleb128 0x31
+ 1166 0084 13       		.uleb128 0x13
+ 1167 0085 00       		.byte	0
+ 1168 0086 00       		.byte	0
+ 1169 0087 0B       		.uleb128 0xb
+ 1170 0088 898201   		.uleb128 0x4109
+ 1171 008b 01       		.byte	0x1
+ 1172 008c 11       		.uleb128 0x11
+ 1173 008d 01       		.uleb128 0x1
+ 1174 008e 31       		.uleb128 0x31
+ 1175 008f 13       		.uleb128 0x13
+ 1176 0090 01       		.uleb128 0x1
+ 1177 0091 13       		.uleb128 0x13
+ 1178 0092 00       		.byte	0
+ 1179 0093 00       		.byte	0
+ 1180 0094 0C       		.uleb128 0xc
+ 1181 0095 8A8201   		.uleb128 0x410a
+ 1182 0098 00       		.byte	0
+ 1183 0099 02       		.uleb128 0x2
+ 1184 009a 18       		.uleb128 0x18
+ 1185 009b 9142     		.uleb128 0x2111
+ 1186 009d 18       		.uleb128 0x18
+ 1187 009e 00       		.byte	0
+ 1188 009f 00       		.byte	0
+ 1189 00a0 0D       		.uleb128 0xd
+ 1190 00a1 898201   		.uleb128 0x4109
+ 1191 00a4 01       		.byte	0x1
+ 1192 00a5 11       		.uleb128 0x11
+ 1193 00a6 01       		.uleb128 0x1
+ 1194 00a7 31       		.uleb128 0x31
+ 1195 00a8 13       		.uleb128 0x13
+ 1196 00a9 00       		.byte	0
+ 1197 00aa 00       		.byte	0
+ 1198 00ab 0E       		.uleb128 0xe
+ 1199 00ac 2E       		.uleb128 0x2e
+ 1200 00ad 01       		.byte	0x1
+ 1201 00ae 3F       		.uleb128 0x3f
+ 1202 00af 19       		.uleb128 0x19
+ 1203 00b0 03       		.uleb128 0x3
+ 1204 00b1 0E       		.uleb128 0xe
+ 1205 00b2 3A       		.uleb128 0x3a
+ 1206 00b3 0B       		.uleb128 0xb
+ 1207 00b4 3B       		.uleb128 0x3b
+ 1208 00b5 05       		.uleb128 0x5
+ 1209 00b6 27       		.uleb128 0x27
+ 1210 00b7 19       		.uleb128 0x19
+ 1211 00b8 49       		.uleb128 0x49
+ 1212 00b9 13       		.uleb128 0x13
+ 1213 00ba 11       		.uleb128 0x11
+ 1214 00bb 01       		.uleb128 0x1
+ 1215 00bc 12       		.uleb128 0x12
+ 1216 00bd 06       		.uleb128 0x6
+ 1217 00be 40       		.uleb128 0x40
+ 1218 00bf 18       		.uleb128 0x18
+ 1219 00c0 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 30
 
 
- 1022              	.LASF22:
- 1023 0155 6D6F746F 		.ascii	"motor_start\000"
- 1023      725F7374 
- 1023      61727400 
- 1024              	.LASF10:
- 1025 0161 696E7433 		.ascii	"int32_t\000"
- 1025      325F7400 
- 1026              	.LASF16:
- 1027 0169 73697A65 		.ascii	"sizetype\000"
- 1027      74797065 
- 1027      00
- 1028              	.LASF6:
- 1029 0172 6C6F6E67 		.ascii	"long long int\000"
- 1029      206C6F6E 
- 1029      6720696E 
- 1029      7400
- 1030              	.LASF27:
- 1031 0180 6D61696E 		.ascii	"main.c\000"
- 1031      2E6300
- 1032              	.LASF15:
- 1033 0187 63686172 		.ascii	"char\000"
- 1033      00
- 1034              	.LASF19:
- 1035 018c 5F777269 		.ascii	"_write\000"
- 1035      746500
- 1036              	.LASF21:
- 1037 0193 636F756E 		.ascii	"count\000"
- 1037      7400
- 1038              	.LASF2:
- 1039 0199 73686F72 		.ascii	"short int\000"
- 1039      7420696E 
- 1039      7400
- 1040              	.LASF11:
- 1041 01a3 75696E74 		.ascii	"uint8\000"
- 1041      3800
- 1042              	.LASF28:
- 1043 01a9 433A5C55 		.ascii	"C:\\Users\\Miikka\\Documents\\Zumo.release04\\Zumo0"
- 1043      73657273 
- 1043      5C4D6969 
- 1043      6B6B615C 
- 1043      446F6375 
- 1044 01d7 315C5A75 		.ascii	"1\\ZumoBot.cydsn\000"
- 1044      6D6F426F 
- 1044      742E6379 
- 1044      64736E00 
- 1045              	.LASF4:
- 1046 01e7 6C6F6E67 		.ascii	"long int\000"
- 1046      20696E74 
- 1046      00
- 1047              	.LASF17:
- 1048 01f0 6C6F6E67 		.ascii	"long double\000"
- 1048      20646F75 
- 1048      626C6500 
- 1049              	.LASF0:
- 1050 01fc 7369676E 		.ascii	"signed char\000"
- 1050      65642063 
- 1050      68617200 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\cc6UEKrH.s 			page 28
+ 1220 00c2 19       		.uleb128 0x19
+ 1221 00c3 01       		.uleb128 0x1
+ 1222 00c4 13       		.uleb128 0x13
+ 1223 00c5 00       		.byte	0
+ 1224 00c6 00       		.byte	0
+ 1225 00c7 0F       		.uleb128 0xf
+ 1226 00c8 05       		.uleb128 0x5
+ 1227 00c9 00       		.byte	0
+ 1228 00ca 03       		.uleb128 0x3
+ 1229 00cb 0E       		.uleb128 0xe
+ 1230 00cc 3A       		.uleb128 0x3a
+ 1231 00cd 0B       		.uleb128 0xb
+ 1232 00ce 3B       		.uleb128 0x3b
+ 1233 00cf 05       		.uleb128 0x5
+ 1234 00d0 49       		.uleb128 0x49
+ 1235 00d1 13       		.uleb128 0x13
+ 1236 00d2 02       		.uleb128 0x2
+ 1237 00d3 17       		.uleb128 0x17
+ 1238 00d4 00       		.byte	0
+ 1239 00d5 00       		.byte	0
+ 1240 00d6 10       		.uleb128 0x10
+ 1241 00d7 05       		.uleb128 0x5
+ 1242 00d8 00       		.byte	0
+ 1243 00d9 03       		.uleb128 0x3
+ 1244 00da 08       		.uleb128 0x8
+ 1245 00db 3A       		.uleb128 0x3a
+ 1246 00dc 0B       		.uleb128 0xb
+ 1247 00dd 3B       		.uleb128 0x3b
+ 1248 00de 05       		.uleb128 0x5
+ 1249 00df 49       		.uleb128 0x49
+ 1250 00e0 13       		.uleb128 0x13
+ 1251 00e1 02       		.uleb128 0x2
+ 1252 00e2 17       		.uleb128 0x17
+ 1253 00e3 00       		.byte	0
+ 1254 00e4 00       		.byte	0
+ 1255 00e5 11       		.uleb128 0x11
+ 1256 00e6 34       		.uleb128 0x34
+ 1257 00e7 00       		.byte	0
+ 1258 00e8 03       		.uleb128 0x3
+ 1259 00e9 08       		.uleb128 0x8
+ 1260 00ea 3A       		.uleb128 0x3a
+ 1261 00eb 0B       		.uleb128 0xb
+ 1262 00ec 3B       		.uleb128 0x3b
+ 1263 00ed 05       		.uleb128 0x5
+ 1264 00ee 49       		.uleb128 0x49
+ 1265 00ef 13       		.uleb128 0x13
+ 1266 00f0 02       		.uleb128 0x2
+ 1267 00f1 17       		.uleb128 0x17
+ 1268 00f2 00       		.byte	0
+ 1269 00f3 00       		.byte	0
+ 1270 00f4 12       		.uleb128 0x12
+ 1271 00f5 34       		.uleb128 0x34
+ 1272 00f6 00       		.byte	0
+ 1273 00f7 03       		.uleb128 0x3
+ 1274 00f8 0E       		.uleb128 0xe
+ 1275 00f9 3A       		.uleb128 0x3a
+ 1276 00fa 0B       		.uleb128 0xb
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 31
 
 
- 1051              	.LASF32:
- 1052 0208 55415254 		.ascii	"UART_1_GetChar\000"
- 1052      5F315F47 
- 1052      65744368 
- 1052      617200
- 1053              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
+ 1277 00fb 3B       		.uleb128 0x3b
+ 1278 00fc 05       		.uleb128 0x5
+ 1279 00fd 49       		.uleb128 0x49
+ 1280 00fe 13       		.uleb128 0x13
+ 1281 00ff 3F       		.uleb128 0x3f
+ 1282 0100 19       		.uleb128 0x19
+ 1283 0101 3C       		.uleb128 0x3c
+ 1284 0102 19       		.uleb128 0x19
+ 1285 0103 00       		.byte	0
+ 1286 0104 00       		.byte	0
+ 1287 0105 13       		.uleb128 0x13
+ 1288 0106 35       		.uleb128 0x35
+ 1289 0107 00       		.byte	0
+ 1290 0108 49       		.uleb128 0x49
+ 1291 0109 13       		.uleb128 0x13
+ 1292 010a 00       		.byte	0
+ 1293 010b 00       		.byte	0
+ 1294 010c 14       		.uleb128 0x14
+ 1295 010d 2E       		.uleb128 0x2e
+ 1296 010e 00       		.byte	0
+ 1297 010f 3F       		.uleb128 0x3f
+ 1298 0110 19       		.uleb128 0x19
+ 1299 0111 03       		.uleb128 0x3
+ 1300 0112 0E       		.uleb128 0xe
+ 1301 0113 3A       		.uleb128 0x3a
+ 1302 0114 0B       		.uleb128 0xb
+ 1303 0115 3B       		.uleb128 0x3b
+ 1304 0116 0B       		.uleb128 0xb
+ 1305 0117 27       		.uleb128 0x27
+ 1306 0118 19       		.uleb128 0x19
+ 1307 0119 3C       		.uleb128 0x3c
+ 1308 011a 19       		.uleb128 0x19
+ 1309 011b 00       		.byte	0
+ 1310 011c 00       		.byte	0
+ 1311 011d 15       		.uleb128 0x15
+ 1312 011e 2E       		.uleb128 0x2e
+ 1313 011f 01       		.byte	0x1
+ 1314 0120 3F       		.uleb128 0x3f
+ 1315 0121 19       		.uleb128 0x19
+ 1316 0122 03       		.uleb128 0x3
+ 1317 0123 0E       		.uleb128 0xe
+ 1318 0124 3A       		.uleb128 0x3a
+ 1319 0125 0B       		.uleb128 0xb
+ 1320 0126 3B       		.uleb128 0x3b
+ 1321 0127 0B       		.uleb128 0xb
+ 1322 0128 6E       		.uleb128 0x6e
+ 1323 0129 0E       		.uleb128 0xe
+ 1324 012a 27       		.uleb128 0x27
+ 1325 012b 19       		.uleb128 0x19
+ 1326 012c 49       		.uleb128 0x49
+ 1327 012d 13       		.uleb128 0x13
+ 1328 012e 3C       		.uleb128 0x3c
+ 1329 012f 19       		.uleb128 0x19
+ 1330 0130 01       		.uleb128 0x1
+ 1331 0131 13       		.uleb128 0x13
+ 1332 0132 00       		.byte	0
+ 1333 0133 00       		.byte	0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 32
+
+
+ 1334 0134 16       		.uleb128 0x16
+ 1335 0135 05       		.uleb128 0x5
+ 1336 0136 00       		.byte	0
+ 1337 0137 49       		.uleb128 0x49
+ 1338 0138 13       		.uleb128 0x13
+ 1339 0139 00       		.byte	0
+ 1340 013a 00       		.byte	0
+ 1341 013b 17       		.uleb128 0x17
+ 1342 013c 2E       		.uleb128 0x2e
+ 1343 013d 01       		.byte	0x1
+ 1344 013e 3F       		.uleb128 0x3f
+ 1345 013f 19       		.uleb128 0x19
+ 1346 0140 03       		.uleb128 0x3
+ 1347 0141 0E       		.uleb128 0xe
+ 1348 0142 3A       		.uleb128 0x3a
+ 1349 0143 0B       		.uleb128 0xb
+ 1350 0144 3B       		.uleb128 0x3b
+ 1351 0145 0B       		.uleb128 0xb
+ 1352 0146 27       		.uleb128 0x27
+ 1353 0147 19       		.uleb128 0x19
+ 1354 0148 3C       		.uleb128 0x3c
+ 1355 0149 19       		.uleb128 0x19
+ 1356 014a 01       		.uleb128 0x1
+ 1357 014b 13       		.uleb128 0x13
+ 1358 014c 00       		.byte	0
+ 1359 014d 00       		.byte	0
+ 1360 014e 18       		.uleb128 0x18
+ 1361 014f 2E       		.uleb128 0x2e
+ 1362 0150 00       		.byte	0
+ 1363 0151 3F       		.uleb128 0x3f
+ 1364 0152 19       		.uleb128 0x19
+ 1365 0153 03       		.uleb128 0x3
+ 1366 0154 0E       		.uleb128 0xe
+ 1367 0155 3A       		.uleb128 0x3a
+ 1368 0156 0B       		.uleb128 0xb
+ 1369 0157 3B       		.uleb128 0x3b
+ 1370 0158 0B       		.uleb128 0xb
+ 1371 0159 27       		.uleb128 0x27
+ 1372 015a 19       		.uleb128 0x19
+ 1373 015b 49       		.uleb128 0x49
+ 1374 015c 13       		.uleb128 0x13
+ 1375 015d 3C       		.uleb128 0x3c
+ 1376 015e 19       		.uleb128 0x19
+ 1377 015f 00       		.byte	0
+ 1378 0160 00       		.byte	0
+ 1379 0161 19       		.uleb128 0x19
+ 1380 0162 2E       		.uleb128 0x2e
+ 1381 0163 01       		.byte	0x1
+ 1382 0164 3F       		.uleb128 0x3f
+ 1383 0165 19       		.uleb128 0x19
+ 1384 0166 03       		.uleb128 0x3
+ 1385 0167 0E       		.uleb128 0xe
+ 1386 0168 3A       		.uleb128 0x3a
+ 1387 0169 0B       		.uleb128 0xb
+ 1388 016a 3B       		.uleb128 0x3b
+ 1389 016b 0B       		.uleb128 0xb
+ 1390 016c 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 33
+
+
+ 1391 016d 19       		.uleb128 0x19
+ 1392 016e 01       		.uleb128 0x1
+ 1393 016f 13       		.uleb128 0x13
+ 1394 0170 00       		.byte	0
+ 1395 0171 00       		.byte	0
+ 1396 0172 1A       		.uleb128 0x1a
+ 1397 0173 18       		.uleb128 0x18
+ 1398 0174 00       		.byte	0
+ 1399 0175 00       		.byte	0
+ 1400 0176 00       		.byte	0
+ 1401 0177 1B       		.uleb128 0x1b
+ 1402 0178 2E       		.uleb128 0x2e
+ 1403 0179 01       		.byte	0x1
+ 1404 017a 3F       		.uleb128 0x3f
+ 1405 017b 19       		.uleb128 0x19
+ 1406 017c 03       		.uleb128 0x3
+ 1407 017d 0E       		.uleb128 0xe
+ 1408 017e 3A       		.uleb128 0x3a
+ 1409 017f 0B       		.uleb128 0xb
+ 1410 0180 3B       		.uleb128 0x3b
+ 1411 0181 0B       		.uleb128 0xb
+ 1412 0182 27       		.uleb128 0x27
+ 1413 0183 19       		.uleb128 0x19
+ 1414 0184 49       		.uleb128 0x49
+ 1415 0185 13       		.uleb128 0x13
+ 1416 0186 3C       		.uleb128 0x3c
+ 1417 0187 19       		.uleb128 0x19
+ 1418 0188 01       		.uleb128 0x1
+ 1419 0189 13       		.uleb128 0x13
+ 1420 018a 00       		.byte	0
+ 1421 018b 00       		.byte	0
+ 1422 018c 00       		.byte	0
+ 1423              		.section	.debug_loc,"",%progbits
+ 1424              	.Ldebug_loc0:
+ 1425              	.LLST0:
+ 1426 0000 0C000000 		.4byte	.LVL1
+ 1427 0004 8E000000 		.4byte	.LVL15
+ 1428 0008 0200     		.2byte	0x2
+ 1429 000a 30       		.byte	0x30
+ 1430 000b 9F       		.byte	0x9f
+ 1431 000c A0000000 		.4byte	.LVL19
+ 1432 0010 DC000000 		.4byte	.LVL28
+ 1433 0014 0100     		.2byte	0x1
+ 1434 0016 54       		.byte	0x54
+ 1435 0017 00000000 		.4byte	0
+ 1436 001b 00000000 		.4byte	0
+ 1437              	.LLST1:
+ 1438 001f 0C000000 		.4byte	.LVL1
+ 1439 0023 8E000000 		.4byte	.LVL15
+ 1440 0027 0600     		.2byte	0x6
+ 1441 0029 9E       		.byte	0x9e
+ 1442 002a 04       		.uleb128 0x4
+ 1443 002b 00000000 		.4byte	0
+ 1444 002f AE000000 		.4byte	.LVL22
+ 1445 0033 B5000000 		.4byte	.LVL23-1
+ 1446 0037 0100     		.2byte	0x1
+ 1447 0039 50       		.byte	0x50
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 34
+
+
+ 1448 003a B5000000 		.4byte	.LVL23-1
+ 1449 003e DC000000 		.4byte	.LVL28
+ 1450 0042 0100     		.2byte	0x1
+ 1451 0044 55       		.byte	0x55
+ 1452 0045 00000000 		.4byte	0
+ 1453 0049 00000000 		.4byte	0
+ 1454              	.LLST2:
+ 1455 004d 1C000000 		.4byte	.LVL4
+ 1456 0051 21000000 		.4byte	.LVL5-1
+ 1457 0055 0100     		.2byte	0x1
+ 1458 0057 50       		.byte	0x50
+ 1459 0058 22000000 		.4byte	.LVL5
+ 1460 005c 29000000 		.4byte	.LVL6-1
+ 1461 0060 0100     		.2byte	0x1
+ 1462 0062 50       		.byte	0x50
+ 1463 0063 00000000 		.4byte	0
+ 1464 0067 00000000 		.4byte	0
+ 1465              	.LLST3:
+ 1466 006b 00000000 		.4byte	.LVL30
+ 1467 006f 0A000000 		.4byte	.LVL32
+ 1468 0073 0100     		.2byte	0x1
+ 1469 0075 50       		.byte	0x50
+ 1470 0076 0A000000 		.4byte	.LVL32
+ 1471 007a 2A000000 		.4byte	.LFE64
+ 1472 007e 0400     		.2byte	0x4
+ 1473 0080 F3       		.byte	0xf3
+ 1474 0081 01       		.uleb128 0x1
+ 1475 0082 50       		.byte	0x50
+ 1476 0083 9F       		.byte	0x9f
+ 1477 0084 00000000 		.4byte	0
+ 1478 0088 00000000 		.4byte	0
+ 1479              	.LLST4:
+ 1480 008c 00000000 		.4byte	.LVL30
+ 1481 0090 0A000000 		.4byte	.LVL32
+ 1482 0094 0100     		.2byte	0x1
+ 1483 0096 51       		.byte	0x51
+ 1484 0097 0A000000 		.4byte	.LVL32
+ 1485 009b 18000000 		.4byte	.LVL34
+ 1486 009f 0100     		.2byte	0x1
+ 1487 00a1 54       		.byte	0x54
+ 1488 00a2 18000000 		.4byte	.LVL34
+ 1489 00a6 22000000 		.4byte	.LVL37
+ 1490 00aa 0100     		.2byte	0x1
+ 1491 00ac 56       		.byte	0x56
+ 1492 00ad 22000000 		.4byte	.LVL37
+ 1493 00b1 2A000000 		.4byte	.LFE64
+ 1494 00b5 0100     		.2byte	0x1
+ 1495 00b7 54       		.byte	0x54
+ 1496 00b8 00000000 		.4byte	0
+ 1497 00bc 00000000 		.4byte	0
+ 1498              	.LLST5:
+ 1499 00c0 00000000 		.4byte	.LVL30
+ 1500 00c4 0A000000 		.4byte	.LVL32
+ 1501 00c8 0100     		.2byte	0x1
+ 1502 00ca 52       		.byte	0x52
+ 1503 00cb 0A000000 		.4byte	.LVL32
+ 1504 00cf 2A000000 		.4byte	.LFE64
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 35
+
+
+ 1505 00d3 0100     		.2byte	0x1
+ 1506 00d5 57       		.byte	0x57
+ 1507 00d6 00000000 		.4byte	0
+ 1508 00da 00000000 		.4byte	0
+ 1509              	.LLST6:
+ 1510 00de 06000000 		.4byte	.LVL31
+ 1511 00e2 0A000000 		.4byte	.LVL32
+ 1512 00e6 0200     		.2byte	0x2
+ 1513 00e8 30       		.byte	0x30
+ 1514 00e9 9F       		.byte	0x9f
+ 1515 00ea 0A000000 		.4byte	.LVL32
+ 1516 00ee 2A000000 		.4byte	.LFE64
+ 1517 00f2 0100     		.2byte	0x1
+ 1518 00f4 55       		.byte	0x55
+ 1519 00f5 00000000 		.4byte	0
+ 1520 00f9 00000000 		.4byte	0
+ 1521              	.LLST7:
+ 1522 00fd 00000000 		.4byte	.LVL38
+ 1523 0101 0A000000 		.4byte	.LVL40
+ 1524 0105 0100     		.2byte	0x1
+ 1525 0107 50       		.byte	0x50
+ 1526 0108 0A000000 		.4byte	.LVL40
+ 1527 010c 38000000 		.4byte	.LFE65
+ 1528 0110 0400     		.2byte	0x4
+ 1529 0112 F3       		.byte	0xf3
+ 1530 0113 01       		.uleb128 0x1
+ 1531 0114 50       		.byte	0x50
+ 1532 0115 9F       		.byte	0x9f
+ 1533 0116 00000000 		.4byte	0
+ 1534 011a 00000000 		.4byte	0
+ 1535              	.LLST8:
+ 1536 011e 00000000 		.4byte	.LVL38
+ 1537 0122 0A000000 		.4byte	.LVL40
+ 1538 0126 0100     		.2byte	0x1
+ 1539 0128 51       		.byte	0x51
+ 1540 0129 0A000000 		.4byte	.LVL40
+ 1541 012d 26000000 		.4byte	.LVL47
+ 1542 0131 0100     		.2byte	0x1
+ 1543 0133 57       		.byte	0x57
+ 1544 0134 26000000 		.4byte	.LVL47
+ 1545 0138 30000000 		.4byte	.LVL49
+ 1546 013c 0100     		.2byte	0x1
+ 1547 013e 53       		.byte	0x53
+ 1548 013f 30000000 		.4byte	.LVL49
+ 1549 0143 34000000 		.4byte	.LVL50
+ 1550 0147 0100     		.2byte	0x1
+ 1551 0149 57       		.byte	0x57
+ 1552 014a 00000000 		.4byte	0
+ 1553 014e 00000000 		.4byte	0
+ 1554              	.LLST9:
+ 1555 0152 00000000 		.4byte	.LVL38
+ 1556 0156 0A000000 		.4byte	.LVL40
+ 1557 015a 0100     		.2byte	0x1
+ 1558 015c 52       		.byte	0x52
+ 1559 015d 0A000000 		.4byte	.LVL40
+ 1560 0161 38000000 		.4byte	.LFE65
+ 1561 0165 0100     		.2byte	0x1
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 36
+
+
+ 1562 0167 54       		.byte	0x54
+ 1563 0168 00000000 		.4byte	0
+ 1564 016c 00000000 		.4byte	0
+ 1565              	.LLST10:
+ 1566 0170 06000000 		.4byte	.LVL39
+ 1567 0174 0A000000 		.4byte	.LVL40
+ 1568 0178 0200     		.2byte	0x2
+ 1569 017a 30       		.byte	0x30
+ 1570 017b 9F       		.byte	0x9f
+ 1571 017c 0A000000 		.4byte	.LVL40
+ 1572 0180 38000000 		.4byte	.LFE65
+ 1573 0184 0100     		.2byte	0x1
+ 1574 0186 56       		.byte	0x56
+ 1575 0187 00000000 		.4byte	0
+ 1576 018b 00000000 		.4byte	0
+ 1577              	.LLST11:
+ 1578 018f 0E000000 		.4byte	.LVL41
+ 1579 0193 15000000 		.4byte	.LVL42-1
+ 1580 0197 0100     		.2byte	0x1
+ 1581 0199 50       		.byte	0x50
+ 1582 019a 1C000000 		.4byte	.LVL44
+ 1583 019e 24000000 		.4byte	.LVL46
+ 1584 01a2 0200     		.2byte	0x2
+ 1585 01a4 3A       		.byte	0x3a
+ 1586 01a5 9F       		.byte	0x9f
+ 1587 01a6 24000000 		.4byte	.LVL46
+ 1588 01aa 30000000 		.4byte	.LVL49
+ 1589 01ae 0100     		.2byte	0x1
+ 1590 01b0 55       		.byte	0x55
+ 1591 01b1 00000000 		.4byte	0
+ 1592 01b5 00000000 		.4byte	0
+ 1593              		.section	.debug_aranges,"",%progbits
+ 1594 0000 2C000000 		.4byte	0x2c
+ 1595 0004 0200     		.2byte	0x2
+ 1596 0006 00000000 		.4byte	.Ldebug_info0
+ 1597 000a 04       		.byte	0x4
+ 1598 000b 00       		.byte	0
+ 1599 000c 0000     		.2byte	0
+ 1600 000e 0000     		.2byte	0
+ 1601 0010 00000000 		.4byte	.LFB63
+ 1602 0014 F0000000 		.4byte	.LFE63-.LFB63
+ 1603 0018 00000000 		.4byte	.LFB64
+ 1604 001c 2A000000 		.4byte	.LFE64-.LFB64
+ 1605 0020 00000000 		.4byte	.LFB65
+ 1606 0024 38000000 		.4byte	.LFE65-.LFB65
+ 1607 0028 00000000 		.4byte	0
+ 1608 002c 00000000 		.4byte	0
+ 1609              		.section	.debug_ranges,"",%progbits
+ 1610              	.Ldebug_ranges0:
+ 1611 0000 00000000 		.4byte	.LFB63
+ 1612 0004 F0000000 		.4byte	.LFE63
+ 1613 0008 00000000 		.4byte	.LFB64
+ 1614 000c 2A000000 		.4byte	.LFE64
+ 1615 0010 00000000 		.4byte	.LFB65
+ 1616 0014 38000000 		.4byte	.LFE65
+ 1617 0018 00000000 		.4byte	0
+ 1618 001c 00000000 		.4byte	0
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 37
+
+
+ 1619              		.section	.debug_line,"",%progbits
+ 1620              	.Ldebug_line0:
+ 1621 0000 3E020000 		.section	.debug_str,"MS",%progbits,1
+ 1621      0200BA01 
+ 1621      00000201 
+ 1621      FB0E0D00 
+ 1621      01010101 
+ 1622              	.LASF27:
+ 1623 0000 55415254 		.ascii	"UART_1_Start\000"
+ 1623      5F315F53 
+ 1623      74617274 
+ 1623      00
+ 1624              	.LASF9:
+ 1625 000d 5F5F696E 		.ascii	"__int32_t\000"
+ 1625      7433325F 
+ 1625      7400
+ 1626              	.LASF28:
+ 1627 0017 4144435F 		.ascii	"ADC_Battery_Start\000"
+ 1627      42617474 
+ 1627      6572795F 
+ 1627      53746172 
+ 1627      7400
+ 1628              	.LASF3:
+ 1629 0029 73686F72 		.ascii	"short unsigned int\000"
+ 1629      7420756E 
+ 1629      7369676E 
+ 1629      65642069 
+ 1629      6E7400
+ 1630              	.LASF10:
+ 1631 003c 696E7433 		.ascii	"int32_t\000"
+ 1631      325F7400 
+ 1632              	.LASF25:
+ 1633 0044 5F726561 		.ascii	"_read\000"
+ 1633      6400
+ 1634              	.LASF15:
+ 1635 004a 666C6F61 		.ascii	"float\000"
+ 1635      7400
+ 1636              	.LASF23:
+ 1637 0050 66696C65 		.ascii	"file\000"
+ 1637      00
+ 1638              	.LASF1:
+ 1639 0055 756E7369 		.ascii	"unsigned char\000"
+ 1639      676E6564 
+ 1639      20636861 
+ 1639      7200
+ 1640              	.LASF13:
+ 1641 0063 696E7431 		.ascii	"int16\000"
+ 1641      3600
+ 1642              	.LASF5:
+ 1643 0069 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1643      20756E73 
+ 1643      69676E65 
+ 1643      6420696E 
+ 1643      7400
+ 1644              	.LASF44:
+ 1645 007b 463A5C4D 		.ascii	"F:\\Metropolia\\Laitteet\\Team-9\\ZumoBot.cydsn\000"
+ 1645      6574726F 
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 38
+
+
+ 1645      706F6C69 
+ 1645      615C4C61 
+ 1645      69747465 
+ 1646              	.LASF46:
+ 1647 00a7 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1647      52784275 
+ 1647      66666572 
+ 1647      00
+ 1648              	.LASF16:
+ 1649 00b4 646F7562 		.ascii	"double\000"
+ 1649      6C6500
+ 1650              	.LASF32:
+ 1651 00bb 6D6F746F 		.ascii	"motor_stop\000"
+ 1651      725F7374 
+ 1651      6F7000
+ 1652              	.LASF45:
+ 1653 00c6 6D61696E 		.ascii	"main\000"
+ 1653      00
+ 1654              	.LASF14:
+ 1655 00cb 666C6F61 		.ascii	"float32\000"
+ 1655      74333200 
+ 1656              	.LASF12:
+ 1657 00d3 75696E74 		.ascii	"uint32\000"
+ 1657      333200
+ 1658              	.LASF42:
+ 1659 00da 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1659      4320342E 
+ 1659      392E3320 
+ 1659      32303135 
+ 1659      30333033 
+ 1660 010d 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1660      20726576 
+ 1660      6973696F 
+ 1660      6E203232 
+ 1660      31323230 
+ 1661 0140 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1661      66756E63 
+ 1661      74696F6E 
+ 1661      2D736563 
+ 1661      74696F6E 
+ 1662              	.LASF40:
+ 1663 0168 55415254 		.ascii	"UART_1_PutChar\000"
+ 1663      5F315F50 
+ 1663      75744368 
+ 1663      617200
+ 1664              	.LASF8:
+ 1665 0177 756E7369 		.ascii	"unsigned int\000"
+ 1665      676E6564 
+ 1665      20696E74 
+ 1665      00
+ 1666              	.LASF35:
+ 1667 0184 4144435F 		.ascii	"ADC_Battery_GetResult16\000"
+ 1667      42617474 
+ 1667      6572795F 
+ 1667      47657452 
+ 1667      6573756C 
+ 1668              	.LASF7:
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 39
+
+
+ 1669 019c 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1669      206C6F6E 
+ 1669      6720756E 
+ 1669      7369676E 
+ 1669      65642069 
+ 1670              	.LASF31:
+ 1671 01b3 6D6F746F 		.ascii	"motor_start\000"
+ 1671      725F7374 
+ 1671      61727400 
+ 1672              	.LASF37:
+ 1673 01bf 4144435F 		.ascii	"ADC_Battery_CountsTo_Volts\000"
+ 1673      42617474 
+ 1673      6572795F 
+ 1673      436F756E 
+ 1673      7473546F 
+ 1674              	.LASF36:
+ 1675 01da 4144435F 		.ascii	"ADC_Battery_IsEndConversion\000"
+ 1675      42617474 
+ 1675      6572795F 
+ 1675      4973456E 
+ 1675      64436F6E 
+ 1676              	.LASF47:
+ 1677 01f6 5F5F6275 		.ascii	"__builtin_puts\000"
+ 1677      696C7469 
+ 1677      6E5F7075 
+ 1677      747300
+ 1678              	.LASF21:
+ 1679 0205 766F6C74 		.ascii	"volts\000"
+ 1679      7300
+ 1680              	.LASF19:
+ 1681 020b 6C6F6E67 		.ascii	"long double\000"
+ 1681      20646F75 
+ 1681      626C6500 
+ 1682              	.LASF24:
+ 1683 0217 5F777269 		.ascii	"_write\000"
+ 1683      746500
+ 1684              	.LASF18:
+ 1685 021e 73697A65 		.ascii	"sizetype\000"
+ 1685      74797065 
+ 1685      00
+ 1686              	.LASF6:
+ 1687 0227 6C6F6E67 		.ascii	"long long int\000"
+ 1687      206C6F6E 
+ 1687      6720696E 
+ 1687      7400
+ 1688              	.LASF29:
+ 1689 0235 42617474 		.ascii	"BatteryLed_Write\000"
+ 1689      6572794C 
+ 1689      65645F57 
+ 1689      72697465 
+ 1689      00
+ 1690              	.LASF43:
+ 1691 0246 6D61696E 		.ascii	"main.c\000"
+ 1691      2E6300
+ 1692              	.LASF17:
+ 1693 024d 63686172 		.ascii	"char\000"
+ 1693      00
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\cceNK5Hb.s 			page 40
+
+
+ 1694              	.LASF20:
+ 1695 0252 61646372 		.ascii	"adcresult\000"
+ 1695      6573756C 
+ 1695      7400
+ 1696              	.LASF0:
+ 1697 025c 7369676E 		.ascii	"signed char\000"
+ 1697      65642063 
+ 1697      68617200 
+ 1698              	.LASF39:
+ 1699 0268 7072696E 		.ascii	"printf\000"
+ 1699      746600
+ 1700              	.LASF26:
+ 1701 026f 636F756E 		.ascii	"count\000"
+ 1701      7400
+ 1702              	.LASF2:
+ 1703 0275 73686F72 		.ascii	"short int\000"
+ 1703      7420696E 
+ 1703      7400
+ 1704              	.LASF11:
+ 1705 027f 75696E74 		.ascii	"uint8\000"
+ 1705      3800
+ 1706              	.LASF34:
+ 1707 0285 5357315F 		.ascii	"SW1_Read\000"
+ 1707      52656164 
+ 1707      00
+ 1708              	.LASF4:
+ 1709 028e 6C6F6E67 		.ascii	"long int\000"
+ 1709      20696E74 
+ 1709      00
+ 1710              	.LASF22:
+ 1711 0297 62757474 		.ascii	"button\000"
+ 1711      6F6E00
+ 1712              	.LASF48:
+ 1713 029e 70757473 		.ascii	"puts\000"
+ 1713      00
+ 1714              	.LASF30:
+ 1715 02a3 6D6F746F 		.ascii	"motor_turn\000"
+ 1715      725F7475 
+ 1715      726E00
+ 1716              	.LASF33:
+ 1717 02ae 4144435F 		.ascii	"ADC_Battery_StartConvert\000"
+ 1717      42617474 
+ 1717      6572795F 
+ 1717      53746172 
+ 1717      74436F6E 
+ 1718              	.LASF38:
+ 1719 02c7 43794465 		.ascii	"CyDelay\000"
+ 1719      6C617900 
+ 1720              	.LASF41:
+ 1721 02cf 55415254 		.ascii	"UART_1_GetChar\000"
+ 1721      5F315F47 
+ 1721      65744368 
+ 1721      617200
+ 1722              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
   29:Generated_Source\PSoC5/Trig.c **** * \brief Writes the value to the physical port (data output register), masking
   30:Generated_Source\PSoC5/Trig.c **** *  and shifting the bits appropriately. 
   31:Generated_Source\PSoC5/Trig.c **** *
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 2
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 2
 
 
   32:Generated_Source\PSoC5/Trig.c **** * The data output register controls the signal applied to the physical pin in 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
   52              		.size	Trig_Write, .-Trig_Write
   53              		.section	.text.Trig_SetDriveMode,"ax",%progbits
   54              		.align	2
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 3
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 3
 
 
   55              		.global	Trig_SetDriveMode
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
   77 0012 00BF     		.align	2
   78              	.L5:
   79 0014 07500040 		.word	1073762311
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 4
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 4
 
 
   80              		.cfi_endproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  110              		.align	2
  111              		.global	Trig_ReadDataReg
  112              		.thumb
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 5
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 5
 
 
  113              		.thumb_func
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  139              	.Ldebug_info0:
  140 0000 1D010000 		.4byte	0x11d
  141 0004 0400     		.2byte	0x4
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 6
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 6
 
 
  142 0006 00000000 		.4byte	.Ldebug_abbrev0
@@ -307,14 +307,14 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  145 000c 9B000000 		.4byte	.LASF20
  146 0010 01       		.byte	0x1
  147 0011 64000000 		.4byte	.LASF21
- 148 0015 29010000 		.4byte	.LASF22
+ 148 0015 52010000 		.4byte	.LASF22
  149 0019 00000000 		.4byte	.Ldebug_ranges0+0
  150 001d 00000000 		.4byte	0
  151 0021 00000000 		.4byte	.Ldebug_line0
  152 0025 02       		.uleb128 0x2
  153 0026 01       		.byte	0x1
  154 0027 06       		.byte	0x6
- 155 0028 BC010000 		.4byte	.LASF0
+ 155 0028 AA010000 		.4byte	.LASF0
  156 002c 02       		.uleb128 0x2
  157 002d 01       		.byte	0x1
  158 002e 08       		.byte	0x8
@@ -322,7 +322,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  160 0033 02       		.uleb128 0x2
  161 0034 02       		.byte	0x2
  162 0035 05       		.byte	0x5
- 163 0036 A3010000 		.4byte	.LASF2
+ 163 0036 91010000 		.4byte	.LASF2
  164 003a 02       		.uleb128 0x2
  165 003b 02       		.byte	0x2
  166 003c 07       		.byte	0x7
@@ -330,7 +330,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  168 0041 02       		.uleb128 0x2
  169 0042 04       		.byte	0x4
  170 0043 05       		.byte	0x5
- 171 0044 B3010000 		.4byte	.LASF4
+ 171 0044 A1010000 		.4byte	.LASF4
  172 0048 02       		.uleb128 0x2
  173 0049 04       		.byte	0x4
  174 004a 07       		.byte	0x7
@@ -338,11 +338,11 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  176 004f 02       		.uleb128 0x2
  177 0050 08       		.byte	0x8
  178 0051 05       		.byte	0x5
- 179 0052 90010000 		.4byte	.LASF6
+ 179 0052 7E010000 		.4byte	.LASF6
  180 0056 02       		.uleb128 0x2
  181 0057 08       		.byte	0x8
  182 0058 07       		.byte	0x7
- 183 0059 74010000 		.4byte	.LASF7
+ 183 0059 36010000 		.4byte	.LASF7
  184 005d 03       		.uleb128 0x3
  185 005e 04       		.byte	0x4
  186 005f 05       		.byte	0x5
@@ -350,15 +350,15 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  188 0064 02       		.uleb128 0x2
  189 0065 04       		.byte	0x4
  190 0066 07       		.byte	0x7
- 191 0067 67010000 		.4byte	.LASF8
+ 191 0067 29010000 		.4byte	.LASF8
  192 006b 04       		.uleb128 0x4
- 193 006c AD010000 		.4byte	.LASF12
+ 193 006c 9B010000 		.4byte	.LASF12
  194 0070 02       		.byte	0x2
  195 0071 9201     		.2byte	0x192
  196 0073 2C000000 		.4byte	0x2c
  197 0077 02       		.uleb128 0x2
  198 0078 04       		.byte	0x4
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 7
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 7
 
 
  199 0079 04       		.byte	0x4
@@ -370,7 +370,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  205 0085 02       		.uleb128 0x2
  206 0086 01       		.byte	0x1
  207 0087 08       		.byte	0x8
- 208 0088 9E010000 		.4byte	.LASF11
+ 208 0088 8C010000 		.4byte	.LASF11
  209 008c 04       		.uleb128 0x4
  210 008d 3A000000 		.4byte	.LASF13
  211 0091 02       		.byte	0x2
@@ -410,7 +410,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  245 00e1 9C       		.byte	0x9c
  246 00e2 F6000000 		.4byte	0xf6
  247 00e6 07       		.uleb128 0x7
- 248 00e7 8B010000 		.4byte	.LASF17
+ 248 00e7 4D010000 		.4byte	.LASF17
  249 00eb 01       		.byte	0x1
  250 00ec 5A       		.byte	0x5a
  251 00ed 6B000000 		.4byte	0x6b
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  253 00f5 00       		.byte	0
  254 00f6 09       		.uleb128 0x9
  255 00f7 1C000000 		.4byte	.LASF18
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 8
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 8
 
 
  256 00fb 01       		.byte	0x1
@@ -429,7 +429,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  261 0109 01       		.uleb128 0x1
  262 010a 9C       		.byte	0x9c
  263 010b 09       		.uleb128 0x9
- 264 010c C8010000 		.4byte	.LASF19
+ 264 010c B6010000 		.4byte	.LASF19
  265 0110 01       		.byte	0x1
  266 0111 8D       		.byte	0x8d
  267 0112 6B000000 		.4byte	0x6b
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  310 0023 3E       		.uleb128 0x3e
  311 0024 0B       		.uleb128 0xb
  312 0025 03       		.uleb128 0x3
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 9
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 9
 
 
  313 0026 08       		.uleb128 0x8
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  367 005d 0B       		.uleb128 0xb
  368 005e 3B       		.uleb128 0x3b
  369 005f 0B       		.uleb128 0xb
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 10
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 10
 
 
  370 0060 49       		.uleb128 0x49
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  424 000b 0A000000 		.4byte	.LVL2
  425 000f 18000000 		.4byte	.LFE0
  426 0013 0400     		.2byte	0x4
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 11
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 11
 
 
  427 0015 F3       		.byte	0xf3
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  481 001c 0C000000 		.4byte	.LFE3
  482 0020 00000000 		.4byte	0
  483 0024 00000000 		.4byte	0
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 12
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 12
 
 
  484              		.section	.debug_line,"",%progbits
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  509              	.LASF15:
  510 0089 54726967 		.ascii	"Trig_SetDriveMode\000"
  510      5F536574 
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 13
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 13
 
 
  510      44726976 
@@ -740,60 +740,56 @@ ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 1
  514      74696F6E 
  514      2D736563 
  514      74696F6E 
- 515              	.LASF22:
- 516 0129 433A5C55 		.ascii	"C:\\Users\\Miikka\\Documents\\Zumo.release04\\Zumo0"
- 516      73657273 
- 516      5C4D6969 
- 516      6B6B615C 
- 516      446F6375 
- 517 0157 315C5A75 		.ascii	"1\\ZumoBot.cydsn\000"
- 517      6D6F426F 
- 517      742E6379 
- 517      64736E00 
- 518              	.LASF8:
- 519 0167 756E7369 		.ascii	"unsigned int\000"
- 519      676E6564 
- 519      20696E74 
- 519      00
- 520              	.LASF7:
- 521 0174 6C6F6E67 		.ascii	"long long unsigned int\000"
- 521      206C6F6E 
- 521      6720756E 
- 521      7369676E 
- 521      65642069 
- 522              	.LASF17:
- 523 018b 6D6F6465 		.ascii	"mode\000"
- 523      00
- 524              	.LASF6:
- 525 0190 6C6F6E67 		.ascii	"long long int\000"
- 525      206C6F6E 
- 525      6720696E 
- 525      7400
- 526              	.LASF11:
- 527 019e 63686172 		.ascii	"char\000"
- 527      00
- 528              	.LASF2:
- 529 01a3 73686F72 		.ascii	"short int\000"
- 529      7420696E 
- 529      7400
- 530              	.LASF12:
- 531 01ad 75696E74 		.ascii	"uint8\000"
-ARM GAS  C:\Users\Miikka\AppData\Local\Temp\ccZMnoBY.s 			page 14
+ 515              	.LASF8:
+ 516 0129 756E7369 		.ascii	"unsigned int\000"
+ 516      676E6564 
+ 516      20696E74 
+ 516      00
+ 517              	.LASF7:
+ 518 0136 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 518      206C6F6E 
+ 518      6720756E 
+ 518      7369676E 
+ 518      65642069 
+ 519              	.LASF17:
+ 520 014d 6D6F6465 		.ascii	"mode\000"
+ 520      00
+ 521              	.LASF22:
+ 522 0152 463A5C4D 		.ascii	"F:\\Metropolia\\Laitteet\\Team-9\\ZumoBot.cydsn\000"
+ 522      6574726F 
+ 522      706F6C69 
+ 522      615C4C61 
+ 522      69747465 
+ 523              	.LASF6:
+ 524 017e 6C6F6E67 		.ascii	"long long int\000"
+ 524      206C6F6E 
+ 524      6720696E 
+ 524      7400
+ 525              	.LASF11:
+ 526 018c 63686172 		.ascii	"char\000"
+ 526      00
+ 527              	.LASF2:
+ 528 0191 73686F72 		.ascii	"short int\000"
+ 528      7420696E 
+ 528      7400
+ 529              	.LASF12:
+ 530 019b 75696E74 		.ascii	"uint8\000"
+ 530      3800
+ 531              	.LASF4:
+ 532 01a1 6C6F6E67 		.ascii	"long int\000"
+ 532      20696E74 
+ARM GAS  C:\Users\TIMOK_~1\AppData\Local\Temp\ccuqBTqN.s 			page 14
 
 
- 531      3800
- 532              	.LASF4:
- 533 01b3 6C6F6E67 		.ascii	"long int\000"
- 533      20696E74 
- 533      00
- 534              	.LASF0:
- 535 01bc 7369676E 		.ascii	"signed char\000"
- 535      65642063 
- 535      68617200 
- 536              	.LASF19:
- 537 01c8 54726967 		.ascii	"Trig_ReadDataReg\000"
- 537      5F526561 
- 537      64446174 
- 537      61526567 
- 537      00
- 538              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
+ 532      00
+ 533              	.LASF0:
+ 534 01aa 7369676E 		.ascii	"signed char\000"
+ 534      65642063 
+ 534      68617200 
+ 535              	.LASF19:
+ 536 01b6 54726967 		.ascii	"Trig_ReadDataReg\000"
+ 536      5F526561 
+ 536      64446174 
+ 536      61526567 
+ 536      00
+ 537              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

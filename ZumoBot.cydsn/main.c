@@ -52,7 +52,7 @@ int rread(void);
 
 
 //battery level//
-/*int main()
+int main()
 {
     CyGlobalIntEnable; 
     UART_1_Start();
@@ -64,9 +64,33 @@ int rread(void);
 
     //BatteryLed_Write(1); // Switch led on 
     BatteryLed_Write(0); // Switch led off 
-    //uint8 button;
-    //button = SW1_Read(); // read SW1 on pSoC board
+    uint8 button;
+    button = SW1_Read(); // read SW1 on pSoC board
 
+    while(button == 1) {
+        button = SW1_Read();
+       }
+    
+    motor_start();              // motor start
+
+    //motor_forward(100,4800);     // moving forward
+    motor_turn(200,205,1000);
+    motor_turn(50,200,600);
+    motor_turn(200,205,1000);
+    motor_turn(50,200,600);
+    motor_turn(200,205,1000);
+    motor_turn(50,200,600);
+    motor_turn(200,205,1000);
+    motor_turn(50,200,600);
+    
+    //motor_turn(200,205,x) suoraan
+    //motor_turn(200,50,600); 90-asteen käännös oikealle
+    //motor_turn(50,200,600); 90-asteen käännös vasemmalle
+
+    //motor_backward(100,2000);    // movinb backward
+       
+    motor_stop();               // motor stop
+    
     for(;;)
     {
         
@@ -87,8 +111,11 @@ int rread(void);
         CyDelay(500);
         
     }
+    
+    
+    
  }   
-//*/
+
 
 
 /*//ultra sonic sensor//
@@ -242,7 +269,7 @@ int main()
 //*/
 
   //motor//
-int main()
+/*int main()
 {
     CyGlobalIntEnable; 
     UART_1_Start();
@@ -260,7 +287,7 @@ int main()
     {
 
     }
-}
+}*/
 //*/
     
 
