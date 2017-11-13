@@ -10,7 +10,7 @@
 
 static volatile struct sensors_ sensors;
 static volatile struct sensors_  digital_sensor_value;
-static struct sensors_ threshold = { 10000, 10000, 10000, 10000};
+static struct sensors_ threshold = { 13000, 10000, 10000, 13000};
 
 /**
 * @brief    Reflectance Sensor Interrupt Handler

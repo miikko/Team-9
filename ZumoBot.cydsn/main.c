@@ -59,6 +59,8 @@ int main()
     ADC_Battery_Start();        
     int16 adcresult =0;
     float volts = 0.0;
+    struct sensors_ ref;
+    struct sensors_ dig;
 
     printf("\nBoot\n");
 
@@ -66,7 +68,63 @@ int main()
     BatteryLed_Write(0); // Switch led off 
     uint8 button;
     button = SW1_Read(); // read SW1 on pSoC board
+    
+//siirrä****
+    sensor_isr_StartEx(sensor_isr_handler);
+    
+    reflectance_start();
 
+    IR_led_Write(1);
+    CyDelay(50);
+    
+    while(button == 1) {
+        button = SW1_Read();
+    }
+    motor_start();
+    
+    for(;;)
+    {
+        reflectance_read(&ref);
+        printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
+        reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
+        printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
+        
+        int ulkvas = dig.l3;
+        int sisvas = dig.l1;
+        int sisoik = dig.r1;
+        int ulkoik = dig.r3;
+        
+        
+        //sisimmät mustalla => suoraan
+        if (sisvas == 0 && sisoik == 0) {
+            
+            motor_turn(200,205,10);
+            /*if (ulkvas == 0 && ulkoik == 0) {
+                motor_stop();
+                break;
+            }*/
+        }
+        // oikea mustalla => käännös oikealle
+        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 1) {
+            motor_turn(200,100,10);
+        }
+        // vasen mustalla => käännös vasemmalle
+        if (ulkvas == 1 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
+            motor_turn(100,200,10);
+        }
+        // molemmat oikeat mustalla => tiukka käännös oikeaan
+        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 0) {
+            motor_turn(200,50,10);
+        }
+        // molemmat vasemmat mustalla => tiukka käännös vasempaan
+        if (ulkvas == 0 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
+            motor_turn(50,200,10);
+        }
+        
+        CyDelay(10);
+    }
+//****
+    /*
     while(button == 1) {
         button = SW1_Read();
        }
@@ -89,7 +147,7 @@ int main()
 
     //motor_backward(100,2000);    // movinb backward
        
-    motor_stop();               // motor stop
+    motor_stop();               // motor stop*/
     
     for(;;)
     {
