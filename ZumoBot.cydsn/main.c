@@ -42,6 +42,7 @@
 #include "Ambient.h"
 #include "Beep.h"
 
+
 int rread(void);
 
 /**
@@ -56,11 +57,14 @@ int main()
 {
     CyGlobalIntEnable; 
     UART_1_Start();
-    ADC_Battery_Start();        
+    ADC_Battery_Start();
     int16 adcresult =0;
     float volts = 0.0;
     struct sensors_ ref;
     struct sensors_ dig;
+    int startStopWatch = 0;
+    int stopWatch = 0;
+    int delay = 1;
 
     printf("\nBoot\n");
 
@@ -98,30 +102,54 @@ int main()
         //sisimmät mustalla => suoraan
         if (sisvas == 0 && sisoik == 0) {
             
-            motor_turn(200,205,10);
+            motor_turn(250,255,delay);
             /*if (ulkvas == 0 && ulkoik == 0) {
                 motor_stop();
                 break;
             }*/
         }
         // oikea mustalla => käännös oikealle
-        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 1) {
-            motor_turn(200,100,10);
+        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 0) {
+            motor_turn(200,80,delay);
         }
         // vasen mustalla => käännös vasemmalle
-        if (ulkvas == 1 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
-            motor_turn(100,200,10);
+        if (ulkvas == 0 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
+            motor_turn(80,200,delay);
         }
         // molemmat oikeat mustalla => tiukka käännös oikeaan
-        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 0) {
-            motor_turn(200,50,10);
+        if (ulkvas == 1 && sisvas == 1 && sisoik == 1 && ulkoik == 0) {
+            motor_turn(255,10,delay);
         }
         // molemmat vasemmat mustalla => tiukka käännös vasempaan
-        if (ulkvas == 0 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
-            motor_turn(50,200,10);
+        if (ulkvas == 0 && sisvas == 1 && sisoik == 1 && ulkoik == 1) {
+            motor_turn(10,255,delay);
+        }
+        // vain vasen sisin mustalla => lievä käännös vasempaan
+        if (ulkvas == 1 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
+            motor_turn(150,255,delay);
+        }
+        // vain oikea sisin mustalla => lievä käännös oikeaan
+        if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 1) {
+            motor_turn(255,150,delay);
+        }
+       
+        //Laskuri pysähtymiseen
+        if (startStopWatch == 1) {
+            stopWatch++;    
         }
         
-        CyDelay(10);
+        if (stopWatch > 10 && stopWatch < 200 && ulkvas == 0 && sisvas == 0 && sisoik == 0 && ulkoik == 0) {
+            motor_stop();
+            break;
+        }
+        
+        // sensorit kaikki mustalla => pysähtyy tietyn ajan jälkeen
+        if (ulkvas == 0 && sisvas == 0 && sisoik == 0 && ulkoik == 0) {
+            stopWatch = 0;
+            startStopWatch = 1;
+        }
+        
+        CyDelay(delay);
     }
 //****
     /*
