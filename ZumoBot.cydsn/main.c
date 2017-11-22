@@ -98,23 +98,50 @@ int main()
         int sisoik = dig.r1;
         int ulkoik = dig.r3;
         
+        // Analogiset arvot //
+        int tonniulkvas = ref.l3;
+        int tonnisisvas = ref.l1;
+        int tonnisisoik = ref.r1;
+        int tonniulkoik = ref.r3;
         
+        int maxNopeus = 100;
+        int vasenNopeus = 1;
+        int oikeaNopeus = 1;
+        int mustaMax = 23999; // VAKIO
+        
+        // Mitattu tunnilla, voi muuttua //
+        int ulkvasValkoinen = 6000; // +/- 200
+        int sisvasValkoinen = 4200; // -||-
+        int sisoikValkoinen = 5200; // -||-
+        int ulkoikValkoinen = 7000; // -||-
+        
+                                                    // KERROIN //
+        vasenNopeus = maxNopeus - maxNopeus * ((mustaMax - tonnisisvas) / (mustaMax - sisvasValkoinen));
+        oikeaNopeus = maxNopeus - maxNopeus * ((mustaMax - tonnisisoik) / (mustaMax - sisoikValkoinen));
+        
+        //Estetään ylivuoto//
+        if (vasenNopeus > 255) {
+            vasenNopeus = maxNopeus;    
+        }
+        if (oikeaNopeus > 255) {
+            oikeaNopeus = maxNopeus;    
+        }
+        
+        motor_turn(oikeaNopeus, vasenNopeus, delay); 
+        
+        //----------------------------------//
+        /*    
         //sisimmät mustalla => suoraan
         if (sisvas == 0 && sisoik == 0) {
-            
             motor_turn(250,255,delay);
-            /*if (ulkvas == 0 && ulkoik == 0) {
-                motor_stop();
-                break;
-            }*/
         }
         // oikea mustalla => käännös oikealle
         if (ulkvas == 1 && sisvas == 1 && sisoik == 0 && ulkoik == 0) {
-            motor_turn(200,80,delay);
+            motor_turn(255,80,delay);
         }
         // vasen mustalla => käännös vasemmalle
         if (ulkvas == 0 && sisvas == 0 && sisoik == 1 && ulkoik == 1) {
-            motor_turn(80,200,delay);
+            motor_turn(80,255,delay);
         }
         // molemmat oikeat mustalla => tiukka käännös oikeaan
         if (ulkvas == 1 && sisvas == 1 && sisoik == 1 && ulkoik == 0) {
@@ -148,9 +175,10 @@ int main()
             stopWatch = 0;
             startStopWatch = 1;
         }
-        
+        */
         CyDelay(delay);
     }
+
 //****
     /*
     while(button == 1) {
