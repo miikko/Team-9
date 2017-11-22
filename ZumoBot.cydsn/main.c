@@ -74,12 +74,45 @@ int main()
     button = SW1_Read(); // read SW1 on pSoC board
     
 //siirrä****
+    
+    while(button == 1) {
+        button = SW1_Read();
+    }
     sensor_isr_StartEx(sensor_isr_handler);
     
     reflectance_start();
 
     IR_led_Write(1);
     CyDelay(50);
+    
+    //Kalibroidaan valkoisen arvot
+    reflectance_read(&ref);
+    int ulkvasValkoinen = ref.l3;
+    int sisvasValkoinen = ref.l1;
+    int sisoikValkoinen = ref.r1;
+    int ulkoikValkoinen = ref.r3;
+    
+    printf("Valkoisen arvot\n");
+    printf("%d %d %d %d\n", ulkvasValkoinen, sisvasValkoinen, sisoikValkoinen, ulkoikValkoinen);
+    //-----------------------------//
+    button = 1;
+    CyDelay(2000);
+    
+    while(button == 1) {
+        button = SW1_Read();
+    }
+    
+    reflectance_read(&ref);
+    int sisvasenMustaMax = ref.l1;
+    int sisoikeaMustaMax = ref.r1;
+    int ulkoikeaMustaMax = ref.r3;
+    int ulkvasenMustaMax = ref.l3;
+    
+    printf("Mustan arvot");
+    printf("%d %d %d %d\n", ulkvasenMustaMax, sisvasenMustaMax, sisoikeaMustaMax, ulkoikeaMustaMax);
+    
+    button = 1;
+    CyDelay(2000);
     
     while(button == 1) {
         button = SW1_Read();
@@ -104,27 +137,49 @@ int main()
         int tonnisisoik = ref.r1;
         int tonniulkoik = ref.r3;
         
-        int maxNopeus = 100;
+        int maxNopeus = 255;
+        int minNopeus = 10;
         int vasenNopeus = 1;
         int oikeaNopeus = 1;
-        int mustaMax = 23999; // VAKIO
+        //int mustaMax = 23999; // VAKIO
         
-        // Mitattu tunnilla, voi muuttua //
+        /*// Mitattu tunnilla, voi muuttua //
         int ulkvasValkoinen = 6000; // +/- 200
         int sisvasValkoinen = 4200; // -||-
         int sisoikValkoinen = 5200; // -||-
-        int ulkoikValkoinen = 7000; // -||-
+        int ulkoikValkoinen = 7000; // -||-*/
         
                                                     // KERROIN //
-        vasenNopeus = maxNopeus - maxNopeus * ((mustaMax - tonnisisvas) / (mustaMax - sisvasValkoinen));
-        oikeaNopeus = maxNopeus - maxNopeus * ((mustaMax - tonnisisoik) / (mustaMax - sisoikValkoinen));
+        //vasenNopeus = maxNopeus - maxNopeus * ((sisvasenMustaMax - tonnisisvas) / (sisvasenMustaMax - sisvasValkoinen));
+        //oikeaNopeus = maxNopeus - maxNopeus * ((sisoikeaMustaMax - tonnisisoik) / (sisoikeaMustaMax - sisoikValkoinen));
+        
+        // Lineaarinen porrastus: (maxNopeus - minNopeus) / (mustaMax - mitattu valkoinen) = 1 porras
+        // Ajaessa mitattu arvo * porras = keskinopeus
+        // maxNopeus - Ajaessa mitattu arvo * porras = reunanopeus
+        // Kokonaisnopeus = (keskinopeus + reunanopeus) / 2
+        int nopeusVali = maxNopeus - minNopeus;
+        int ulkoikporras = 10000 * nopeusVali / (ulkoikeaMustaMax - ulkoikValkoinen);
+        int sisoikporras = 10000 * nopeusVali / (sisoikeaMustaMax - sisoikValkoinen);
+        int sisvasporras = 10000 * nopeusVali / (sisvasenMustaMax - sisvasValkoinen);
+        int ulkvasporras = 10000 * nopeusVali / (ulkvasenMustaMax - ulkvasValkoinen);
+        
+        vasenNopeus = (tonnisisvas * sisvasporras + tonniulkvas * ulkvasporras) / 20000;
+        oikeaNopeus = (tonnisisoik * sisoikporras + tonniulkoik * ulkoikporras) / 20000;
         
         //Estetään ylivuoto//
-        if (vasenNopeus > 255) {
+        if (vasenNopeus > maxNopeus) {
             vasenNopeus = maxNopeus;    
         }
-        if (oikeaNopeus > 255) {
+        if (oikeaNopeus > maxNopeus) {
             oikeaNopeus = maxNopeus;    
+        }
+        
+        //Estetään negatiivinen nopeus//
+        if (vasenNopeus < minNopeus) {
+            vasenNopeus = minNopeus;    
+        }
+        if (oikeaNopeus < minNopeus) {
+            oikeaNopeus = minNopeus;    
         }
         
         motor_turn(oikeaNopeus, vasenNopeus, delay); 

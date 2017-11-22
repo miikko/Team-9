@@ -1,29 +1,17 @@
---------------- Build Started: 11/20/2017 15:10:35 Project: ZumoBot, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
+--------------- Build Started: 11/22/2017 12:21:12 Project: ZumoBot, Configuration: ARM GCC 4.9-2015-q1-update Debug ---------------
 The code generation step is up to date.
 arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I.\ZumoLibrary -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_493\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -Og -ffat-lto-objects -c main.c -o .\CortexM3\ARM_GCC_493\Debug\main.o
 main.c: In function 'main':
-main.c:116:13: warning: unused variable 'ulkoikValkoinen' [-Wunused-variable]
-         int ulkoikValkoinen = 7000; // -||-
-             ^
-main.c:113:13: warning: unused variable 'ulkvasValkoinen' [-Wunused-variable]
-         int ulkvasValkoinen = 6000; // +/- 200
-             ^
-main.c:105:13: warning: unused variable 'tonniulkoik' [-Wunused-variable]
-         int tonniulkoik = ref.r3;
-             ^
-main.c:102:13: warning: unused variable 'tonniulkvas' [-Wunused-variable]
-         int tonniulkvas = ref.l3;
-             ^
-main.c:99:13: warning: unused variable 'ulkoik' [-Wunused-variable]
+main.c:132:13: warning: unused variable 'ulkoik' [-Wunused-variable]
          int ulkoik = dig.r3;
              ^
-main.c:98:13: warning: unused variable 'sisoik' [-Wunused-variable]
+main.c:131:13: warning: unused variable 'sisoik' [-Wunused-variable]
          int sisoik = dig.r1;
              ^
-main.c:97:13: warning: unused variable 'sisvas' [-Wunused-variable]
+main.c:130:13: warning: unused variable 'sisvas' [-Wunused-variable]
          int sisvas = dig.l1;
              ^
-main.c:96:13: warning: unused variable 'ulkvas' [-Wunused-variable]
+main.c:129:13: warning: unused variable 'ulkvas' [-Wunused-variable]
          int ulkvas = dig.l3;
              ^
 main.c:66:9: warning: unused variable 'stopWatch' [-Wunused-variable]
@@ -37,6 +25,6 @@ arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_493\Debug\ZumoBot.a
 arm-none-eabi-gcc.exe -Wl,--start-group -o .\CortexM3\ARM_GCC_493\Debug\ZumoBot.elf .\CortexM3\ARM_GCC_493\Debug\main.o .\CortexM3\ARM_GCC_493\Debug\Accel.o .\CortexM3\ARM_GCC_493\Debug\Ambient.o .\CortexM3\ARM_GCC_493\Debug\Gyro.o .\CortexM3\ARM_GCC_493\Debug\I2C_made.o .\CortexM3\ARM_GCC_493\Debug\IR.o .\CortexM3\ARM_GCC_493\Debug\Magnet.o .\CortexM3\ARM_GCC_493\Debug\Motor.o .\CortexM3\ARM_GCC_493\Debug\Nunchuk.o .\CortexM3\ARM_GCC_493\Debug\Reflectance.o .\CortexM3\ARM_GCC_493\Debug\Ultra.o .\CortexM3\ARM_GCC_493\Debug\Beep.o .\CortexM3\ARM_GCC_493\Debug\cymetadata.o .\CortexM3\ARM_GCC_493\Debug\Cm3Start.o .\CortexM3\ARM_GCC_493\Debug\ZumoBot.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.0\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_493\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -g -ffunction-sections -Og -ffat-lto-objects -l m -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_493\Debug/ZumoBot.map -T C:\Users\Miikka\Documents\Zumo.release04\Zumo01\ZumoBot.cydsn\Generated_Source\PSoC5\cm3gcc.ld -u _printf_float -Wl,--gc-sections -Wl,--end-group
 cyelftool.exe -C C:\Users\Miikka\Documents\Zumo.release04\Zumo01\ZumoBot.cydsn\CortexM3\ARM_GCC_493\Debug\ZumoBot.elf --flash_row_size 256 --flash_size 262144
 cyelftool.exe -S C:\Users\Miikka\Documents\Zumo.release04\Zumo01\ZumoBot.cydsn\CortexM3\ARM_GCC_493\Debug\ZumoBot.elf
-Flash used: 29356 of 262144 bytes (11,2 %).
+Flash used: 29596 of 262144 bytes (11,3 %).
 SRAM used: 6717 of 65536 bytes (10,2 %). Stack: 2048 bytes. Heap: 2048 bytes.
---------------- Build Succeeded: 11/20/2017 15:10:38 ---------------
+--------------- Build Succeeded: 11/22/2017 12:21:18 ---------------
