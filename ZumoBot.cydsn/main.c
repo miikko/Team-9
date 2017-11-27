@@ -163,8 +163,28 @@ int main()
         int sisvasporras = 10000 * nopeusVali / (sisvasenMustaMax - sisvasValkoinen);
         int ulkvasporras = 10000 * nopeusVali / (ulkvasenMustaMax - ulkvasValkoinen);
         
-        vasenNopeus = (tonnisisvas * sisvasporras + tonniulkvas * ulkvasporras) / 20000;
-        oikeaNopeus = (tonnisisoik * sisoikporras + tonniulkoik * ulkoikporras) / 20000;
+        oikeaNopeus = (tonnisisvas * sisvasporras + (ulkvasenMustaMax - tonniulkoik) * ulkvasporras) / 20000;
+        vasenNopeus = (tonnisisoik * sisoikporras + (ulkoikeaMustaMax - tonniulkvas) * ulkoikporras) / 20000;
+        
+        //Loiva käännös vasempaan
+        if (tonniulkvas > ulkvasenMustaMax - 15000 && tonnisisvas < sisvasValkoinen + 2000) {
+            motor_turn(80, maxNopeus, delay);
+        }
+        
+        //Loiva käännös oikeaan
+        if (tonniulkoik > ulkoikeaMustaMax - 15000 && tonnisisoik < sisoikValkoinen + 2000) {
+            motor_turn(maxNopeus, 80, delay);
+        }
+        
+        //Tiukka käännös vasempaan
+        if (tonniulkvas > ulkvasenMustaMax - 10000) {
+            motor_turn(minNopeus, maxNopeus, delay);
+        }
+        
+        //Tiukka käännös oikeaan
+        if (tonniulkoik > ulkoikeaMustaMax - 10000) {
+            motor_turn(maxNopeus, minNopeus, delay);
+        }
         
         //Estetään ylivuoto//
         if (vasenNopeus > maxNopeus) {
@@ -182,7 +202,7 @@ int main()
             oikeaNopeus = minNopeus;    
         }
         
-        motor_turn(oikeaNopeus, vasenNopeus, delay); 
+        motor_turn(vasenNopeus, oikeaNopeus, delay); 
         
         //----------------------------------//
         /*    
