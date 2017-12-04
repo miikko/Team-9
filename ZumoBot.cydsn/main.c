@@ -119,6 +119,19 @@ int main()
     }
     motor_start();
     
+    int maxNopeus = 255;
+    int minNopeus = 0;
+    int vasenNopeus = 1;
+    int oikeaNopeus = 1;
+    int kaantyi = 3; //0, jos vasen. 1, jos oikea
+    //int mustaMax = 23999; // VAKIO
+    
+    //Perusajon logiikan muuttujia//
+    int vasTermienMaara = sisvasenMustaMax - sisvasValkoinen;
+    int oikTermienMaara = sisoikeaMustaMax - sisoikValkoinen;
+    int vasVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (vasTermienMaara - 1);
+    int oikVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (oikTermienMaara - 1);
+    
     for(;;)
     {
         reflectance_read(&ref);
@@ -137,55 +150,21 @@ int main()
         int tonnisisoik = ref.r1;
         int tonniulkoik = ref.r3;
         
-        int maxNopeus = 255;
-        int minNopeus = 10;
-        int vasenNopeus = 1;
-        int oikeaNopeus = 1;
-        //int mustaMax = 23999; // VAKIO
-        
+  
         /*// Mitattu tunnilla, voi muuttua //
         int ulkvasValkoinen = 6000; // +/- 200
         int sisvasValkoinen = 4200; // -||-
         int sisoikValkoinen = 5200; // -||-
         int ulkoikValkoinen = 7000; // -||-*/
         
-                                                    // KERROIN //
-        //vasenNopeus = maxNopeus - maxNopeus * ((sisvasenMustaMax - tonnisisvas) / (sisvasenMustaMax - sisvasValkoinen));
-        //oikeaNopeus = maxNopeus - maxNopeus * ((sisoikeaMustaMax - tonnisisoik) / (sisoikeaMustaMax - sisoikValkoinen));
+        //Normaaliajo//
+    
+        int vasTermiNro = tonnisisvas + 1 - sisvasValkoinen;
+        int oikTermiNro = tonnisisoik + 1 - sisoikValkoinen;
         
-        // Lineaarinen porrastus: (maxNopeus - minNopeus) / (mustaMax - mitattu valkoinen) = 1 porras
-        // Ajaessa mitattu arvo * porras = keskinopeus
-        // maxNopeus - Ajaessa mitattu arvo * porras = reunanopeus
-        // Kokonaisnopeus = (keskinopeus + reunanopeus) / 2
-        int nopeusVali = maxNopeus - minNopeus;
-        int ulkoikporras = 10000 * nopeusVali / (ulkoikeaMustaMax - ulkoikValkoinen);
-        int sisoikporras = 10000 * nopeusVali / (sisoikeaMustaMax - sisoikValkoinen);
-        int sisvasporras = 10000 * nopeusVali / (sisvasenMustaMax - sisvasValkoinen);
-        int ulkvasporras = 10000 * nopeusVali / (ulkvasenMustaMax - ulkvasValkoinen);
-        
-        oikeaNopeus = (tonnisisvas * sisvasporras + (ulkvasenMustaMax - tonniulkoik) * ulkvasporras) / 20000;
-        vasenNopeus = (tonnisisoik * sisoikporras + (ulkoikeaMustaMax - tonniulkvas) * ulkoikporras) / 20000;
-        
-        //Loiva käännös vasempaan
-        if (tonniulkvas > ulkvasenMustaMax - 15000 && tonnisisvas < sisvasValkoinen + 2000) {
-            motor_turn(80, maxNopeus, delay);
-        }
-        
-        //Loiva käännös oikeaan
-        if (tonniulkoik > ulkoikeaMustaMax - 15000 && tonnisisoik < sisoikValkoinen + 2000) {
-            motor_turn(maxNopeus, 80, delay);
-        }
-        
-        //Tiukka käännös vasempaan
-        if (tonniulkvas > ulkvasenMustaMax - 10000) {
-            motor_turn(minNopeus, maxNopeus, delay);
-        }
-        
-        //Tiukka käännös oikeaan
-        if (tonniulkoik > ulkoikeaMustaMax - 10000) {
-            motor_turn(maxNopeus, minNopeus, delay);
-        }
-        
+        oikeaNopeus = minNopeus + ((vasTermiNro - 1) * vasVakioMuuttuja / 10000);
+        vasenNopeus = minNopeus + ((oikTermiNro - 1) * oikVakioMuuttuja / 10000);
+            
         //Estetään ylivuoto//
         if (vasenNopeus > maxNopeus) {
             vasenNopeus = maxNopeus;    
@@ -201,10 +180,29 @@ int main()
         if (oikeaNopeus < minNopeus) {
             oikeaNopeus = minNopeus;    
         }
-        
-        motor_turn(vasenNopeus, oikeaNopeus, delay); 
+            
+        //Tallennetaan viimeisin käännös//
+        if (vasenNopeus < oikeaNopeus) {
+            kaantyi = 0;    
+        } else if (oikeaNopeus < vasenNopeus) {
+            kaantyi = 1;    
+        }
+            
+        //Jos kaikki sensorit näkevät "lähes" valkoista. Käytetään, kun rata jää sensoreiden väliin.
+        //Muuten ajetaan normaalisti
+        //+2000 toimii
+        if (tonnisisvas  <= sisoikValkoinen + 4000 || tonnisisoik <= sisvasValkoinen + 4000) {
+            if (kaantyi == 0) {
+                motor_turn(0, 255, delay);    
+            } else if (kaantyi == 1) {
+                motor_turn(255, 0, delay);    
+            }
+        } else {
+            motor_turn(vasenNopeus, oikeaNopeus, delay);
+        }
         
         //----------------------------------//
+        //YKKÖSILLÄ JA NOLLILLA AJAMISTA//
         /*    
         //sisimmät mustalla => suoraan
         if (sisvas == 0 && sisoik == 0) {
