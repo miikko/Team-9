@@ -138,15 +138,15 @@ int main()
         
         reflectance_read(&ref);
         //printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
-        //reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
+        reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
         //printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
         
-        /*
+        //Digitaaliset arvot//
         int ulkvas = dig.l3;
         int sisvas = dig.l1;
         int sisoik = dig.r1;
         int ulkoik = dig.r3;
-        */
+        
         // Analogiset arvot //
         int tonniulkvas = ref.l3;
         int tonnisisvas = ref.l1;
@@ -170,10 +170,10 @@ int main()
             
         //Estetään ylivuoto//
         if (vasenNopeus > maxNopeus) {
-            vasenNopeus = maxNopeus;    
+            vasenNopeus = maxNopeus;
         }
         if (oikeaNopeus > maxNopeus) {
-            oikeaNopeus = maxNopeus;    
+            oikeaNopeus = maxNopeus;
         }
         
         //Estetään negatiivinen nopeus//
@@ -195,16 +195,18 @@ int main()
                             //Ajotyylin valinta//
         
         //Tiukat käännökset//
-        if (tonniulkvas > ulkvasenMustaMax - 15000) {
+        if (/*tonniulkvas > ulkvasenMustaMax - 15000*/ulkvas == 0 && sisvas == 1 && sisoik == 1 && ulkoik == 1) {
+            BatteryLed_Write(1);
             motor_turn(minNopeus, maxNopeus, delay);
             kaantyi = 0;
-        } else if (tonniulkoik > ulkoikeaMustaMax - 15000) {
+        } else if (/*tonniulkoik > ulkoikeaMustaMax - 15000*/ulkoik == 0 && sisoik == 1 && sisvas == 1 && ulkvas == 1) {
+            BatteryLed_Write(1);
             motor_turn(maxNopeus, minNopeus, delay);
             kaantyi = 1;
             
         //Jos kaikki sensorit näkevät "lähes" valkoista. Käytetään, kun rata jää sensoreiden väliin.
         } else if (tonnisisvas <= sisvasValkoinen + 2000 || tonnisisoik <= sisoikValkoinen + 2000) {
-            BatteryLed_Write(1);
+            BatteryLed_Write(0);
             if (kaantyi == 0) {
                 motor_turn(minNopeus, maxNopeus, delay); 
             } else if (kaantyi == 1) {
