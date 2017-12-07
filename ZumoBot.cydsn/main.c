@@ -118,6 +118,7 @@ int main()
         button = SW1_Read();
     }
     motor_start();
+    //get_IR();
     
     int maxNopeus = 255;
     int minNopeus = 0;
@@ -134,16 +135,18 @@ int main()
     
     for(;;)
     {
-        reflectance_read(&ref);
-        printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
-        reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
-        printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
         
+        reflectance_read(&ref);
+        //printf("%d %d %d %d \r\n", ref.l3, ref.l1, ref.r1, ref.r3);       //print out each period of reflectance sensors
+        //reflectance_digital(&dig);      //print out 0 or 1 according to results of reflectance period
+        //printf("%d %d %d %d \r\n", dig.l3, dig.l1, dig.r1, dig.r3);        //print out 0 or 1 according to results of reflectance period
+        
+        /*
         int ulkvas = dig.l3;
         int sisvas = dig.l1;
         int sisoik = dig.r1;
         int ulkoik = dig.r3;
-        
+        */
         // Analogiset arvot //
         int tonniulkvas = ref.l3;
         int tonnisisvas = ref.l1;
@@ -188,18 +191,48 @@ int main()
             kaantyi = 1;    
         }
             
+        
+                            //Ajotyylin valinta//
+        
+        //Tiukat käännökset//
+        if (tonniulkvas > ulkvasenMustaMax - 15000) {
+            motor_turn(minNopeus, maxNopeus, delay);
+            kaantyi = 0;
+        } else if (tonniulkoik > ulkoikeaMustaMax - 15000) {
+            motor_turn(maxNopeus, minNopeus, delay);
+            kaantyi = 1;
+            
         //Jos kaikki sensorit näkevät "lähes" valkoista. Käytetään, kun rata jää sensoreiden väliin.
-        //Muuten ajetaan normaalisti
-        //+2000 toimii
-        if (tonnisisvas  <= sisoikValkoinen + 4000 || tonnisisoik <= sisvasValkoinen + 4000) {
+        } else if (tonnisisvas <= sisvasValkoinen + 2000 || tonnisisoik <= sisoikValkoinen + 2000) {
+            BatteryLed_Write(1);
             if (kaantyi == 0) {
-                motor_turn(0, 255, delay);    
+                motor_turn(minNopeus, maxNopeus, delay); 
             } else if (kaantyi == 1) {
-                motor_turn(255, 0, delay);    
+                motor_turn(maxNopeus, minNopeus, delay);
             }
+        //Dynaaminen ajo//
         } else {
+            BatteryLed_Write(0);
             motor_turn(vasenNopeus, oikeaNopeus, delay);
         }
+        
+        
+        //Laskuri pysähtymiseen
+        if (startStopWatch == 1) {
+            stopWatch++;    
+        }
+        
+        if (stopWatch > 10 && stopWatch < 200 && tonniulkvas > ulkvasenMustaMax - 4000 && tonnisisvas > sisvasenMustaMax - 4000 && tonnisisoik > sisoikeaMustaMax - 4000 && tonniulkoik > ulkoikeaMustaMax - 4000) {
+            motor_stop();
+            break;
+        }
+        
+        // sensorit kaikki mustalla => pysähtyy tietyn ajan jälkeen
+        if (tonniulkvas > ulkvasenMustaMax - 4000 && tonnisisvas > sisvasenMustaMax - 4000 && tonnisisoik > sisoikeaMustaMax - 4000 && tonniulkoik > ulkoikeaMustaMax - 4000) {
+            stopWatch = 0;
+            startStopWatch = 1;
+        }
+        
         
         //----------------------------------//
         //YKKÖSILLÄ JA NOLLILLA AJAMISTA//
@@ -249,7 +282,7 @@ int main()
             startStopWatch = 1;
         }
         */
-        CyDelay(delay);
+        //CyDelay(delay);
     }
 
 //****
