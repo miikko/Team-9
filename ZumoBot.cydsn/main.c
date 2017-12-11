@@ -44,6 +44,9 @@
 
 
 int rread(void);
+void SumoPaini(int *ulkoVas, int *sisVas, int *ulkOik, int *alkuKaannos);
+void AnaloginenKalibrointi(int *ulkvasValkoinen, int *sisvasValkoinen, int *sisoikValkoinen, int *ulkoikValkoinen, struct sensors_ ref);
+void ButtonTrigger(uint8 *button);
 
 /**
  * @file    main.c
@@ -65,19 +68,24 @@ int main()
     int startStopWatch = 0;
     int stopWatch = 0;
     int delay = 1;
+    
+    int ulkvasValkoinen;
+    int sisvasValkoinen;
+    int sisoikValkoinen;
+    int ulkoikValkoinen;
+    
+    int maxNopeus = 255;
+    int minNopeus = 0;
+    int vasenNopeus = 1;
+    int oikeaNopeus = 1;
+    int kaantyi = 3; //0, jos vasen. 1, jos oikea
+    int mustaMax = 23999; // VAKIO
+    uint8 button;
+    int alkuKaannos = 0;
 
     printf("\nBoot\n");
-
-    //BatteryLed_Write(1); // Switch led on 
-    BatteryLed_Write(0); // Switch led off 
-    uint8 button;
-    button = SW1_Read(); // read SW1 on pSoC board
-    
-//siirrä****
-    
-    while(button == 1) {
-        button = SW1_Read();
-    }
+ 
+    ButtonTrigger(&button);
     sensor_isr_StartEx(sensor_isr_handler);
     
     reflectance_start();
@@ -85,53 +93,40 @@ int main()
     IR_led_Write(1);
     CyDelay(50);
     
-    //Kalibroidaan valkoisen arvot
-    reflectance_read(&ref);
-    int ulkvasValkoinen = ref.l3;
-    int sisvasValkoinen = ref.l1;
-    int sisoikValkoinen = ref.r1;
-    int ulkoikValkoinen = ref.r3;
+    //Kalibroidaan valkoisen arvot//
+    
+    AnaloginenKalibrointi(&ulkvasValkoinen, &sisvasValkoinen, &sisoikValkoinen, &ulkoikValkoinen, ref);
+    
+        //Perusajon logiikan muuttujia//
+    int vasTermienMaara = mustaMax - sisvasValkoinen;
+    int oikTermienMaara = mustaMax - sisoikValkoinen;
+    int vasVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (vasTermienMaara - 1);
+    int oikVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (oikTermienMaara - 1);
     
     printf("Valkoisen arvot\n");
     printf("%d %d %d %d\n", ulkvasValkoinen, sisvasValkoinen, sisoikValkoinen, ulkoikValkoinen);
     //-----------------------------//
-    button = 1;
+    
     CyDelay(2000);
     
-    while(button == 1) {
-        button = SW1_Read();
+    ButtonTrigger(&button);
+    
+            //Ajaa lähtöviivalle//
+    
+    motor_start();
+    reflectance_digital(&dig);
+    
+    while (dig.l3 != 0 && dig.r3 != 0) {
+        reflectance_digital(&dig);
+        motor_forward(100, delay);        
     }
+    motor_stop();
     
-    reflectance_read(&ref);
-    int sisvasenMustaMax = ref.l1;
-    int sisoikeaMustaMax = ref.r1;
-    int ulkoikeaMustaMax = ref.r3;
-    int ulkvasenMustaMax = ref.l3;
-    
-    printf("Mustan arvot");
-    printf("%d %d %d %d\n", ulkvasenMustaMax, sisvasenMustaMax, sisoikeaMustaMax, ulkoikeaMustaMax);
-    
-    button = 1;
-    CyDelay(2000);
-    
-    while(button == 1) {
-        button = SW1_Read();
+    //Odottaa kaukosäädintä//
+    while (IR_receiver_Read() == 1) {
+       IR_receiver_Read();    
     }
     motor_start();
-    //get_IR();
-    
-    int maxNopeus = 255;
-    int minNopeus = 0;
-    int vasenNopeus = 1;
-    int oikeaNopeus = 1;
-    int kaantyi = 3; //0, jos vasen. 1, jos oikea
-    //int mustaMax = 23999; // VAKIO
-    
-    //Perusajon logiikan muuttujia//
-    int vasTermienMaara = sisvasenMustaMax - sisvasValkoinen;
-    int oikTermienMaara = sisoikeaMustaMax - sisoikValkoinen;
-    int vasVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (vasTermienMaara - 1);
-    int oikVakioMuuttuja = 10000 * (maxNopeus - minNopeus) / (oikTermienMaara - 1);
     
     for(;;)
     {
@@ -153,15 +148,11 @@ int main()
         int tonnisisoik = ref.r1;
         int tonniulkoik = ref.r3;
         
-  
-        /*// Mitattu tunnilla, voi muuttua //
-        int ulkvasValkoinen = 6000; // +/- 200
-        int sisvasValkoinen = 4200; // -||-
-        int sisoikValkoinen = 5200; // -||-
-        int ulkoikValkoinen = 7000; // -||-*/
+        //Poista kommentit jos haluat sumopaini-moden//
+        //SumoPaini(&ulkvas, &sisvas, &sisoik, &alkuKaannos);
+        //--------------------------------------------//
         
-        //Normaaliajo//
-    
+        //Dynaamisen ajon nopeuden laskeminen//
         int vasTermiNro = tonnisisvas + 1 - sisvasValkoinen;
         int oikTermiNro = tonnisisoik + 1 - sisoikValkoinen;
         
@@ -195,11 +186,11 @@ int main()
                             //Ajotyylin valinta//
         
         //Tiukat käännökset//
-        if (/*tonniulkvas > ulkvasenMustaMax - 15000*/ulkvas == 0 && sisvas == 1 && sisoik == 1 && ulkoik == 1) {
+        if (ulkvas == 0 && ulkoik == 1) {
             BatteryLed_Write(1);
             motor_turn(minNopeus, maxNopeus, delay);
             kaantyi = 0;
-        } else if (/*tonniulkoik > ulkoikeaMustaMax - 15000*/ulkoik == 0 && sisoik == 1 && sisvas == 1 && ulkvas == 1) {
+        } else if (ulkoik == 0 && ulkvas == 1) {
             BatteryLed_Write(1);
             motor_turn(maxNopeus, minNopeus, delay);
             kaantyi = 1;
@@ -224,13 +215,14 @@ int main()
             stopWatch++;    
         }
         
-        if (stopWatch > 10 && stopWatch < 200 && tonniulkvas > ulkvasenMustaMax - 4000 && tonnisisvas > sisvasenMustaMax - 4000 && tonnisisoik > sisoikeaMustaMax - 4000 && tonniulkoik > ulkoikeaMustaMax - 4000) {
+        // nyt pysähtyy
+        if (stopWatch > 10 && stopWatch < 200 && tonniulkvas > mustaMax - 4000 && tonnisisvas > mustaMax - 4000 && tonnisisoik > mustaMax - 4000 && tonniulkoik > mustaMax - 4000) {
             motor_stop();
             break;
         }
         
         // sensorit kaikki mustalla => pysähtyy tietyn ajan jälkeen
-        if (tonniulkvas > ulkvasenMustaMax - 4000 && tonnisisvas > sisvasenMustaMax - 4000 && tonnisisoik > sisoikeaMustaMax - 4000 && tonniulkoik > ulkoikeaMustaMax - 4000) {
+        if (tonniulkvas > mustaMax - 4000 && tonnisisvas > mustaMax - 4000 && tonnisisoik > mustaMax - 4000 && tonniulkoik > mustaMax - 4000) {
             stopWatch = 0;
             startStopWatch = 1;
         }
@@ -287,31 +279,7 @@ int main()
         //CyDelay(delay);
     }
 
-//****
-    /*
-    while(button == 1) {
-        button = SW1_Read();
-       }
-    
-    motor_start();              // motor start
 
-    //motor_forward(100,4800);     // moving forward
-    motor_turn(200,205,1000);
-    motor_turn(50,200,600);
-    motor_turn(200,205,1000);
-    motor_turn(50,200,600);
-    motor_turn(200,205,1000);
-    motor_turn(50,200,600);
-    motor_turn(200,205,1000);
-    motor_turn(50,200,600);
-    
-    //motor_turn(200,205,x) suoraan
-    //motor_turn(200,50,600); 90-asteen käännös oikealle
-    //motor_turn(50,200,600); 90-asteen käännös vasemmalle
-
-    //motor_backward(100,2000);    // movinb backward
-       
-    motor_stop();               // motor stop*/
     
     for(;;)
     {
@@ -354,6 +322,37 @@ int main()
 }   
 //*/
 
+//Kiertää sumorinkiä vasen ulkoanturi reunalla. Käytetään digitaalisia arvoja//
+void SumoPaini(int *ulkoVas, int *sisVas, int *ulkOik, int *alkuKaannos) {
+    if (*alkuKaannos == 0) {
+        motor_turn(0, 255, 200);
+        *alkuKaannos = 1;
+    }
+    if (*ulkoVas == 0 && *ulkOik == 1) {
+        motor_turn(255, 200, 1);    
+    } else if (*sisVas == 0 && *ulkoVas == 1) {
+        motor_turn(255, 10, 1);  
+    }
+}
+
+//Kalibrointi//
+void AnaloginenKalibrointi(int *ulkvasValkoinen, int *sisvasValkoinen, int *sisoikValkoinen, int *ulkoikValkoinen, struct sensors_ ref) {
+    reflectance_read(&ref);
+
+    *ulkvasValkoinen = ref.l3;
+    *sisvasValkoinen = ref.l1;
+    *sisoikValkoinen = ref.r1;
+    *ulkoikValkoinen = ref.r3;
+ 
+}
+
+//Looppaa niin kauan kunnes nappia painetaan//
+void ButtonTrigger(uint8 *button) {
+    do {
+        *button = SW1_Read();
+    } while (*button == 1);
+    *button = 1;
+}
 
 /*//nunchuk//
 int main()
